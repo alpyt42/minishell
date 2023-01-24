@@ -13,6 +13,8 @@ super schema https://github.com/paulahemsi/minishell
 bon tuto : https://github.com/vportens/minishell
 
 
+tuto sur les signax : https://www.codequoi.com/envoyer-et-intercepter-un-signal-en-c/
+
 
 Récupérer en boucle l’entrée de l’utilisateur
 
