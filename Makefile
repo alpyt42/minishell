@@ -8,17 +8,23 @@ LIBFT = -L libft -lft
 
 HEADER = minishell.h
 
-BUILTINS = cd echo env exit export pwd unset
+BUILTINS = 
+# cd echo env exit export pwd unset
 
-ENV = env get_env sort_env shlvl
+ENV = 
+# env get_env sort_env shlvl
 
-EXEC = bin builtin exec
+EXEC = 
+# bin builtin exec
 
-MAIN = minishell redir signal
+MAIN = 
+# minishell redir signal
 
-PARSING = line tokens expansions
+PARSING = 
+# line tokens expansions
 
-TOOLS = fd free token type expansions parsing
+TOOLS = 
+# fd free token type expansions parsing
 
 SRC = $(addsuffix .c, $(addprefix srcs/builtins/, $(BUILTINS))) \
 	  $(addsuffix .c, $(addprefix srcs/env/, $(ENV))) \
