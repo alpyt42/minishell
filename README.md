@@ -7,6 +7,10 @@ https://github.com/maxime-42/minishell/tree/master/src
 
 https://brennan.io/2015/01/16/write-a-shell-in-c/
 
+https://git.chevro.fr/42-cestoliv/minishell/-/blob/main/include/minishell.h
+
+https://github.com/cclaude42/minishell
+
 
 super schema https://github.com/paulahemsi/minishell
 
