@@ -10,6 +10,10 @@ https://brennan.io/2015/01/16/write-a-shell-in-c/
 
 super schema https://github.com/paulahemsi/minishell
 
+bon tuto : https://github.com/vportens/minishell
+
+
+
 Récupérer en boucle l’entrée de l’utilisateur
 
 Parser l’entrée utilisateur
