@@ -1,31 +1,69 @@
-NAME		=	minishell
+NAME = minishell
 
-HEADER		=	./includes/
+CC = clang
 
-LIBFT		=	libft/libft.a
+CFLAGS = -Wall -Wextra -Werror -I includes/ -I libft/includes/
 
-CC			=	gcc
+LIBFT = -L libft -lft
 
-CFLAGS		=	-Werror -Wall -Wextra -g -I $(HEADER) #-fsanitize=address
+HEADER = minishell.h
 
-SRCS		=	
+BUILTINS = cd echo env exit export pwd unset
 
-OBJS		=	$(SRCS:.c=.o)
+ENV = env get_env sort_env shlvl
 
-all			:	$(NAME)
+EXEC = bin builtin exec
 
-$(NAME)		:	$(OBJS) $(LIBFT) $(HEADER)
-				$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LIBFT)
+MAIN = minishell redir signal
 
-$(LIBFT)	:
-				make -C ./libft
+PARSING = line tokens expansions
 
-clean		:
-				rm -rf $(OBJS)
-				make clean -C ./libft
+TOOLS = fd free token type expansions parsing
 
-fclean		:	clean
-				rm $(NAME)
-				make fclean -C ./libft
+SRC = $(addsuffix .c, $(addprefix srcs/builtins/, $(BUILTINS))) \
+	  $(addsuffix .c, $(addprefix srcs/env/, $(ENV))) \
+	  $(addsuffix .c, $(addprefix srcs/exec/, $(EXEC))) \
+	  $(addsuffix .c, $(addprefix srcs/main/, $(MAIN))) \
+	  $(addsuffix .c, $(addprefix srcs/parsing/, $(PARSING))) \
+	  $(addsuffix .c, $(addprefix srcs/tools/, $(TOOLS))) \
 
-re			:	fclean all
+OBJ = $(SRC:c=o)
+
+all: $(NAME)
+
+$(NAME): $(OBJ)
+	@echo "\n"
+	@make -C libft/
+	@echo "\033[0;32mCompiling minishell..."
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIBFT)
+	@echo "\n\033[0mDone !"
+
+%.o: %.c
+	@printf "\033[0;33mGenerating minishell objects... %-33.33s\r" $@
+	@${CC} ${CFLAGS} -c $< -o $@
+
+clean:
+	@echo "\033[0;31mCleaning libft..."
+	@make clean -C libft/
+	@echo "\nRemoving binaries..."
+	@rm -f $(OBJ)
+	@echo "\033[0m"
+
+fclean:
+	@echo "\033[0;31mCleaning libft..."
+	@make fclean -C libft/
+	@echo "\nDeleting objects..."
+	@rm -f $(OBJ)
+	@echo "\nDeleting executable..."
+	@rm -f $(NAME)
+	@echo "\033[0m"
+
+re: fclean all
+
+test: all
+	./minishell
+
+norm:
+	norminette $(SRC) includes/$(HEADER)
+
+.PHONY: clean fclean re test norm
