@@ -22,7 +22,9 @@ tuto sur les signax : https://www.codequoi.com/envoyer-et-intercepter-un-signal-
 
 Récupérer en boucle l’entrée de l’utilisateur
 
-Parser l’entrée utilisateur
+lexing de lq ligne 
+
+parsing des tok
 
 Executer la commande
 
