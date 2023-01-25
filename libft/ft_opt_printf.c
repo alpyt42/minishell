@@ -1,39 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_opt_printf.c                                    :+:      :+:    :+:   */
+/*   ft_opt_functions.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 16:37:22 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/01/20 15:54:15 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/01/25 16:33:10 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_putchar(char c)
+int	ft_putchar(char c, int fd)
 {
-	write(1, &c, 1);
+	write(fd, &c, 1);
 	return (1);
 }
 
-int	ft_putstr(char *str)
+int	ft_putstr(char *str, int fd)
 {
 	int	i;
 
 	i = 0;
 	if (!str)
 	{
-		ft_putstr("(null)");
+		ft_putstr("(null)", fd);
 		return (6);
 	}
 	while (str[i])
-		ft_putchar(str[i++]);
+		ft_putchar(str[i++], fd);
 	return (i);
 }
 
-int	ft_putnbr_int(long int nbr, char *base)
+int	ft_putnbr_int(long int nbr, char *base, int fd)
 {
 	int	lbase;
 	int	i;
@@ -44,22 +44,22 @@ int	ft_putnbr_int(long int nbr, char *base)
 		return (0);
 	if (nbr < 0)
 	{
-		i += ft_putchar('-');
+		i += ft_putchar('-', fd);
 		nbr *= -1;
 	}
 	while (base[lbase])
 		lbase++;
 	if (nbr >= 0 && nbr < lbase)
-		i += ft_putchar(base[nbr]);
+		i += ft_putchar(base[nbr], fd);
 	else
 	{
-		i += ft_putnbr_int(nbr / lbase, base);
-		i += ft_putchar(base[nbr % lbase]);
+		i += ft_putnbr_int(nbr / lbase, base, fd);
+		i += ft_putchar(base[nbr % lbase], fd);
 	}
 	return (i);
 }
 
-int	ft_putnbr_uns(unsigned long nbr, char *base)
+int	ft_putnbr_uns(unsigned long nbr, char *base, int fd)
 {
 	unsigned int	lbase;
 	unsigned int	i;
@@ -68,14 +68,19 @@ int	ft_putnbr_uns(unsigned long nbr, char *base)
 	i = 0;
 	if (!base)
 		return (0);
+	if (nbr < 0)
+	{
+		i ++;
+		nbr *= -1;
+	}
 	while (base[lbase])
 		lbase++;
-	if (nbr < lbase)
-		i += ft_putchar(base[nbr]);
+	if (nbr >= 0 && nbr < lbase)
+		i += ft_putchar(base[nbr], fd);
 	else
 	{
-		i += ft_putnbr_uns(nbr / lbase, base);
-		i += ft_putchar(base[nbr % lbase]);
+		i += ft_putnbr_uns(nbr / lbase, base, fd);
+		i += ft_putchar(base[nbr % lbase], fd);
 	}
 	return (i);
 }

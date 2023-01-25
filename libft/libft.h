@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 18:43:18 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/01/20 15:52:27 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/01/25 16:40:22 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,10 @@ char	**ft_arrdup(char **arr);
 int		ft_arrlen(char **arr);
 void	ft_free_arr(char **arr);
 int		ft_printf(const char *format, ...);
-int		ft_putchar(char c);
-int		ft_putstr(char *str);
-int		ft_putnbr_int(long int nbr, char *base);
-int		ft_putnbr_uns(unsigned long nbr, char *base);
-int		opt_list(char c);
-int		display_opt(char c, va_list *ap);
+int		ft_dprintf(int fd, const char *format, ...);
+int		ft_putchar(char c, int fd);
+int		ft_putstr(char *str, int fd);
+int		ft_putnbr_int(long int nbr, char *base, int fd);
+int		ft_putnbr_uns(unsigned long nbr, char *base, int fd);
+
 #endif
