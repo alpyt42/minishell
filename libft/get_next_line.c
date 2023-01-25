@@ -6,11 +6,11 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:09:24 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/01/24 19:53:39 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/01/25 12:04:28 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "libft.h"
 
 static size_t	pos_return(char *buf)
 {
@@ -105,18 +105,3 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-// int	main(void)
-// {
-// 	int		i = 1;
-// 	int		fd = open("test.txt", O_RDONLY);
-// 	char 	*str = get_next_line(fd);
-// 	while (str)
-// 	{
-// 		printf("/!\\--> line [%d] > $%s$\n",i++, str);
-// 		free(str);
-// 		str = get_next_line(fd);
-// 	}
-// 		str = get_next_line(fd);
-// 		printf("/SHOULD BE NULL\\--> line [%d] > $%s$\n",i, str);
-// 		free(str);
-// }
