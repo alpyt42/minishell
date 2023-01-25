@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:57:31 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/01/24 15:59:55 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/01/25 08:50:42 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,19 @@
 # include <sys/stat.h>
 # include <sys/types.h>
 # include <errno.h>
-# include "../libft/libft.h"
+# include <readline/readline.h>
+# include "../libft/libft.h"	
+
+
+typedef struct	s_shell
+{
+	
+	char **lign;
+
+
+	
+}	t_shell;
+
+
 
 #endif
