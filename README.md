@@ -36,3 +36,6 @@ Coder les builtins
 	◦ exit sans aucune option
 
 Gestion de l’environnement
+
+
+dinguerie de tuto qui explique tout : https://www.notion.so/Minishell-e856e9af377f44b588e5fe120d4b6e2a
