@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aperez-b <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 13:40:47 by aperez-b          #+#    #+#             */
-/*   Updated: 2022/03/07 23:43:41 by aperez-b         ###   ########.fr       */
+/*   Updated: 2023/01/26 15:44:06 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,11 @@ int	main(int argc, char **argv, char **envp)
 	t_prompt			prompt;
 
 	prompt = init_prompt(argv, envp);
+	printf("argv[0] %s", argv[0]);
+	// (void)prompt;
+	// (void)str;
+	// (void)out;
+	// (void)argc;
 	while (argv && argc)
 	{
 		signal(SIGINT, handle_sigint);
@@ -91,6 +96,8 @@ int	main(int argc, char **argv, char **envp)
 			out = readline(str);
 		else
 			out = readline("guest@minishell $ ");
+		printf("out : %s\n", out);
+		printf("str : %s\n", str);
 		free(str);
 		if (!check_args(out, &prompt))
 			break ;
