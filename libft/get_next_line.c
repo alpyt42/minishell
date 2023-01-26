@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:09:24 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/01/25 13:58:58 by ale-cont         ###   ########lyon.fr   */
+/*   Updated: 2023/01/26 10:25:51 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ char	*get_next_line(int fd)
 	char		*line;
 	char		*new_line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || fd > OPEN_MAX)
+	if (fd < 0 || BUFFER_SIZE <= 0 || fd > FD_MAX)
 		return (NULL);
 	endline = 0;
 	line = get_line(buf, fd, &endline);
