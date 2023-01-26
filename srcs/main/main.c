@@ -3,14 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amontalb <amontalb@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:32:53 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/01/25 10:48:12 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/01/26 10:03:38 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+
+
+
 
 int	main(int argc, char **argv, char** env)
 {
@@ -28,7 +32,5 @@ int	main(int argc, char **argv, char** env)
         free(command);
     }
 
-    return 0;
-
-
+    return 0;   
 }

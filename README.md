@@ -28,7 +28,7 @@ Récupérer en boucle l’entrée de l’utilisateur
 
 lexing de lq ligne 
 
-parsing des tok
+parsing des tokens
 
 Executer la commande
 
