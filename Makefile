@@ -1,6 +1,6 @@
 NAME = minishell
 
-CC = clang
+CC = cc
 
 CFLAGS = -Wall -Wextra -Werror -I includes/ -I libft/includes/
 
@@ -8,23 +8,27 @@ LIBFT = -L libft -lft
 
 HEADER = minishell.h
 
-BUILTINS = 
+BUILTINS = builtin
 # cd echo env exit export pwd unset
 
-ENV = 
+ENV = env
 # env get_env sort_env shlvl
 
-EXEC = 
+EXEC = exec
 # bin builtin exec
 
-MAIN = 
+MAIN = main
 # minishell redir signal
 
-PARSING = 
+PARSING = token
 # line tokens expansions
 
-TOOLS = 
+TOOLS = error
 # fd free token type expansions parsing
+
+UTILS = matrix other_function
+
+PROMPT = prompt
 
 SRC = $(addsuffix .c, $(addprefix srcs/builtins/, $(BUILTINS))) \
 	  $(addsuffix .c, $(addprefix srcs/env/, $(ENV))) \
@@ -32,6 +36,8 @@ SRC = $(addsuffix .c, $(addprefix srcs/builtins/, $(BUILTINS))) \
 	  $(addsuffix .c, $(addprefix srcs/main/, $(MAIN))) \
 	  $(addsuffix .c, $(addprefix srcs/parsing/, $(PARSING))) \
 	  $(addsuffix .c, $(addprefix srcs/tools/, $(TOOLS))) \
+	  $(addsuffix .c, $(addprefix srcs/utils/, $(UTILS))) \
+	  $(addsuffix .c, $(addprefix srcs/prompt/, $(PROMPT))) \
 
 OBJ = $(SRC:c=o)
 

@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 13:40:47 by aperez-b          #+#    #+#             */
-/*   Updated: 2023/01/26 15:44:06 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/01/26 16:27:47 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,16 @@ int	main(int argc, char **argv, char **envp)
 	t_prompt			prompt;
 
 	prompt = init_prompt(argv, envp);
-	printf("argv[0] %s", argv[0]);
+	printf("argv[0] %s\n", argv[0]);
+	printf("prompt.envp[0] %s\n", prompt.envp[0]);
+	printf("prompt.envp[1] %s\n", prompt.envp[1]);
+	printf("prompt.envp[2] %s\n", prompt.envp[2]);
+	printf("prompt.envp[3] %s\n", prompt.envp[3]);
+	printf("prompt.envp[4] %s\n", prompt.envp[4]);
+	printf("prompt.envp[5] %s\n", prompt.envp[5]);
+	printf("prompt.envp[6] %s\n", prompt.envp[6]);
+	printf("prompt.envp[7] %s\n", prompt.envp[7]);
+	printf("prompt.envp[8] %s\n", prompt.envp[8]);
 	// (void)prompt;
 	// (void)str;
 	// (void)out;

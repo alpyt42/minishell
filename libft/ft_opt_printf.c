@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_opt_functions.c                                 :+:      :+:    :+:   */
+/*   ft_opt_printf.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 16:37:22 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/01/25 16:33:10 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/01/26 19:22:48 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,14 +68,9 @@ int	ft_putnbr_uns(unsigned long nbr, char *base, int fd)
 	i = 0;
 	if (!base)
 		return (0);
-	if (nbr < 0)
-	{
-		i ++;
-		nbr *= -1;
-	}
 	while (base[lbase])
 		lbase++;
-	if (nbr >= 0 && nbr < lbase)
+	if (nbr < lbase)
 		i += ft_putchar(base[nbr], fd);
 	else
 	{
