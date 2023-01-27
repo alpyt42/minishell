@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amontalb <amontalb@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:57:31 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/01/25 08:50:42 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/01/27 10:28:57 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,22 @@ typedef struct	s_shell
 
 	
 }	t_shell;
+
+typedef struct s_data
+{
+	t_list	*nodes;
+	char	**env;	
+}			t_data;
+
+typedef struct s_node
+{
+	char	**cmd;
+	char 	*path;
+	int		infile;
+	int		outfile;
+}			t_node;
+
+
 
 
 
