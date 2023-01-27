@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 16:00:14 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/01/26 19:28:15 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/01/27 10:50:35 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 # include <fcntl.h>
 # include <string.h>
 # include <stdio.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 
 #define FD_READ 0
 #define FD_WRITE 1
