@@ -6,7 +6,7 @@
 /*   By: amontalb <amontalb@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:32:53 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/01/27 10:45:51 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/01/27 10:49:28 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ void   init_data(t_data *data, char **env)
 {
     data->env = env; 
     int i = 0;
-    while (data->env[i])
+    while (env[i])
     {
-        printf("%s\n", data->env[i++]);
+        printf("%s\n", env[i++]);
     }   
 }
 
