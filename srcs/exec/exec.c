@@ -6,11 +6,11 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 17:39:52 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/01/26 19:08:09 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/01/30 19:37:55 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 static void	get_exec_res(char **res, int fd)
 {

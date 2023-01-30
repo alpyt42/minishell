@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:32:53 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/01/30 09:26:58 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/01/30 20:38:38 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-#include <unistd.h>
 
 void   init_data(t_data *data, char **envp)
 {
@@ -33,21 +31,18 @@ int main(int argc, char **argv, char** env)
 {
 	// t_shell shell;
 	t_data  data;
+	char *command;
     
 	(void)argc;
 	(void)argv;
 	(void)env;
-
     init_data(&data, env);
-	// char *command;
-
-    // while(1) {
-    //     command = readline("minishell> ");
-    //     add_history(command);
-
-    //     free(command);
-    // }
-    // printf("<<%s>>>\n", getcwd(NULL, 0));
-
+    while(1)
+    {
+        ft_dprintf(1, "%s@minishell:~%s", search_dico("USER", &data), search_dico("PWD", &data));
+        command = readline("$");
+        add_history(command);
+        ft_dprintf(1, "\n$%s$\n", command);
+    }
     return 0;   
 }

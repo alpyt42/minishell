@@ -1,33 +1,20 @@
 NAME = minishell
 
-CC = cc
+CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror -I includes/ -I libft/includes/
+CFLAGS = -Wall -Wextra -Werror -I includes/ -I libft/
 
-LIBFT = -L libft -lft
+LIBFT = libft/libft.a
 
 HEADER = minishell.h
 
 BUILTINS = builtin
-# cd echo env exit export pwd unset
-
 ENV = env
-# env get_env sort_env shlvl
-
 EXEC = exec
-# bin builtin exec
-
 MAIN = main
-# minishell redir signal
-
 PARSING = token
-# line tokens expansions
-
 TOOLS = error
-# fd free token type expansions parsing
-
 UTILS = matrix other_function
-
 PROMPT = prompt
 
 SRC = $(addsuffix .c, $(addprefix srcs/builtins/, $(BUILTINS))) \
@@ -47,12 +34,12 @@ $(NAME): $(OBJ)
 	@echo "\n"
 	@make -C libft/
 	@echo "\033[0;32mCompiling minishell..."
-	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIBFT)
+	@$(CC) -L /usr/local/opt/readline/lib -I /usr/local/opt/readline/include -L ~/.brew/opt/readline/lib -I ~/.brew/opt/readline/include $(CFLAGS) -o $(NAME) $(OBJ) -lreadline $(LIBFT)
 	@echo "\n\033[0mDone !"
 
 %.o: %.c
 	@printf "\033[0;33mGenerating minishell objects... %-33.33s\r" $@
-	@${CC} ${CFLAGS} -c $< -o $@
+	@${CC} -I ~/.brew/opt/readline/include -I /usr/local/opt/readline/include ${CFLAGS} -c $< -o $@
 
 clean:
 	@echo "\033[0;31mCleaning libft..."
