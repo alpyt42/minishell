@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:57:31 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/01/30 20:10:29 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/01/30 21:26:56 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,6 @@ typedef struct s_node
 	int		infile;
 	int		outfile;
 }			t_node;
-
-
 
 void	exec_cmd_path(char **res, char *path, char *cmd, char **env);
 char	**ft_append_tab(char **tab, char *line);

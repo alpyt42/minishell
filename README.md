@@ -1,5 +1,8 @@
 # minishell
 
+PBS : 
+30/01 --> dans la strcuture du dico, il faut un node start qui ne bouge pas. sinon, si on rappelle al fonction, la recherche ne commence pas au debut de la structure
+
 TO DO LIST :
 
 Builtins : 420 lignes
