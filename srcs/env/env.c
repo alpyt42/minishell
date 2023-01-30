@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amontalb <amontalb@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 17:40:02 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/01/27 17:01:47 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/01/30 09:26:16 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,29 @@
 
 void	init_dico(t_data *data, char **envp)
 {
-	// t_list	*dico; 
 	int		i;
 	char	**cmd;
 	
 	i = 0;
-	cmd = ft_split(envp[i++], '=');
-	
-	data->dico = ft_lstnew(cmd);
-	printf("%s\n", (char *)data->dico->content);
-	
-	// while(envp[i])
-	// {
-	// 	cmd = ft_split(envp[i], '=');
-	// 	printf("<<%s>>\n", cmd[1]);
-	// 	ft_lstadd_back(&data->dico, ft_lstnew(cmd));
-	// 	i++;
-	// }
-	
+	while(envp[i])
+	{
+		cmd = ft_split(envp[i], '=');
+		ft_lstadd_back(&data->dico, ft_lstnew(cmd));
+		i++;
+	}
+}
+
+char *search_dico(char *search, t_data *data)
+{
+	char	**cmd;
+	while (data->dico)
+	{
+		cmd = data->dico->content;
+		if (!(ft_strncmp(cmd[0], search, 200)))
+		{
+			return(cmd[1]);
+		}
+		data->dico = data->dico->next;
+	}
+	return (NULL);
 }

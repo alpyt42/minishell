@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 16:00:14 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/01/27 10:50:35 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/01/30 09:24:19 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,6 @@ void	exec_cmd_path(char **res, char *path, char *cmd, char **env);
 char	**ft_append_tab(char **tab, char *line);
 char	*getuser_prompt(char **env);
 void	display_error(char *strerr, char *error);
+
 
 #endif

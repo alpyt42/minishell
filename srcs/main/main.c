@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amontalb <amontalb@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:32:53 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/01/27 16:34:48 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/01/30 09:26:58 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,15 @@
 void   init_data(t_data *data, char **envp)
 {
     init_dico(data, envp);
-    while (data->dico->next)
-    {
-        printf("%s\n", (char *)data->dico->content);
-        data->dico = data->dico->next;
-    }   
+    // char **test;
+    // while (data->dico)
+    // {
+    //     test = data->dico->content;
+    //     printf("%s\n", test[0]);
+    //     // printf("%s\n", test[1]);
+    //     data->dico = data->dico->next;
+    // }
+    // printf("<<%s>>>\n", search_dico("LESS", data));
 }
 
 
