@@ -6,20 +6,21 @@
 /*   By: amontalb <amontalb@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:32:53 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/01/27 10:49:28 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/01/27 16:34:48 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+#include <unistd.h>
 
-void   init_data(t_data *data, char **env)
+void   init_data(t_data *data, char **envp)
 {
-    data->env = env; 
-    int i = 0;
-    while (env[i])
+    init_dico(data, envp);
+    while (data->dico->next)
     {
-        printf("%s\n", env[i++]);
+        printf("%s\n", (char *)data->dico->content);
+        data->dico = data->dico->next;
     }   
 }
 
@@ -42,6 +43,7 @@ int main(int argc, char **argv, char** env)
 
     //     free(command);
     // }
+    // printf("<<%s>>>\n", getcwd(NULL, 0));
 
     return 0;   
 }

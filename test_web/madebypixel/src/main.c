@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amontalb <amontalb@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 13:40:47 by aperez-b          #+#    #+#             */
-/*   Updated: 2023/01/26 16:27:47 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/01/27 12:02:41 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,15 +83,15 @@ int	main(int argc, char **argv, char **envp)
 
 	prompt = init_prompt(argv, envp);
 	printf("argv[0] %s\n", argv[0]);
-	printf("prompt.envp[0] %s\n", prompt.envp[0]);
-	printf("prompt.envp[1] %s\n", prompt.envp[1]);
-	printf("prompt.envp[2] %s\n", prompt.envp[2]);
-	printf("prompt.envp[3] %s\n", prompt.envp[3]);
-	printf("prompt.envp[4] %s\n", prompt.envp[4]);
-	printf("prompt.envp[5] %s\n", prompt.envp[5]);
-	printf("prompt.envp[6] %s\n", prompt.envp[6]);
-	printf("prompt.envp[7] %s\n", prompt.envp[7]);
-	printf("prompt.envp[8] %s\n", prompt.envp[8]);
+	printf("envp[0] %s\n", envp[0]);
+	printf("envp[1] %s\n", envp[1]);
+	printf("envp[2] %s\n", envp[2]);
+	printf("envp[3] %s\n", envp[3]);
+	printf("envp[4] %s\n", envp[4]);
+	printf("envp[5] %s\n", envp[5]);
+	printf("envp[6] %s\n", envp[6]);
+	printf("envp[7] %s\n", envp[7]);
+	printf("envp[8] %s\n", envp[8]);
 	// (void)prompt;
 	// (void)str;
 	// (void)out;

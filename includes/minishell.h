@@ -6,7 +6,7 @@
 /*   By: amontalb <amontalb@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:57:31 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/01/27 11:04:33 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/01/27 16:27:19 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ typedef struct	s_shell
 typedef struct s_data
 {
 	t_list	*nodes;
-	char	**env;	
+	t_list	*dico;
 }			t_data;
 
 typedef struct s_node
@@ -54,7 +54,7 @@ typedef struct s_node
 }			t_node;
 
 
-
+void	init_dico(t_data *data, char **envp);
 
 
 #endif

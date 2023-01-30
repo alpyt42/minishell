@@ -3,17 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-<<<<<<< HEAD
 #    By: amontalb <amontalb@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/22 13:38:18 by aperez-b          #+#    #+#              #
-#    Updated: 2023/01/26 10:50:57 by amontalb         ###   ########.fr        #
-=======
-#    By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/10/22 13:38:18 by aperez-b          #+#    #+#              #
-#    Updated: 2023/01/26 12:31:04 by ale-cont         ###   ########.fr        #
->>>>>>> refs/remotes/origin/main
+#    Updated: 2023/01/27 11:25:23 by amontalb         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
