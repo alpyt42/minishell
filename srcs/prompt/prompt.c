@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 15:29:54 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/01/31 13:23:01 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/01/31 14:25:32 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,12 @@ static char	*get_path(t_data *data)
 	{
 		pwd_mini = ft_strstr(pwd_mini, "/");
 		if(!pwd_mini)
-			path = "~";
+			path = ft_strdup("~");
 		else
 			path = ft_strjoin("~", pwd_mini);
 	}
 	else
-		path = pwd;
+		path = ft_strdup(pwd);
 	return (path);
 }
 
@@ -61,6 +61,7 @@ char	*get_prompt(t_data *data)
 	char	*path;
 	char	*tmp;
 
+	
 	user_name = get_user_name(data);
 	path = get_path(data);
 	tmp = ft_strjoin(user_name, path);
