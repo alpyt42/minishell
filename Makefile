@@ -28,7 +28,7 @@ SRC = $(addsuffix .c, $(addprefix srcs/builtins/, $(BUILTINS))) \
 
 OBJ = $(SRC:c=o)
 
-all: $(NAME)
+all: lib $(NAME)
 
 $(NAME): $(OBJ)
 	@echo "\n"
@@ -37,9 +37,12 @@ $(NAME): $(OBJ)
 	@$(CC) -L /usr/local/opt/readline/lib -I /usr/local/opt/readline/include -L ~/.brew/opt/readline/lib -I ~/.brew/opt/readline/include $(CFLAGS) -o $(NAME) $(OBJ) -lreadline $(LIBFT)
 	@echo "\n\033[0mDone !"
 
-%.o: %.c
+%.o: %.c $(HEADER) $(LIBFT)
 	@printf "\033[0;33mGenerating minishell objects... %-33.33s\r" $@
 	@${CC} -I ~/.brew/opt/readline/include -I /usr/local/opt/readline/include ${CFLAGS} -c $< -o $@
+
+lib :
+	$(MAKE) -C ./libft
 
 clean:
 	@echo "\033[0;31mCleaning libft..."
@@ -58,11 +61,5 @@ fclean:
 	@echo "\033[0m"
 
 re: fclean all
-
-test: all
-	./minishell
-
-norm:
-	norminette $(SRC) includes/$(HEADER)
 
 .PHONY: clean fclean re test norm

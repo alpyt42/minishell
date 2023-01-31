@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 16:28:49 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/01/05 10:41:38 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/01/31 12:13:41 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,23 @@
 
 char	*ft_strstr(char *str, char *to_find)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 
+	if (to_find[0] == '\0')
+		return (str);
 	i = 0;
-	while (str[i] != '\0')
+	while (str[i])
 	{
 		j = 0;
-		while (to_find[j] == str[i + j])
+		if (str[i] == to_find[j])
 		{
-			if (to_find[j + 1] == '\0' && str[i + j + 1] == '\0')
+			while (str[i + j] == to_find[j])
 			{
-				return (str + i);
+				j++;
+				if (!to_find[j])
+					return (&str[i]);
 			}
-			j++;
 		}
 		i++;
 	}
