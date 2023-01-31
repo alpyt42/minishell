@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:32:53 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/01/31 14:25:46 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/01/31 15:09:36 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ int main(int argc, char **argv, char** env)
 
 	(void)argc;
 	(void)argv;
-	(void)env;
     init_data(&data, env);
     search_dico("PWD", &data);
     while(1)

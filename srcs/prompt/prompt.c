@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 15:29:54 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/01/31 14:27:49 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/01/31 15:24:14 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,17 @@
 static char	*get_user_name(t_data *data)
 {
 	char	*user_name;
+	char	*tmp;
+	char	*tmp2;
 
-	user_name = search_dico("USER", data);
-	if (!user_name)
-		user_name = "unknown";
-	user_name = ft_strjoin(user_name, "@minishell:");
+	tmp = search_dico("USER", data);
+	if (!tmp)
+		tmp = "unknown";
+	tmp = ft_strjoin(tmp, "@minishell:");
+	tmp2 = ft_strjoin(GREEN, tmp);
+	user_name = ft_strjoin(tmp2, DEFAULT);
+	free(tmp);
+	free(tmp2);
 	return (user_name);
 }
 
@@ -28,6 +34,8 @@ static char	*get_path(t_data *data)
 	char	*pwd;
 	char	*pwd_mini;
 	char	*path;
+	char	*tmp;
+	char	*tmp2;
 
 	pwd = search_dico("PWD", data);
 	pwd_mini = ft_strstr(pwd, search_dico("USER", data));
@@ -35,12 +43,16 @@ static char	*get_path(t_data *data)
 	{
 		pwd_mini = ft_strstr(pwd_mini, "/");
 		if(!pwd_mini)
-			path = ft_strdup("~");
+			tmp = ft_strdup("~");
 		else
-			path = ft_strjoin("~", pwd_mini);
+			tmp = ft_strjoin("~", pwd_mini);
 	}
 	else
-		path = ft_strdup(pwd);
+		tmp = ft_strdup(pwd);
+	tmp2 = ft_strjoin(BLUE, tmp);
+	path = ft_strjoin(tmp2, DEFAULT);
+	free(tmp);
+	free(tmp2);
 	return (path);
 }
 

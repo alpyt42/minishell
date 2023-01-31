@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:57:31 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/01/31 13:11:28 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/01/31 15:12:01 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,19 @@
 # include <string.h>
 # include <stdio.h>
 #include <sys/types.h>
-#include <sys/stat.h>	
+#include <sys/stat.h>
 
-#define FD_READ 0
-#define FD_WRITE 1
+# define DEFAULT "\001\033[0;39m\002"
+# define GRAY "\001\033[1;90m\002"
+# define RED "\001\033[1;91m\002"
+# define GREEN "\001\033[1;92m\002"
+# define YELLOW "\001\033[1;93m\002"
+# define BLUE "\001\033[1;94m\002"
+# define MAGENTA "\001\033[1;95m\002"
+# define CYAN "\001\033[1;96m\002"
+# define WHITE "\001\033[0;97m\002"
+# define FD_READ 0
+# define FD_WRITE 1
 
 typedef struct	s_shell
 {
