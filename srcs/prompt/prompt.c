@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 15:29:54 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/01/31 14:25:32 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/01/31 14:27:49 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,6 @@ static char	*get_user_name(t_data *data)
 	user_name = ft_strjoin(user_name, "@minishell:");
 	return (user_name);
 }
-
-// char	*last_word(char *str, char *set)
-// {
-// 	int	i;
-// 	int	len;
-
-// 	i = 0;
-// 	len = ft_strlen(str);
-// }
 
 static char	*get_path(t_data *data)
 {
@@ -52,7 +43,6 @@ static char	*get_path(t_data *data)
 		path = ft_strdup(pwd);
 	return (path);
 }
-
 
 char	*get_prompt(t_data *data)
 {

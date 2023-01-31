@@ -3,6 +3,7 @@ NAME = minishell
 CC = gcc
 
 CFLAGS = -Wall -Wextra -Werror -I includes/ -I libft/
+CDEBUG = #-fsanitize=address
 
 LIBFT = libft/libft.a
 
@@ -16,6 +17,12 @@ PARSING = token
 TOOLS = error
 UTILS = matrix other_function
 PROMPT = prompt
+UNAME = $(shell uname -s)
+
+ifeq ($(UNAME), Linux)
+	#Properties for Linux
+	LEAKS = valgrind --leak-check=full --track-fds=yes --trace-children=yes -s -q 
+endif
 
 SRC = $(addsuffix .c, $(addprefix srcs/builtins/, $(BUILTINS))) \
 	  $(addsuffix .c, $(addprefix srcs/env/, $(ENV))) \
@@ -32,17 +39,19 @@ all: lib $(NAME)
 
 $(NAME): $(OBJ)
 	@echo "\n"
-	@make -C libft/
-	@echo "\033[0;32mCompiling minishell..."
-	@$(CC) -L /usr/local/opt/readline/lib -I /usr/local/opt/readline/include -L ~/.brew/opt/readline/lib -I ~/.brew/opt/readline/include $(CFLAGS) -o $(NAME) $(OBJ) -lreadline $(LIBFT)
-	@echo "\n\033[0mDone !"
+	@echo "\033[0;32mCompiling minishell...\033[0m"
+	@$(CC) -L $(CFLAGS) -o $(NAME) $(OBJ) -lreadline $(LIBFT)
+	@echo "\nDone !"
 
 %.o: %.c $(HEADER) $(LIBFT)
 	@printf "\033[0;33mGenerating minishell objects... %-33.33s\r" $@
-	@${CC} -I ~/.brew/opt/readline/include -I /usr/local/opt/readline/include ${CFLAGS} -c $< -o $@
+	@${CC} -I ~/.brew/opt/readline/include -I /usr/local/opt/readline/include $(CFLAGS) $(CDEBUG) -c $< -o $@
 
 lib :
 	$(MAKE) -C ./libft
+
+run: all
+	@$(LEAKS)./$(NAME)
 
 clean:
 	@echo "\033[0;31mCleaning libft..."
