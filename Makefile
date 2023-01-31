@@ -50,7 +50,7 @@ $(NAME): $(OBJ)
 lib :
 	$(MAKE) -C ./libft
 
-run: all
+leak: all
 	@$(LEAKS)./$(NAME)
 
 clean:

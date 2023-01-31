@@ -1,10 +1,14 @@
 # minishell
 
 PBS : 
-30/01 --> dans la strcuture du dico, il faut un node start qui ne bouge pas. sinon, si on rappelle al fonction, la recherche ne commence pas au debut de la structure
+30/01 
+--> dans la strcuture du dico, il faut un node start qui ne bouge pas. sinon, si on rappelle al fonction, la recherche ne commence pas au debut de la structure
+--> leaks dans la partie init dico 
+	at 0x10A4E9: ft_lstadd_back (in /home/cuentolinux/minishell/minishell)
+-->
+
 
 TO DO LIST :
-
 Builtins : 420 lignes
 --> Coder les fonctions
 	Coder les builtins
