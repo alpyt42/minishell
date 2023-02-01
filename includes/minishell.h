@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:57:31 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/02/01 12:18:08 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/02/01 14:26:29 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,6 @@
 # define WHITE "\001\033[0;97m\002"
 # define FD_READ 0
 # define FD_WRITE 1
-
-typedef struct	s_shell
-{
-	
-	char **lign;
-
-
-	
-}	t_shell;
 
 typedef struct s_data
 {
