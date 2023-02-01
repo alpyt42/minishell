@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amontalb <amontalb@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 13:40:47 by aperez-b          #+#    #+#             */
-/*   Updated: 2023/01/27 12:02:41 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/02/01 18:49:56 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,22 +80,15 @@ int	main(int argc, char **argv, char **envp)
 	char				*str;
 	char				*out;
 	t_prompt			prompt;
-
-	prompt = init_prompt(argv, envp);
-	printf("argv[0] %s\n", argv[0]);
-	printf("envp[0] %s\n", envp[0]);
-	printf("envp[1] %s\n", envp[1]);
-	printf("envp[2] %s\n", envp[2]);
-	printf("envp[3] %s\n", envp[3]);
-	printf("envp[4] %s\n", envp[4]);
-	printf("envp[5] %s\n", envp[5]);
-	printf("envp[6] %s\n", envp[6]);
-	printf("envp[7] %s\n", envp[7]);
-	printf("envp[8] %s\n", envp[8]);
+	int	i = 0;
 	// (void)prompt;
 	// (void)str;
 	// (void)out;
 	// (void)argc;
+
+	prompt = init_prompt(argv, envp);
+	while(prompt.envp[i])
+		printf("%s\n", prompt.envp[i++]);
 	while (argv && argc)
 	{
 		signal(SIGINT, handle_sigint);
@@ -105,8 +98,8 @@ int	main(int argc, char **argv, char **envp)
 			out = readline(str);
 		else
 			out = readline("guest@minishell $ ");
-		printf("out : %s\n", out);
-		printf("str : %s\n", str);
+		// printf("out : %s\n", out);
+		// printf("str : %s\n", str);
 		free(str);
 		if (!check_args(out, &prompt))
 			break ;

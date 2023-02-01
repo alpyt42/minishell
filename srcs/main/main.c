@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:32:53 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/02/01 12:34:28 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/02/01 15:44:43 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,28 @@ int main(int argc, char **argv, char** env)
     char    *prompt;
 	char    *command;
 
-    init_data(&data, env);
-    search_dico("PWD", &data);
+    (void)argc;
+    (void)argv;
+    (void)env;
+    (void)prompt;
+    (void)command;
+    
+    int i = 0;
+    char	**cmd;
+    void	*tmp;
+	init_data(&data, env);
+    // search_dico("PWD", &data);
+	tmp = data.dico;
+    while(data.dico)
+    {
+        printf("l.%d  -  ", i++);
+        cmd = data.dico->content;
+        printf("%s : ", cmd[0]);
+        if (cmd[1])
+            printf("%s\n", cmd[1]);
+        data.dico = data.dico->next;
+    }
+	data.dico = tmp;
     while(argc && argv)
     {
         signal(SIGINT, signal_receive);

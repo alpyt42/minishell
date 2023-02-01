@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 15:29:54 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/01/31 15:24:14 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/02/01 15:09:55 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ static char	*get_path(t_data *data)
 	char	*tmp2;
 
 	pwd = search_dico("PWD", data);
+	if (!pwd)
+		pwd = "no_path";
 	pwd_mini = ft_strstr(pwd, search_dico("USER", data));
 	if (pwd_mini)
 	{

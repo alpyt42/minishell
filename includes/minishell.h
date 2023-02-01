@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:57:31 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/02/01 14:26:29 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/02/01 18:19:22 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct s_data
 {
 	t_list	*nodes;
 	t_list	*dico;
+	char	**env;
 }			t_data;
 
 typedef struct s_node
