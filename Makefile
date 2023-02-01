@@ -17,6 +17,8 @@ PARSING = token
 TOOLS = error
 UTILS = matrix other_function
 PROMPT = prompt
+SIGNALS = signals
+
 UNAME = $(shell uname -s)
 
 ifeq ($(UNAME), Linux)
@@ -32,6 +34,7 @@ SRC = $(addsuffix .c, $(addprefix srcs/builtins/, $(BUILTINS))) \
 	  $(addsuffix .c, $(addprefix srcs/tools/, $(TOOLS))) \
 	  $(addsuffix .c, $(addprefix srcs/utils/, $(UTILS))) \
 	  $(addsuffix .c, $(addprefix srcs/prompt/, $(PROMPT))) \
+	  $(addsuffix .c, $(addprefix srcs/signals/, $(SIGNALS))) \
 
 OBJ = $(SRC:c=o)
 

@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:57:31 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/01/31 15:12:01 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/02/01 12:18:08 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,6 @@ void	display_error(char *strerr, char *error);
 void	init_dico(t_data *data, char **envp);
 char	*search_dico(char *search, t_data *data);
 char	*get_prompt(t_data *data);
+void	signal_receive(int sig);
 
 #endif
