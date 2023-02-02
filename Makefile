@@ -11,7 +11,7 @@ HEADER = minishell.h
 
 BUILTINS = builtin
 ENV = env
-EXEC = exec
+EXEC = exec_cmd
 MAIN = main
 PARSING = token
 TOOLS = error

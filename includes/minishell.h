@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:57:31 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/02/01 18:19:22 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/02/02 16:50:11 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,13 @@ typedef struct s_node
 	int		outfile;
 }			t_node;
 
-void	exec_cmd_path(char **res, char *path, char *cmd, char **env);
-char	**ft_append_tab(char **tab, char *line);
+void	exec_cmd_path(char ***res, char *path, char *cmd, char **env);
+char	**ft_append_tab(char **in, char *newstr);
 void	display_error(char *strerr, char *error);
 void	init_dico(t_data *data, char **envp);
 char	*search_dico(char *search, t_data *data);
 char	*get_prompt(t_data *data);
 void	signal_receive(int sig);
+int		len_tab(char **tab);
 
 #endif

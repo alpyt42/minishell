@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 15:29:54 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/02/01 15:09:55 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/02/02 16:51:19 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,48 +14,45 @@
 
 static char	*get_user_name(t_data *data)
 {
-	char	*user_name;
+	char	**user_name;
 	char	*tmp;
 	char	*tmp2;
 
-	tmp = search_dico("USER", data);
-	if (!tmp)
-		tmp = "unknown";
-	tmp = ft_strjoin(tmp, "@minishell:");
+	user_name = NULL;
+	(void)data;
+	exec_cmd_path(&user_name, "/usr/bin/whoami", "whoami", data->env);
+	if (!user_name)
+		ft_append_tab(user_name, "unknown");
+	tmp = ft_strjoin(user_name[0], "@minishell:");
 	tmp2 = ft_strjoin(GREEN, tmp);
-	user_name = ft_strjoin(tmp2, DEFAULT);
 	free(tmp);
+	tmp = ft_strjoin(tmp2, DEFAULT);
 	free(tmp2);
-	return (user_name);
+	ft_free_arr(user_name);
+	return (tmp);
 }
 
 static char	*get_path(t_data *data)
 {
 	char	*pwd;
-	char	*pwd_mini;
-	char	*path;
+	char	*home;
 	char	*tmp;
-	char	*tmp2;
 
-	pwd = search_dico("PWD", data);
+	home = search_dico("HOME", data);
+	pwd = getcwd(NULL, 0);
 	if (!pwd)
-		pwd = "no_path";
-	pwd_mini = ft_strstr(pwd, search_dico("USER", data));
-	if (pwd_mini)
+		pwd = ft_strdup("∅ ");
+	if (pwd && home && home[0] && ft_strstr(pwd, home))
 	{
-		pwd_mini = ft_strstr(pwd_mini, "/");
-		if(!pwd_mini)
-			tmp = ft_strdup("~");
-		else
-			tmp = ft_strjoin("~", pwd_mini);
+		tmp = pwd;
+		pwd = ft_strjoin("~", &pwd[ft_strlen(home)]);
+		free(tmp);
 	}
-	else
-		tmp = ft_strdup(pwd);
-	tmp2 = ft_strjoin(BLUE, tmp);
-	path = ft_strjoin(tmp2, DEFAULT);
-	free(tmp);
-	free(tmp2);
-	return (path);
+	home = ft_strjoin(BLUE, pwd);
+	free(pwd);
+	pwd = ft_strjoin(home, DEFAULT);
+	free(home);
+	return (pwd);
 }
 
 char	*get_prompt(t_data *data)

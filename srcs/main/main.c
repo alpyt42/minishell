@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:32:53 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/02/01 15:44:43 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/02/02 16:07:36 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,35 +26,37 @@ void   init_data(t_data *data, char **envp)
     // printf("<<%s>>>\n", search_dico("LESS", data));
 }
 
+static void display_list(t_data *data)
+{
+    char	**cmd;
+    void	*tmp;
+    int     i;
+
+    
+    i = 0;
+    tmp = data->dico;
+    while(data->dico)
+    {
+        printf("l.%d  -  ", i++);
+        cmd = data->dico->content;
+        printf("%s : ", cmd[0]);
+        if (cmd[1])
+            printf("%s\n", cmd[1]);
+        data->dico = data->dico->next;
+    }
+	data->dico = tmp;
+}
+
 int main(int argc, char **argv, char** env)
 {
 	// t_shell shell;
 	t_data  data;
     char    *prompt;
 	char    *command;
-
-    (void)argc;
-    (void)argv;
-    (void)env;
-    (void)prompt;
-    (void)command;
     
-    int i = 0;
-    char	**cmd;
-    void	*tmp;
+    data.env = env;
 	init_data(&data, env);
-    // search_dico("PWD", &data);
-	tmp = data.dico;
-    while(data.dico)
-    {
-        printf("l.%d  -  ", i++);
-        cmd = data.dico->content;
-        printf("%s : ", cmd[0]);
-        if (cmd[1])
-            printf("%s\n", cmd[1]);
-        data.dico = data.dico->next;
-    }
-	data.dico = tmp;
+    display_list(&data);
     while(argc && argv)
     {
         signal(SIGINT, signal_receive);

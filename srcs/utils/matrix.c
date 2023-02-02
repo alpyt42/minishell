@@ -6,29 +6,47 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 17:24:09 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/01/30 19:42:09 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/02/02 16:50:46 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+int	len_tab(char **tab)
+{
+	int	i;
+
+	i = 0;
+	while (tab && tab[i])
+		i++;
+	return (i);
+}
+
 char	**ft_append_tab(char **tab, char *line)
 {
-	char	**str;
+	char	**res;
+	int		len;
 	int		i;
 
 	i = -1;
-	if (!tab)
-		return (NULL);
+	res = NULL;
 	if (!line)
 		return (tab);
-	str = (char **)malloc(sizeof(char *) * (ft_arrlen(tab) + 2));
-	if (!str)
+	len = len_tab(tab);
+	res = malloc(sizeof(char *) * (len + 2));
+	res[len + 1] = NULL;
+	if (!res)
 		return (tab);
-	while (++i < ft_arrlen(tab))
-		str[i] = ft_strdup(tab[i]);
-	str[i] = ft_strdup(line);
-	str[++i] = 0;
+	while (++i < len)
+	{
+		res[i] = ft_strdup(tab[i]);
+		if (!res[i])
+		{
+			ft_free_arr(tab);
+			ft_free_arr(res);
+		}
+	}
+	res[i] = ft_strdup(line);
 	ft_free_arr(tab);
-	return (str);
+	return (res);
 }
