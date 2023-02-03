@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:57:31 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/02/03 17:58:34 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/02/03 18:49:47 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,6 @@ char	*get_prompt(t_data *data);
 void	signal_receive(int sig);
 int		len_tab(char **tab);
 int		set_env_vars(t_data *data, char *glob_var, char *val);
+char	*find_in_arr(char **arr, char *to_find);
 
 #endif

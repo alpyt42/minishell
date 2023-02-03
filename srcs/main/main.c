@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:32:53 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/02/03 18:00:14 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/02/03 18:58:59 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,19 @@
 static void	init_vars(t_data *data)
 {
 	char	*pwd;
+	char	*shlvl;
 
 	pwd = getcwd(NULL, 0);
+	if (!pwd)
+		pwd = "no_path_found";
 	set_env_vars(data, "PWD=", pwd);
+	free(pwd);
+	shlvl = find_in_arr(data->env, "SHLVL=");
+	if (!shlvl || ft_atoi(shlvl) <= 0)
+		shlvl = ft_strdup("1");
+	else
+		shlvl = ft_itoa(ft_atoi(shlvl) + 1);
+	set_env_vars(data, "SHLVL=", shlvl);
 }
 
 void	init_data(t_data *data)

@@ -6,11 +6,24 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 17:40:02 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/02/03 18:01:07 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/02/03 19:00:06 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+char	*find_in_arr(char **arr, char *to_find)
+{
+	int	i;
+
+	i = -1;
+	if (!arr || !to_find)
+		return (NULL);
+	while (arr[++i])
+		if (ft_strstr(arr[i], to_find))
+			return (&(arr[i][ft_strlen(to_find)]));
+	return (NULL);
+}
 
 int	set_env_vars(t_data *data, char *glob_var, char *val)
 {
