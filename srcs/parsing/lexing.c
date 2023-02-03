@@ -6,7 +6,7 @@
 /*   By: amontalb <amontalb@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 08:47:16 by amontalb          #+#    #+#             */
-/*   Updated: 2023/02/03 11:12:46 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/02/03 11:35:31 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,14 +90,16 @@ char **fill_lexing(char **cmdlex, char *cmd, char s)
 	int	double_q;
 	int	i;
 	int k;
+	int j;
 
 	k = 0;
 
-	while (cmd[i])
+	while (k <= count_word(cmd, s))
 	{
 		cmdlex[k] = (char *)malloc(sizeof(char) * (lenght_word(cmd[i], ' ') + 1));
-			int	simple_q;
-			int	double_q;
+		simple_q = 0;
+		j = 0;
+		double_q = 0
 		
 
 	}
