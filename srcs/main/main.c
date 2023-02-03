@@ -6,15 +6,26 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:32:53 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/02/02 16:07:36 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/02/03 18:00:14 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void   init_data(t_data *data, char **envp)
+
+static void	init_vars(t_data *data)
 {
-    init_dico(data, envp);
+	char	*pwd;
+
+	pwd = getcwd(NULL, 0);
+	set_env_vars(data, "PWD=", pwd);
+}
+
+void	init_data(t_data *data)
+{
+    data->env = ft_arrdup(data->env);
+    init_vars(data);
+    init_dico(data);
     // char **test;
     // while (data->dico)
     // {
@@ -31,8 +42,7 @@ static void display_list(t_data *data)
     char	**cmd;
     void	*tmp;
     int     i;
-
-    
+ 
     i = 0;
     tmp = data->dico;
     while(data->dico)
@@ -47,7 +57,7 @@ static void display_list(t_data *data)
 	data->dico = tmp;
 }
 
-int main(int argc, char **argv, char** env)
+int main(int argc, char **argv, char **env)
 {
 	// t_shell shell;
 	t_data  data;
@@ -55,7 +65,7 @@ int main(int argc, char **argv, char** env)
 	char    *command;
     
     data.env = env;
-	init_data(&data, env);
+	init_data(&data);
     display_list(&data);
     while(argc && argv)
     {
@@ -72,5 +82,5 @@ int main(int argc, char **argv, char** env)
         ft_dprintf(1, "command : $%s$\n", command);
         free(prompt);
     }
-    return 0;   
+    return (0);   
 }
