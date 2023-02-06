@@ -22,7 +22,6 @@ int	count_word(char *cmd, char s)
 
 	i = 0;
 	words = 0;
-
 	while (cmd[i])
 	{
 		if (cmd[i] != s)
@@ -30,7 +29,7 @@ int	count_word(char *cmd, char s)
 		simple_q = 0;
 		double_q = 0;
 			words++;
-			while (cmd[i] && (cmd[i] != s || double_q == 1))		
+			while (cmd[i] && (cmd[i] != s || double_q == 1 || simple_q == 1))		
 			{
 				if (cmd[i] == '\"' && simple_q == 0)
 					double_q += 1;
@@ -49,91 +48,69 @@ int	count_word(char *cmd, char s)
 	return(words);
 }
 
-int	lenght_word(char *cmd, char s)
+char **fill_lexing2(char **cmdlex, char *cmd, char s)
 {
 	int	simple_q;
 	int	double_q;
 	int	i;
+	int j;
 	int k;
 
 	i = 0;
 	k = 0;
-	while (cmd[i] && k == 0)
+	while (cmd[i])
 	{
-		if (cmd[i] != s)
-		{
+		while (cmd[i] && cmd[i] == s)
+			i++;
+		j = i;
 		simple_q = 0;
 		double_q = 0;
-			while (cmd[i] && (cmd[i] != s || double_q == 1))		
-			{
-				k = 1;
-				if (cmd[i] == '\"' && simple_q == 0)
-					double_q += 1;
-				if (cmd[i] == '\'' && double_q == 0)
-					simple_q += 1;
-				i++;
-				if (simple_q == 2 || double_q == 2)
-					break;
-			}
+		while (cmd[i] && (cmd[i] != s || double_q == 1 || simple_q == 1))		
+		{
+			if (cmd[i] == '\"' && simple_q == 0)
+				double_q += 1;
+			if (cmd[i] == '\'' && double_q == 0)
+				simple_q += 1;
+			i++;
+			if (simple_q == 2 || double_q == 2)
+				break;
 		}
+		if (i > (int)strlen(cmd))
+			cmdlex[k++] = NULL;
+		else if(simple_q == 2 || double_q == 2)
+			cmdlex[k++] = ft_substr(cmd, j + 1, i - j - 2);	
 		else
-			i++;		
+			cmdlex[k++] = ft_substr(cmd, j, i - j);		
 	}
-	if (simple_q == 2 || double_q == 2)
-		i -= 2;
-	return (i);
+	return (cmdlex);
 }
 
-char **fill_lexing(char **cmdlex, char *cmd, char s)
+
+char	**cmdlexing(char *cmd)
 {
-	int	simple_q;
-	int	double_q;
-	int	i;
-	int k;
-	int j;
-
-	k = 0;
-
-	while (k <= count_word(cmd, s))
-	{
-		cmdlex[k] = (char *)malloc(sizeof(char) * (lenght_word(cmd[i], ' ') + 1));
-		simple_q = 0;
-		j = 0;
-		double_q = 0
-		
-
-	}
-
-
-	
+	char	**cmdlex;
+	int		nbr_words;
+	nbr_words = count_word(cmd, ' ');
+	if (nbr_words == -1)
+		return (NULL);
+	cmdlex =(char **) malloc (sizeof(char *) * (nbr_words + 1));
+	if (!cmdlex)
+		return (NULL);
+	cmdlex = fill_lexing2(cmdlex, cmd, ' ');
+	return (cmdlex);
 }
 
-
-// char	**cmdlexing(char *cmd)
+// int	main()
 // {
-// 	char	**cmdlex;
-// 	int		nbr_words;
+// 	int i = 0;
+// 	// printf("%s\n", "\"ok \" tout \"  \" le monde ");
+// 	// printf("count_word : %d", lenght_word("\"ok\'\" tout \" ' \" \" ' \"le monde ", ' '));
+// 	char **finito = cmdlexing(" echo \"hello      there\" how are \'you \'doing? $USER |wc -l >outfile");
+// 	while (finito[i])
+// 	{
+// 		printf("%s\n", finito[i]);
+// 		i++;
+// 	}
 
-// 	nbr_words = count_word(cmd, ' ');
-// 	if (nbr_words == - 1)
-// 		return (NULL);
-// 	cmdlex =(char **) malloc (sizeof(char *) * (nbr_words + 1));
-// 	if (!cmdlex)
-// 		return (NULL);
-	
-	
-// 	cmdlex[nbr_words] = NULL;
-// 	return (cmdlex);
-
-
-
-
-	
+// 	return  0;
 // }
-
-int	main()
-{
-	printf("%s\n", "\"ok \" tout \"  \" le monde ");
-	printf("count_word : %d", lenght_word("\"ok\'\" tout \" ' \" \" ' \"le monde ", ' '));
-	return  0;
-}
