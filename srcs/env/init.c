@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 13:33:30 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/02/06 14:37:43 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/02/06 15:05:14 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	init_data(t_data *data)
     init_dico(data);
     if (check_data(data))
     {
-        ft_dprintf(2, "env: ‘%s’: No such file or directory",\
+        ft_dprintf(2, "env: '%s': No such file or directory",\
             data->argv[0]);
         exit(check_data(data));
     }

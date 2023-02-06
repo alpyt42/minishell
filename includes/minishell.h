@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:57:31 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/02/06 13:35:06 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/02/06 15:12:50 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@
 # include <fcntl.h>
 # include <string.h>
 # include <stdio.h>
-#include <sys/types.h>
-#include <sys/stat.h>
+# include <sys/types.h>
+# include <sys/stat.h>
 
 # define DEFAULT "\001\033[0;39m\002"
 # define GRAY "\001\033[1;90m\002"
@@ -57,23 +57,32 @@ typedef struct s_data
 typedef struct s_node
 {
 	char	**cmd;
-	char 	*path;
+	char	*path;
 	int		infile;
 	int		outfile;
 }			t_node;
 
-void	exec_cmd_path(char ***res, char *path, char *cmd, char **env);
-char	**ft_append_tab(char **in, char *newstr);
-void	display_error(char *strerr, char *error);
+//----------------------------------------builtins----
+//----------------------------------------env---------
 void	init_dico(t_data *data);
 char	*search_dico(char *search, t_data *data);
-char	*get_prompt(t_data *data);
-void	signal_receive(int sig);
-int		len_tab(char **tab);
 int		set_env_vars(t_data *data, char *glob_var, char *val);
 char	*find_in_arr(char **arr, char *to_find);
 void	display_list(t_data *data);
 void	init_data(t_data *data);
 int		check_data(t_data *data);
+//----------------------------------------exec--------
+void	exec_cmd_path(char ***res, char *path, char *cmd, char **env);
+void	display_error(char *strerr, char *error);
+//----------------------------------------main--------
+//----------------------------------------parsing-----
+//----------------------------------------prompt------
+char	*get_prompt(t_data *data);
+//----------------------------------------signals-----
+void	signal_receive(int sig);
+//----------------------------------------tools-------
+//----------------------------------------utils-------
+char	**ft_append_tab(char **in, char *newstr);
+int		len_tab(char **tab);
 
 #endif
