@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:57:31 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/02/03 18:49:47 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/02/06 13:35:06 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct s_data
 	t_list	*nodes;
 	t_list	*dico;
 	char	**env;
+	char	**argv;
 }			t_data;
 
 typedef struct s_node
@@ -71,5 +72,8 @@ void	signal_receive(int sig);
 int		len_tab(char **tab);
 int		set_env_vars(t_data *data, char *glob_var, char *val);
 char	*find_in_arr(char **arr, char *to_find);
+void	display_list(t_data *data);
+void	init_data(t_data *data);
+int		check_data(t_data *data);
 
 #endif
