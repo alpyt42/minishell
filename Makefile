@@ -62,6 +62,7 @@ clean:
 	@make clean -C libft/
 	@echo "\nRemoving binaries..."
 	@rm -f $(OBJ)
+	@rm -f includes/$(HEADER).gch
 	@echo "\033[0m"
 
 fclean:
@@ -71,6 +72,7 @@ fclean:
 	@rm -f $(OBJ)
 	@echo "\nDeleting executable..."
 	@rm -f $(NAME)
+	@rm -f includes/$(HEADER).gch
 	@echo "\033[0m"
 
 re: fclean all

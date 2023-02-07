@@ -6,7 +6,7 @@
 #    By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/10 15:07:12 by ale-cont          #+#    #+#              #
-#    Updated: 2023/01/20 15:51:43 by ale-cont         ###   ########.fr        #
+#    Updated: 2023/02/07 16:51:08 by ale-cont         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ $(NAME) : $(OBJECTS)
 
 clean :
 	$(RM) $(OBJECTS)
+	$(RM) $(HEADERS).gch
 
 fclean : clean
 	$(RM) $(NAME)
