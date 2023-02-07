@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:57:31 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/02/06 15:12:50 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/02/07 12:56:09 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ void	exec_cmd_path(char ***res, char *path, char *cmd, char **env);
 void	display_error(char *strerr, char *error);
 //----------------------------------------main--------
 //----------------------------------------parsing-----
+char    *expand_vars(char *cmd, t_data *data);
 //----------------------------------------prompt------
 char	*get_prompt(t_data *data);
 //----------------------------------------signals-----
@@ -84,5 +85,6 @@ void	signal_receive(int sig);
 //----------------------------------------utils-------
 char	**ft_append_tab(char **in, char *newstr);
 int		len_tab(char **tab);
+int	ft_strchars_i(const char *s, char *set);
 
 #endif
