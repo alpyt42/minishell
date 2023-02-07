@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:32:53 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/02/06 13:33:51 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/02/07 12:28:05 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int main(int argc, char **argv, char **env)
 {
-	// t_shell shell;
 	t_data  data;
     char    *prompt;
 	char    *command;
