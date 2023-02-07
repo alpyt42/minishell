@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 13:33:30 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/02/06 15:05:14 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/02/07 12:23:41 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ static void	init_vars(t_data *data)
 void	init_data(t_data *data)
 {
     data->env = ft_arrdup(data->env);
+    data->dico = NULL;
     init_vars(data);
     init_dico(data);
     if (check_data(data))
