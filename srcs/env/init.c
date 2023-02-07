@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 13:33:30 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/02/07 12:23:41 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/02/07 14:38:07 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,7 @@
 
 int check_data(t_data *data)
 {
-    if (!search_dico("PATH", data)
-        || !ft_strstr(search_dico("PATH", data), "/usr/bin"))
-        return(127);
+    (void)data;
     return (0);
 }
 
@@ -45,17 +43,18 @@ static void	init_vars(t_data *data)
     char    *path;
 
 	pwd = getcwd(NULL, 0);
-	init_shlvl(data);
 	if (!pwd)
 		pwd = ft_strdup("no_path_found");
 	set_env_vars(data, "PWD=", pwd);
+	init_shlvl(data);
 	free(pwd);
+    path = find_in_arr(data->env, "PATH=");
+    if (!path)
+        set_env_vars(data, "PATH=",\
+        "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin");
     underscore = find_in_arr(data->env, "_=");
     if (!underscore)
         set_env_vars(data, "_=", data->argv[0]);
-    path = find_in_arr(data->env, "PATH=");
-    if (!path)
-        set_env_vars(data, "PATH=","/usr/bin");
 }
 
 void	init_data(t_data *data)
@@ -85,15 +84,12 @@ void	display_list(t_data *data)
 {
     char	**cmd;
     void	*tmp;
-    int     i;
  
-    i = 0;
     tmp = data->dico;
     while(data->dico)
     {
-        printf("l.%d  -  ", i++);
         cmd = data->dico->content;
-        printf("%s : ", cmd[0]);
+        printf("%s=", cmd[0]);
         if (cmd[1])
             printf("%s\n", cmd[1]);
         data->dico = data->dico->next;

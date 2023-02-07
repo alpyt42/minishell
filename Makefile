@@ -2,8 +2,9 @@ NAME = minishell
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror -I includes/ -I libft/
-CDEBUG = #-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror
+# CFLAGS += -fsanitize=address
+CFLAGS += -I includes/ -I libft/
 
 LIBFT = libft/libft.a
 
@@ -48,7 +49,7 @@ $(NAME): $(OBJ)
 
 %.o: %.c $(HEADER) $(LIBFT)
 	@printf "\033[0;33mGenerating minishell objects... %-33.33s\r" $@
-	@${CC} -I ~/.brew/opt/readline/include -I /usr/local/opt/readline/include $(CFLAGS) $(CDEBUG) -c $< -o $@
+	@${CC} -I $(CFLAGS) -c $< -o $@
 
 lib :
 	$(MAKE) -C ./libft
