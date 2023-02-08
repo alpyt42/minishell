@@ -55,3 +55,7 @@ super schema https://github.com/paulahemsi/minishell
 bon tuto : https://github.com/vportens/minishell
 tuto sur les signax : https://www.codequoi.com/envoyer-et-intercepter-un-signal-en-c/
 dinguerie de tuto qui explique tout : https://www.notion.so/Minishell-e856e9af377f44b588e5fe120d4b6e2a
+
+Utils Doc :
+https://discordapp.com/channels/1031300918840402021/1031307799260565504/1041362447770066964 page 901 (pipe)
+https://www.gnu.org/software/bash/manual/bash.pdf 
