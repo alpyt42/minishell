@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbueno-g <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 11:36:47 by mbueno-g          #+#    #+#             */
-/*   Updated: 2022/03/14 16:05:14 by aperez-b         ###   ########.fr       */
+/*   Updated: 2023/02/09 16:12:09 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	ft_atoi2(const char *nptr, long *nbr)
 	return (0);
 }
 
-int	mini_exit(t_list *cmd, int *is_exit)
+int	 mini_exit(t_list *cmd, int *is_exit)
 {
 	t_mini	*node;
 	long	status[2];

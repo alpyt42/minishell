@@ -12,6 +12,16 @@
 
 #include "../../includes/minishell.h"
 
+// void	ft_free_content(void *content)
+// {
+
+// }
+
+// void	ft_free_mini(t_data *data)
+// {
+
+// }
+
 void	display_error(char *strerr, char *error)
 {
 	ft_dprintf(2,"%s %s",strerr, error);

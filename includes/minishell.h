@@ -49,7 +49,7 @@
 
 typedef struct s_data
 {
-	t_list	*nodes;
+	t_list	*cmds;
 	t_list	*dico;
 	char	**env;
 	char	**argv;
@@ -57,13 +57,14 @@ typedef struct s_data
 
 typedef struct s_node
 {
-	char	**cmd;
-	char	*path;
+	char	**all_cmd;
+	char	*all_path;
 	int		infile;
 	int		outfile;
 }			t_node;
 
 //----------------------------------------builtins----
+int		is_builtin(char *cmd);
 //----------------------------------------env---------
 void	init_dico(t_data *data);
 char	*search_dico(char *search, t_data *data);
