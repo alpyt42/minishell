@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 13:40:47 by aperez-b          #+#    #+#             */
-/*   Updated: 2023/02/01 18:49:56 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/02/08 18:59:54 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,15 +80,15 @@ int	main(int argc, char **argv, char **envp)
 	char				*str;
 	char				*out;
 	t_prompt			prompt;
-	int	i = 0;
+	// int	i = 0;
 	// (void)prompt;
 	// (void)str;
 	// (void)out;
 	// (void)argc;
 
 	prompt = init_prompt(argv, envp);
-	while(prompt.envp[i])
-		printf("%s\n", prompt.envp[i++]);
+	// while(prompt.envp[i])
+	// 	printf("%s\n", prompt.envp[i++]);
 	while (argv && argc)
 	{
 		signal(SIGINT, handle_sigint);
