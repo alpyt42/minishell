@@ -78,6 +78,7 @@ void	display_error(char *strerr, char *error);
 //----------------------------------------main--------
 //----------------------------------------parsing-----
 char    *expand_vars(char *cmd, t_data *data);
+char    *expand_path(char *cmd, t_data *data);
 //----------------------------------------prompt------
 char	*get_prompt(t_data *data);
 //----------------------------------------signals-----

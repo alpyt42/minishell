@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amontalb <amontalb@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:11:15 by amontalb          #+#    #+#             */
-/*   Updated: 2023/02/07 16:00:16 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/02/10 09:12:45 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,54 @@
     
 //     stocker tout ce qui est abvant le $ puis aller jusquau signe separateur suivant et voir si ce qui est dans 
 //     intervalle est un PATH ou pas.
+char   *sub_path(char *cmd, t_data *data, int i)
+{
+    char    *before;
+    char    *path;
 
-// char    *expand_path(char *cmd, t_data *data)
-// {
-    
-    
-// }
+    if(i != 0)
+    {
+        before = ft_substr(cmd, 0, i);
+        path = ft_strjoin(before, search_dico("HOME", data));
+        free (before);
+    }
+    else   
+        path = ft_strdup(search_dico("HOME", data));
+    ft_dprintf(1, "path : <<%s>>\n", &cmd[i]);
+    i ++;
+    if(cmd[i])
+        path = ft_strjoin(path, &cmd[i]);
+
+    return (path); 
+}
+
+char    *expand_path(char *cmd, t_data *data)
+{
+    int i;
+    int simple_q;
+	int double_q;
+    int size_home;
+
+    i = 0;
+    simple_q = 0;
+    double_q = 0;
+    size_home = ft_strlen(search_dico("HOME", data));
+    while (cmd[i])
+    {
+        simple_q = (simple_q + (!double_q && cmd[i] == '\'')) % 2 ;
+        double_q = (double_q + (!simple_q && cmd[i] == '\"')) % 2 ;
+        if (!simple_q && !double_q && cmd[i] == '~' && (i == 0 || cmd[i - 1] != '$'))
+            {
+                cmd = sub_path(cmd, data, i);
+                printf("%s\n", cmd);
+                i += size_home;
+            }
+        else
+            i++;
+    }
+    printf("%s", cmd);
+    return (cmd);
+}
 
 char    *sub_var(char *cmd, t_data *data, int i)
 {
