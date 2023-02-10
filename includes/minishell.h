@@ -79,11 +79,8 @@ void	display_error(char *strerr, char *error);
 //----------------------------------------main--------
 //----------------------------------------parsing-----
 char    *expand_vars(char *cmd, t_data *data);
-<<<<<<< HEAD
 char    *expand_path(char *cmd, t_data *data);
-=======
 int		launch_mini(t_data *data, char *cmd);
->>>>>>> e1e4331dd22e25cab830655859e7e7c7cd4435a9
 //----------------------------------------prompt------
 char	*get_prompt(t_data *data);
 //----------------------------------------signals-----

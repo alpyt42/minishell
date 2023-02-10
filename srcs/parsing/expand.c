@@ -6,11 +6,13 @@
 /*   By: amontalb <amontalb@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:11:15 by amontalb          #+#    #+#             */
-/*   Updated: 2023/02/10 09:12:45 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/02/10 15:03:15 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+extern int	s_error;
 
 // gerer :
 //     ~
@@ -79,9 +81,15 @@ char    *sub_var(char *cmd, t_data *data, int i)
     before = ft_substr(cmd, 0, i);
     printf("before : <%s>\n", before);
     var = search_dico(ft_substr(cmd, i + 1, ft_strchars_i(&cmd[i + 1], "$?~%^{}: \"")), data);
-    printf("var : <%s>\n", var);
-    if(!var)
+    printf("var : <%c>\n", cmd[i + 1]);
+    if (before)
         path = ft_strdup(before);
+    if(!var && cmd[i + 1] == '?')
+    {
+        path = ft_strjoin(path, ft_itoa(s_error));
+        printf("fin : %s\n", ft_strjoin(path, &cmd[i + 2]));
+        return (ft_strjoin(path, &cmd[i + 2]));    
+    }
     else
         path = ft_strjoin(before, var);
     printf("<<<%s>>>\n", path);
@@ -107,7 +115,7 @@ char    *expand_vars(char *cmd, t_data *data)
     {
         simple_q = (simple_q + (!double_q && cmd[i] == '\'')) % 2 ;
         double_q = (double_q + (!simple_q && cmd[i] == '\'')) % 2 ;
-        if (!simple_q && cmd[i] == '$' && cmd[i + 1] && ft_strchars_i(&cmd[i + 1], "?~$%^{}: \""))
+        if (!simple_q && cmd[i] == '$' && cmd[i + 1] && ft_strchars_i(&cmd[i + 1], "?~$%^{}: \"") != -1)
         {
             cmd = sub_var(cmd, data, i);
             printf("___%d\n", i);
@@ -134,4 +142,5 @@ char    *expand_vars(char *cmd, t_data *data)
 //         cmd[i] = expand_path(cmd[i], data);
 //         i++;
 //     }
+//     return (cmd);
 // }
