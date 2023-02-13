@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cmdsubsplit.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aperez-b <aperez-b@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 18:23:56 by aperez-b          #+#    #+#             */
-/*   Updated: 2022/03/08 12:39:24 by aperez-b         ###   ########.fr       */
+/*   Updated: 2023/02/13 14:55:49 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ static char	**ft_fill_array(char **aux, char *s, char *set, int i[3])
 
 	q[0] = 0;
 	q[1] = 0;
+	int j = 0;
 	while (s && s[i[0]] != '\0')
 	{
 		i[1] = i[0];
@@ -60,7 +61,9 @@ static char	**ft_fill_array(char **aux, char *s, char *set, int i[3])
 		}
 		else
 			i[0]++;
-		aux[i[2]++] = ft_substr(s, i[1], i[0] - i[1]);
+		aux[j] = ft_substr(s, i[1], i[0] - i[1]);
+		printf("cmdsubslip[%d] :%s\n", j, aux[j]);
+		j++;
 	}
 	return (aux);
 }
