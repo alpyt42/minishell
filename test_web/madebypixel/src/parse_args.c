@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_args.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 12:08:12 by aperez-b          #+#    #+#             */
-/*   Updated: 2023/02/08 19:03:23 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/02/13 13:58:21 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,11 @@ static char	**split_all(char **args, t_prompt *prompt)
 	while (args && args[++i])
 	{
 		args[i] = expand_vars(args[i], -1, quotes, prompt);
+		printf("b[%d]%s\n", i, args[i]);
 		args[i] = expand_path(args[i], -1, quotes, \
 			mini_getenv("HOME", prompt->envp, 4));
+				printf("b[%d]%s\n", i, args[i]);
+		printf("c[%d]%s\n", i, args[i]);
 		subsplit = ft_cmdsubsplit(args[i], "<|>");
 		ft_matrix_replace_in(&args, subsplit, i);
 		i += ft_matrixlen(subsplit) - 1;
