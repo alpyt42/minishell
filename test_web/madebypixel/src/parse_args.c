@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_args.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 12:08:12 by aperez-b          #+#    #+#             */
-/*   Updated: 2023/02/13 13:58:21 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/02/14 18:07:17 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,24 @@ static char	**split_all(char **args, t_prompt *prompt)
 	return (args);
 }
 
+void display(t_list *cmds)
+{
+	int	i,j;
+	
+	j = 0;
+	while (cmds)
+	{
+		i = -1;
+		while (((t_mini *)cmds->content)->full_cmd[++i])
+			dprintf(1, "node n.%d cmds[%d] : %s\n", j, i, ((t_mini *)cmds->content)->full_cmd[i]);
+		dprintf(1, "node n.%d full_path : %s\n", j, ((t_mini *)cmds->content)->full_path);
+		dprintf(1, "node n.%d infile : %d\n", j, ((t_mini *)cmds->content)->infile);
+		dprintf(1, "node n.%d outfile : %d\n", j, ((t_mini *)cmds->content)->outfile);
+		j++;
+		cmds = cmds->next;
+	}
+}
+
 static void	*parse_args(char **args, t_prompt *p)
 {
 	int	is_exit;
@@ -44,6 +62,7 @@ static void	*parse_args(char **args, t_prompt *p)
 
 	is_exit = 0;
 	p->cmds = fill_nodes(split_all(args, p), -1);
+	display(p->cmds);
 	if (!p->cmds)
 		return (p);
 	i = ft_lstsize(p->cmds);

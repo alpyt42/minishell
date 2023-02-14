@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:32:53 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/02/10 16:49:33 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/02/14 12:18:06 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int main(int argc, char **argv, char **env)
 	data.env = env;
 	data.argv = argv;
 	init_data(&data);
-	ft_dprintf(1, "\033[1;90mMINI.SHELL\nale-cont/amontalb\033[0;39m\n");
+	ft_dprintf(1, "\033[1;90mMINI.SHELL  |  ale-cont \\ amontalb\033[0;39m\n");
 	// display_list(&data);
 	while (argc && argv)
 	{
