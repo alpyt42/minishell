@@ -12,9 +12,9 @@
 
 #include "../../includes/minishell.h"
 
-extern int	s_error;
+int	s_error = 0;
 
-char	*fill_here_doc(char *del, char warn)
+static char	*fill_here_doc(char *del, char *warn)
 {
 	char	*line;
 	char	*readstr;
@@ -24,20 +24,21 @@ char	*fill_here_doc(char *del, char warn)
 	readstr = NULL;
 	while (s_error != 130)
 	{
-		tmp = line;
 		readstr = readline("> ");
 		if (!readstr)
 		{
-			ft_dprintf(2, "%s", del);
+			ft_dprintf(2, "%s : %s", warn, del);
 			break ;
 		}
 		if (!ft_strncmp(readstr, del, ft_strlen(readstr) - 1)\
 			&& ft_strlen(readstr) - 1 == ft_strlen(del))
 			break ;
 		line = ft_strjoin(line, readstr);
-		free(line);
+		tmp = line;
+		line = ft_strjoin(line, "\n");
+		free(tmp);
+		free(readstr);
 	}
-	free(line);
 	return (line);
 }
 
@@ -49,10 +50,10 @@ int	get_here_doc(char *del)
 
 	s_error = 0;
 	warning = "minishell: warning: here-document delimited by end-of-file";
-	if (ft_strchr(del, "<") || ft_strchr(del, "|"))
+	if (ft_strchr(del, '<') || ft_strchr(del, '|'))
 	{
 		ft_dprintf(2, "minishell: syntax error near unexpected token '%s'", del);
-		return (NULL);
+		return (-1);
 	}
 	if (pipe(fd) == -1)
 		perror("pipe");
