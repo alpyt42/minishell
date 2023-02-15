@@ -14,15 +14,15 @@
 
 extern int	s_error;
 
-int	command(t_data *data)
-{
-	char	*com;
+// int	command(t_data *data)
+// {
+// 	char	*com;
 
-	while (data->cmds)
-	{
+// 	while (data->cmds)
+// 	{
 		
-	}
-}
+// 	}
+// }
 
 int	launch_mini(t_data *data, char *cmd)
 {
@@ -37,6 +37,6 @@ int	launch_mini(t_data *data, char *cmd)
 	}
 	if (cmd[0] != '\0')
 		add_history(cmd);
-	s_error = command(data);
+	// s_error = command(data);
 	return (1);
 }

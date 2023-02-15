@@ -19,7 +19,18 @@ int main(int argc, char **argv, char **env)
 	t_data data;
 	char *prompt;
 	char *command;
-
+	char **tab = ft_calloc(sizeof(char), 4);
+	tab[0] = ft_strdup("SALUT");
+	tab[1] = ft_strdup("Les");
+	tab[2] = ft_strdup("gars");
+	char **insert = ft_calloc(sizeof(char), 2);
+	insert[0] = ft_strdup("petit");
+	ft_replace_in_matrix(&tab, insert, 1);
+	int i = 0;
+	ft_dprintf(1, "test");
+	while(tab[i])
+		printf("%s\n", tab[i++]);
+	exit(0);
 	data.env = env;
 	data.argv = argv;
 	init_data(&data);
