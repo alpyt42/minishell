@@ -14,15 +14,23 @@
 
 extern int	s_error;
 
-// int	command(t_data *data)
-// {
-// 	char	*com;
+int	mini_process(t_data *data)
+{
+	char	*com;
+	int		i;
 
-// 	while (data->cmds)
-// 	{
+	i = -1;
+	if (pipe(data->pipa) == -1)
+		return(errors(strerror(errno), " : pipe1", 0));
+	if (pipe(data->pipb) == -1)
+		return(errors(strerror(errno), " : pipe2", 0));
+	data->p_ids = malloc(sizeof(int) * data->n_cmd);
+	while (++i < data->n_cmd)
+	{
+		data->p_ids[i] = fork();
 		
-// 	}
-// }
+	}
+}
 
 int	launch_mini(t_data *data, char *cmd)
 {
@@ -37,6 +45,6 @@ int	launch_mini(t_data *data, char *cmd)
 	}
 	if (cmd[0] != '\0')
 		add_history(cmd);
-	// s_error = command(data);
+	s_error = command(data);
 	return (1);
 }

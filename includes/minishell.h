@@ -55,6 +55,10 @@ typedef struct s_data
 	char	**argv;
 	int		quit;
 	int		quotes_hd;
+	int		n_cmd;
+	pid_t	*p_ids;
+	int		pipa[2];
+	int		pipb[2];
 }			t_data;
 
 typedef struct s_node
