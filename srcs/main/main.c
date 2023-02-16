@@ -32,8 +32,13 @@ int main(int argc, char **argv, char **env)
 	// while(tab[i])
 	// 	printf("%s\n", tab[i++]);
 	// exit(0);
+	data.env = env;
+	data.argv = argv;
+	init_data(&data);
+	ft_dprintf(1, "\033[1;90mMINI.SHELL  |  ale-cont \\ amontalb\033[0;39m\n");
+	// display_list(&data);
 	// ------------------for : here_doc
-	int fd = get_here_doc("ls");
+	int fd = get_here_doc("ls", 1, &data);
 	if (fd == -1)
 		exit (2);
 	char buf[20];
@@ -42,11 +47,6 @@ int main(int argc, char **argv, char **env)
 		printf("\nfd : %d / buf n.%d : %s", fd, i++, buf);
 	exit(0);
 	// --------------------------------------------
-	data.env = env;
-	data.argv = argv;
-	init_data(&data);
-	ft_dprintf(1, "\033[1;90mMINI.SHELL  |  ale-cont \\ amontalb\033[0;39m\n");
-	display_list(&data);
 	while (argc && argv)
 	{
 		signal(SIGINT, signal_receive);

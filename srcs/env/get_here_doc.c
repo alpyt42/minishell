@@ -16,7 +16,11 @@ int	s_error = 0;
 
 static char *get_var_hd(char *del, t_data *data)
 {
-
+	char *str;
+	(void)del;
+	(void)data;
+	str = NULL;
+	return (str);
 }
 
 static char	*fill_here_doc(char *del, char *warn)
@@ -58,7 +62,7 @@ int	get_here_doc(char *del, int quotes, t_data *data)
 
 	s_error = 0;
 	warning = "minishell: warning: here-document delimited by end-of-file";
-	// dprintf(1, "del : %s\n", del);
+	dprintf(1, "delimiter : --%s--\n", del);
 	if (!del || ft_strchr(del, '<') || ft_strchr(del, '|'))
 		return(errors("minishell: syntax error near unexpected token", del, 1));
 	if (pipe(fd) == -1)
