@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amontalb <amontalb@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:11:15 by amontalb          #+#    #+#             */
-/*   Updated: 2023/02/13 14:12:06 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/02/16 12:39:37 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ extern int	s_error;
 //     ~
 //     $ + PATH
 //     $ + ?
+//     gerer $+$
 //     $ + PATH mais faux;
     
 //     stocker tout ce qui est abvant le $ puis aller jusquau signe separateur suivant et voir si ce qui est dans 
