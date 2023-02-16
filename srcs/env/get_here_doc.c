@@ -25,13 +25,15 @@ static char	*fill_here_doc(char *del, char *warn)
 	while (s_error != 130)
 	{
 		readstr = readline("> ");
+		// dprintf(1,"ft_strlen(readstr) - 1:%ld ft_strlen(del):%ld ft_strncmp(del, readstr, ft_strlen(readstr) - 1):%d\n", ft_strlen(readstr), ft_strlen(del), ft_strncmp(del, readstr, ft_strlen(readstr) - 1) );
+		// dprintf(1, "del : $%s$\nreadstr : $%s$\n", del, readstr);
 		if (!readstr)
 		{
 			ft_dprintf(2, "%s : %s", warn, del);
 			break ;
 		}
-		if (!ft_strncmp(readstr, del, ft_strlen(readstr) - 1)\
-			&& ft_strlen(readstr) - 1 == ft_strlen(del))
+		if (!ft_strncmp(del, readstr, ft_strlen(readstr))\
+			&& ft_strlen(readstr) == ft_strlen(del))
 			break ;
 		line = ft_strjoin(line, readstr);
 		tmp = line;
@@ -50,11 +52,9 @@ int	get_here_doc(char *del)
 
 	s_error = 0;
 	warning = "minishell: warning: here-document delimited by end-of-file";
-	if (ft_strchr(del, '<') || ft_strchr(del, '|'))
-	{
-		ft_dprintf(2, "minishell: syntax error near unexpected token '%s'", del);
-		return (-1);
-	}
+	// dprintf(1, "del : %s\n", del);
+	if (!del || ft_strchr(del, '<') || ft_strchr(del, '|'))
+		return(errors("minishell: syntax error near unexpected token", del, 1));
 	if (pipe(fd) == -1)
 		perror("pipe");
 	str = fill_here_doc(del, warning);

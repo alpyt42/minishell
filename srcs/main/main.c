@@ -33,13 +33,13 @@ int main(int argc, char **argv, char **env)
 	// 	printf("%s\n", tab[i++]);
 	// exit(0);
 	// ------------------for : here_doc
-	// int fd = get_here_doc("EOF");
+	// int fd = get_here_doc("ls");
 	// if (fd == -1)
 	// 	exit (2);
 	// char buf[20];
 	// int i = 0;
-	// while (read(fd, buf, 20) != 0)
-	// 	printf("\nbuf n.%d : %s", i++, buf);
+	// while (read(fd, buf, 1) != 0)
+	// 	printf("\nfd : %d / buf n.%d : %s", fd, i++, buf);
 	// exit(0);
 	// --------------------------------------------
 	data.env = env;

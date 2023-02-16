@@ -22,8 +22,18 @@
 
 // }
 
-void	display_error(char *strerr, char *error)
+int	errors(char *strerr, char *error, int n)
 {
-	ft_dprintf(2,"%s %s",strerr, error);
-	exit(EXIT_FAILURE);
+	if (n == 1)
+	{
+		if (ft_strchr(error, '<'))
+			ft_dprintf(2,"%s %s",strerr, "'<'");
+		else if (ft_strchr(error, '|'))
+			ft_dprintf(2,"%s %s",strerr, "'|'");
+		else if (ft_strchr(error, '>'))
+			ft_dprintf(2,"%s %s",strerr, "'>'");
+		return (-1);
+	}
+	ft_dprintf(2,"%s :%s",strerr, error);
+	return(-1);
 }

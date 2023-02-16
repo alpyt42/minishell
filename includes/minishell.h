@@ -77,7 +77,7 @@ int		check_data(t_data *data);
 int		get_here_doc(char *del);
 //----------------------------------------exec--------
 void	exec_cmd_path(char ***res, char *path, char *cmd, char **env);
-void	display_error(char *strerr, char *error);
+int		errors(char *strerr, char *error, int n);
 //----------------------------------------main--------
 //----------------------------------------parsing-----
 char	*expand_vars(char *cmd, t_data *data);

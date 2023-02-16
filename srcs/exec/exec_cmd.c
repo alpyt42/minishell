@@ -40,20 +40,20 @@ void	exec_cmd_path(char ***res, char *path, char *cmd, char **env)
 	char	**cmd_exec;
 
 	if (pipe(fd) == -1)
-			display_error(strerror(errno), "");
+			errors(strerror(errno), "", 0);
 	pid_fork = fork();
 	if (pid_fork == -1)
-			display_error(strerror(errno), "");
+			errors(strerror(errno), "", 0);
 	if (!pid_fork)
 	{
 		close(fd[FD_READ]);
 		cmd_exec = ft_split(cmd, ' ');
 		if (dup2(fd[FD_WRITE], STDOUT_FILENO) == -1)
-			display_error(strerror(errno), "");
+			errors(strerror(errno), "", 0);
 		close(fd[FD_WRITE]);
 		if (!access(path, F_OK))
 			if (execve(path, cmd_exec, env) == -1)
-				display_error(strerror(errno), cmd_exec[0]);
+				errors(strerror(errno), cmd_exec[0], 0);
 		exit(1);
 	}
 	close(fd[FD_WRITE]);
