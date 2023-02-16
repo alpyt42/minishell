@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 11:36:47 by mbueno-g          #+#    #+#             */
-/*   Updated: 2023/02/09 16:12:09 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/02/13 18:32:15 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ void	cd_error(char **str[2])
 	}
 	if (str[1][0] && !str[0][1])
 		g_status = chdir(str[1][0]) == -1;
+	dprintf(1, "PATH for cd : (str[0][1]) : %s\n", str[0][1]);
 	if (str[0][1] && dir && access(str[0][1], F_OK) != -1)
 		chdir(str[0][1]);
 	else if (str[0][1] && access(str[0][1], F_OK) == -1)

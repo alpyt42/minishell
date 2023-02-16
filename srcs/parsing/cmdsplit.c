@@ -1,26 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.c                                          :+:      :+:    :+:   */
+/*   cmdsplit.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/01 12:12:05 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/02/13 16:56:12 by ale-cont         ###   ########.fr       */
+/*   Created: 2023/02/13 15:52:13 by amontalb          #+#    #+#             */
+/*   Updated: 2023/02/13 15:53:56 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	s_error;
 
-void	signal_receive(int sig)
-{
-	if (sig == SIGINT)
-	{
-		s_error = 130;
-		ioctl(STDIN_FILENO, TIOCSTI, "\n");
-		rl_replace_line("", 0);
-		rl_on_new_line();
-	}
-}
+
+
+
+
+char **cmdsplit(char *cmd)

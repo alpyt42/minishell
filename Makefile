@@ -11,7 +11,7 @@ LIBFT = libft/libft.a
 HEADER = minishell.h
 
 BUILTINS = builtin
-ENV = env init
+ENV = env init get_here_doc get_file
 EXEC = exec_cmd mini
 MAIN = main
 PARSING = token expand lexing

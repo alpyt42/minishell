@@ -6,7 +6,7 @@
 /*   By: amontalb <amontalb@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:11:15 by amontalb          #+#    #+#             */
-/*   Updated: 2023/02/10 15:40:20 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/02/16 12:39:37 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ char    *expand_path(char *cmd, t_data *data)
         else
             i++;
     }
-    printf("%s", cmd);
+    // printf("%s", cmd);
     return (cmd);
 }
 
@@ -81,7 +81,7 @@ char    *sub_var(char *cmd, t_data *data, int i)
 
     before = ft_substr(cmd, 0, i);
     printf("before : <%s>\n", before);
-    var = search_dico(ft_substr(cmd, i + 1, ft_strchars_i(&cmd[i + 1], "$?~%^{}: \"")), data);
+    var = search_dico(ft_substr(cmd, i + 1, ft_strchars_i(&cmd[i + 1], "$?~%^{}: \"\'")), data);
     printf("var : <%c>\n", cmd[i + 1]);
     if (before)
         path = ft_strdup(before);
@@ -95,8 +95,9 @@ char    *sub_var(char *cmd, t_data *data, int i)
         path = ft_strjoin(before, var);
     printf("<<<%s>>>\n", path);
     printf("int : %d\n", ft_strchars_i(&cmd[i + 1], "$?~%^${}: \""));
+    // path = ft_strjoin(path, &cmd[i]);
     if(ft_strchars_i(&cmd[i + 1], "$?~%^${}: \"") != -1)
-        path = ft_strjoin(path, &cmd[i + 1 + ft_strchars_i(&cmd[i + 1], "$?~%^${}: \"")]);
+        path = ft_strjoin(path, &cmd[i + ft_strchars_i(&cmd[i + 1], "$?~%^${}: \"")]);
     printf("end : <<<%s>>>\n", path);
     return (path);   
 }
@@ -115,8 +116,8 @@ char    *expand_vars(char *cmd, t_data *data)
     while (cmd[i])
     {
         simple_q = (simple_q + (!double_q && cmd[i] == '\'')) % 2 ;
-        double_q = (double_q + (!simple_q && cmd[i] == '\'')) % 2 ;
-        if (!simple_q && cmd[i] == '$' && cmd[i + 1] && ft_strchars_i(&cmd[i + 1], "?~$%^{}: \"") != -1)
+        double_q = (double_q + (!simple_q && cmd[i] == '\"')) % 2 ;
+        if (!simple_q && cmd[i] == '$' && cmd[i + 1] && ((ft_strchars_i(&cmd[i + 1], "?~$%^{}: \"") != -1 && double_q) || (ft_strchars_i(&cmd[i + 1], "?~$%^{}: ") != -1 && !double_q)))
         {
             cmd = sub_var(cmd, data, i);
             printf("___%d\n", i);
@@ -132,16 +133,17 @@ char    *expand_vars(char *cmd, t_data *data)
     return (cmd);  
 }
 
-// char    **expand_all(char **cmd, t_data *data)
-// {
-//     int i;
+char    **expand_all(char **cmd, t_data *data)
+{
+    int i;
     
-//     i = 0;
-//     while (cmd[i])
-//     {
-//         cmd[i] = expand_vars(cmd[i], data);
-//         cmd[i] = expand_path(cmd[i], data);
-//         i++;
-//     }
-//     return (cmd);
-// }
+    i = 0;
+    while (cmd[i])
+    {
+        cmd[i] = expand_vars(cmd[i], data);
+        cmd[i] = expand_path(cmd[i], data);
+        printf("fin : <<%s>>\n", cmd[i]);
+        i++;
+    }
+    return (cmd);
+}

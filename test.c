@@ -1,26 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.c                                          :+:      :+:    :+:   */
+/*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/01 12:12:05 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/02/13 16:56:12 by ale-cont         ###   ########.fr       */
+/*   Created: 2023/02/14 14:57:24 by ale-cont          #+#    #+#             */
+/*   Updated: 2023/02/14 15:08:38 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "includes/minishell.h"
 
-int	s_error;
-
-void	signal_receive(int sig)
+int main(void)
 {
-	if (sig == SIGINT)
-	{
-		s_error = 130;
-		ioctl(STDIN_FILENO, TIOCSTI, "\n");
-		rl_replace_line("", 0);
-		rl_on_new_line();
-	}
+	char *str = malloc(5 * sizeof(char));
+	// free(str);
+	exit (0);
+	return(0);
 }

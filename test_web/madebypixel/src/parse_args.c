@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 12:08:12 by aperez-b          #+#    #+#             */
-/*   Updated: 2023/02/08 19:03:23 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/02/14 18:07:17 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,35 @@ static char	**split_all(char **args, t_prompt *prompt)
 	while (args && args[++i])
 	{
 		args[i] = expand_vars(args[i], -1, quotes, prompt);
+		printf("b[%d]%s\n", i, args[i]);
 		args[i] = expand_path(args[i], -1, quotes, \
 			mini_getenv("HOME", prompt->envp, 4));
+				printf("b[%d]%s\n", i, args[i]);
+		printf("c[%d]%s\n", i, args[i]);
 		subsplit = ft_cmdsubsplit(args[i], "<|>");
 		ft_matrix_replace_in(&args, subsplit, i);
 		i += ft_matrixlen(subsplit) - 1;
 		ft_free_matrix(&subsplit);
 	}
 	return (args);
+}
+
+void display(t_list *cmds)
+{
+	int	i,j;
+	
+	j = 0;
+	while (cmds)
+	{
+		i = -1;
+		while (((t_mini *)cmds->content)->full_cmd[++i])
+			dprintf(1, "node n.%d cmds[%d] : %s\n", j, i, ((t_mini *)cmds->content)->full_cmd[i]);
+		dprintf(1, "node n.%d full_path : %s\n", j, ((t_mini *)cmds->content)->full_path);
+		dprintf(1, "node n.%d infile : %d\n", j, ((t_mini *)cmds->content)->infile);
+		dprintf(1, "node n.%d outfile : %d\n", j, ((t_mini *)cmds->content)->outfile);
+		j++;
+		cmds = cmds->next;
+	}
 }
 
 static void	*parse_args(char **args, t_prompt *p)
@@ -41,6 +62,7 @@ static void	*parse_args(char **args, t_prompt *p)
 
 	is_exit = 0;
 	p->cmds = fill_nodes(split_all(args, p), -1);
+	display(p->cmds);
 	if (!p->cmds)
 		return (p);
 	i = ft_lstsize(p->cmds);

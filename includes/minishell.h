@@ -53,6 +53,7 @@ typedef struct s_data
 	t_list	*dico;
 	char	**env;
 	char	**argv;
+	int		quit;
 }			t_data;
 
 typedef struct s_node
@@ -73,13 +74,14 @@ char	*find_in_arr(char **arr, char *to_find);
 void	display_list(t_data *data);
 void	init_data(t_data *data);
 int		check_data(t_data *data);
+int		get_here_doc(char *del);
 //----------------------------------------exec--------
 void	exec_cmd_path(char ***res, char *path, char *cmd, char **env);
 void	display_error(char *strerr, char *error);
 //----------------------------------------main--------
 //----------------------------------------parsing-----
-char    *expand_vars(char *cmd, t_data *data);
-char    *expand_path(char *cmd, t_data *data);
+char	*expand_vars(char *cmd, t_data *data);
+char	*expand_path(char *cmd, t_data *data);
 int		launch_mini(t_data *data, char *cmd);
 //----------------------------------------prompt------
 char	*get_prompt(t_data *data);
@@ -90,5 +92,6 @@ void	signal_receive(int sig);
 char	**ft_append_tab(char **in, char *newstr);
 int		len_tab(char **tab);
 int	ft_strchars_i(const char *s, char *set);
+char **ft_replace_in_matrix(char ***matrix, char **insert, int n);
 
 #endif
