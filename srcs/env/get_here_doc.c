@@ -14,6 +14,11 @@
 
 int	s_error = 0;
 
+static char *get_var_hd(char *del, t_data *data)
+{
+
+}
+
 static char	*fill_here_doc(char *del, char *warn)
 {
 	char	*line;
@@ -44,11 +49,12 @@ static char	*fill_here_doc(char *del, char *warn)
 	return (line);
 }
 
-int	get_here_doc(char *del)
+int	get_here_doc(char *del, int quotes, t_data *data)
 {
 	int		fd[2];
 	char	*warning;
 	char	*str;
+	char	*tmp;
 
 	s_error = 0;
 	warning = "minishell: warning: here-document delimited by end-of-file";
@@ -58,6 +64,10 @@ int	get_here_doc(char *del)
 	if (pipe(fd) == -1)
 		perror("pipe");
 	str = fill_here_doc(del, warning);
+	if (quotes == 1)
+		tmp = get_var_hd(str, data);
+	free(str);
+	str = tmp;
 	ft_dprintf(fd[1], "%s", str);
 	free(str);
 	close(fd[1]);
