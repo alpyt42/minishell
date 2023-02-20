@@ -43,11 +43,14 @@ int main(int argc, char **argv, char **env)
 	// while (newmat[++j])
 	// 	dprintf(2, "newmat[%d] : %s, ptr : %p\n", j, newmat[j], newmat[j]);
 	// return (0);
+	// int j =-1;
+	// while (data.env[++j])
+	// 	dprintf(2, "data.env[%d] : %s, ptr : %p\n", j, data.env[j], data.env[j]);
 	// --------------------------------------------
 	data.env = env;
 	data.argv = argv;
 	init_data(&data);
-	// display_list(&data);
+	display_list(&data);
 	// ------------------for : here_doc
 	// int fd = get_here_doc("ls", 1, &data);
 	// if (fd == -1)

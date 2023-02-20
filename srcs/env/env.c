@@ -46,16 +46,51 @@ int	set_env_vars(t_data *data, char *glob_var, char *val)
 	return (1);
 }
 
+static char **mini_split(char *str, int i, int j, int lenone)
+{
+	int		lentwo;
+	char	**res;
+
+	lentwo = 0;
+	if (!str)
+		return (NULL);
+	res = ft_calloc(sizeof(char *), 3);
+	if (!res)
+		return (NULL);
+	while (str[lenone] && str[lenone] != '=')
+		lenone++;
+	if (str[lenone])
+		lentwo = ft_strlen(str + lenone);
+	res[0] = ft_calloc(sizeof(char), lenone + 1);
+	if (lentwo > 0)
+		res[1] = ft_calloc(sizeof(char), lentwo);
+	if (!res[0] || (!res[1] && lentwo > 0))
+		return(NULL);
+	while (++i < lenone)
+		res[0][i] = str[i];
+	i++;
+	if (str[lenone])
+		while(str[i])
+			res[1][j++] = str[i++];
+	return (res);
+}
+
 void	init_dico(t_data *data)
 {
 	int		i;
+	int		j;
+	int		k;
+	int		lenone;
 	char	**cmd;
 
 	i = 0;
+	j = -1;
+	k = 0;
+	lenone = 0;
 	while(data->env[i])
 	{
-		cmd = ft_split(data->env[i], '=');
-		ft_lstadd_back(&data->dico, ft_lstnew(cmd)); // cmd ** VS ft_lstnew(cmd) *
+		cmd = mini_split(data->env[i], j, k, lenone);
+		ft_lstadd_back(&data->dico, ft_lstnew(cmd));
 		i++;
 	}
 }

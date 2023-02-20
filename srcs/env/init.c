@@ -14,12 +14,6 @@
 
 extern int	s_error;
 
-int check_data(t_data *data)
-{
-	(void)data;
-	return (0);
-}
-
 static void init_shlvl(t_data *data)
 {
 	char *shlvl;
@@ -66,12 +60,6 @@ void init_data(t_data *data)
 	data->dico = NULL;
 	init_vars(data);
 	init_dico(data);
-	if (check_data(data))
-	{
-		ft_dprintf(2, "env: '%s': No such file or directory",
-		data->argv[0]);
-		exit(check_data(data));
-	}
 }
 
 void display_list(t_data *data)
