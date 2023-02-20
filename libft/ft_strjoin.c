@@ -18,23 +18,20 @@ char	*ft_strjoin(char *left_str, char *buf)
 	size_t	i;
 	size_t	j;
 
-	if (left_str == NULL)
-	{
-		left_str = (char *)ft_calloc(sizeof(char), 1);
-		if (!left_str)
-			return (NULL);
-	}
-	if (!left_str || !buf)
+	if (!left_str && !buf)
 		return (NULL);
+	if (!left_str)
+		return (ft_strdup(buf));
+	if (!buf)
+		return (ft_strdup(left_str));
 	str = ft_calloc(sizeof(char), (ft_strlen(left_str) + ft_strlen(buf) + 1));
 	if (!str)
 		return (NULL);
 	i = -1;
 	j = 0;
-	if (left_str)
-		while (left_str[++i] != '\0')
-			str[i] = left_str[i];
-	while (buf[j] != '\0')
+	while (left_str[++i])
+		str[i] = left_str[i];
+	while (buf[j])
 		str[i++] = buf[j++];
 	return (str);
 }
