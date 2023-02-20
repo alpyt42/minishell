@@ -97,7 +97,7 @@ void	signal_receive(int sig);
 //----------------------------------------utils-------
 char	**ft_append_tab(char **in, char *newstr);
 int		len_tab(char **tab);
-int	ft_strchars_i(const char *s, char *set);
-char **ft_replace_in_matrix(char **matrix, char **insert, int n);
+int		ft_strchars_i(const char *s, char *set);
+void	ft_replace_in_matrix(char ***newmat, char **matrix, char **insert, int n);
 
 #endif

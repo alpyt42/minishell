@@ -15,17 +15,11 @@
 void	ft_free_arr(char **arr)
 {
 	int	i;
+
 	i = 0;
-	int j =-1;
-	while (arr[++j])
-		dprintf(2, "arr[%d] : %s, ptr : %p\n", j, arr[j], arr);
 	if (!arr)
 		return ;
 	while (arr[i])
-	{
-		dprintf(2, "free : arr[%d] : %s, ptr : %p\n", i, arr[i], arr);
 		free(arr[i++]);
-	}
-	// free(arr);
-	// dprintf(1, "FIN");
+	free(arr);
 }

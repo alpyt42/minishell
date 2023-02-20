@@ -51,41 +51,30 @@ char	**ft_append_tab(char **tab, char *line)
 	return (res);
 }
 
-char **ft_replace_in_matrix(char **matrix, char **insert, int n)
+void	ft_replace_in_matrix(char ***newmat, char **matrix, char **insert, int n)
 {
 	char **temp;
-	
-	int	i;
-	int	j;
-	int	k;
+
+	int i;
+	int j;
+	int k;
 
 	i = -1;
 	j = -1;
 	k = -1;
 	if (!matrix || n < 0 || n >= len_tab(matrix))
-		return (NULL);
-	printf("Taille totale : %d\n", len_tab(matrix) + len_tab(insert));
-	temp = ft_calloc((len_tab(matrix) + len_tab(insert)), sizeof(char*));
+		return;
+	temp = ft_calloc((len_tab(matrix) + len_tab(insert)), sizeof(char *));
 	if (!temp)
-		return (NULL);
+		return;
 	while (temp && matrix[++i])
 	{
 		if (i != n)
-		{
-			printf("<<<=%d>>\n", i);
 			temp[++j] = ft_strdup(matrix[i]);
-		}
 		else
-		{
 			while (insert && insert[++k])
 				temp[++j] = ft_strdup(insert[k]);
-		}
-		printf("%s\n", temp[j]);
-	printf("<<<%d>>>\n", i);
 	}
-	printf("ptr after : %p\n", matrix);
 	ft_free_arr(matrix);
-	matrix = temp;
-	return (matrix);
+	*newmat = temp;
 }
-
