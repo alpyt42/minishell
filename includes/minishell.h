@@ -80,6 +80,7 @@ void	display_list(t_data *data);
 void	init_data(t_data *data);
 int		check_data(t_data *data);
 int		get_here_doc(char *del, int quotes, t_data *data);
+char	*get_var_hd(char *del, t_data *data);
 //----------------------------------------exec--------
 void	exec_cmd_path(char ***res, char *path, char *cmd, char **env);
 int		errors(char *strerr, char *error, int n);

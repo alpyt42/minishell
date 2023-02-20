@@ -14,11 +14,35 @@
 
 int	s_error = 0;
 
+char *sub_vars(char *del, t_data *data, int *i)
+{
+	char	*str;
+	char	*var;
+	char	*before;
+	before = ft_substr(del, 0, *i);
+	printf("<<<<%s>>>>>\n", ft_substr(del, *i + 1, ft_strchars_i(&del[*i + 1], "/`!*@=><+-;#&$?~%^{}: \"\'")));
+	var = search_dico(ft_substr(del, *i + 1, ft_strchars_i(&del[*i + 1], "/`!*@=><+-;#&$?~%^{}: \"\'")), data);
+	printf("___%s___\n", search_dico(ft_substr(del, *i + 1, ft_strchars_i(&del[*i + 1], "/`!*@=><+-;#&$?~%^{}: \"\'")), data));
+	if (var)
+		str = ft_strjoin(before, var);
+	else
+		str = ft_strdup(before);
+	if (ft_strchars_i(&del[*i + 1], "|/`!*@=><+-;#&$?~%^{}: \"\'") != - 1)
+		del = ft_strjoin(str, &del[*i + 1 + ft_strchars_i(&del[*i + 1], "|/`!*@=><+-;#&$?~%^{}: \"\'\0")]);
+	else
+		del = ft_strdup(str);
+	if (var)
+	{
+		(*i) ++;
+		free (var);
+	}
+	free (before);
+	free (str);
+	return (del);
+}
+
 char *get_var_hd(char *del, t_data *data)
 {
-	char *str;
-	char *var;
-	char *before;
 	int	i;
 	
 	i = 0;
@@ -26,23 +50,14 @@ char *get_var_hd(char *del, t_data *data)
 	{
 		if (del[i] == '$' && del[i + 1])
 		{
-			before = ft_substr(del, 0, i);
-			var = search_dico(ft_substr(del, i + 1, ft_strchars_i(&del[i + 1], "$?~%^{}: \"\'")), data);
-			if (var)
-				str = ft_strjoin(before, var);
-			else
-				str = ft_strdup(before);
-			if (ft_strchars_i(&del[i + 1], "$?~%^{}: \"\'") != - 1)
-				del = ft_strjoin(str, &del[i + 1 + ft_strchars_i(&del[i + 1], "$?~%^${}: \" \0")]);
-			else
-				del = ft_strdup(str);
-			if (var)
-			  i++;
+			del = sub_vars(del, data, &i);
+			printf("<<%s>>\n", del);
+			printf("%d\n", i);
 		}
 		else	
 			i++;
 	}
-	printf("%s>\n", del);
+	printf("%s\n", del);
 	return (del);
 }
 
@@ -57,14 +72,14 @@ char *get_var_hd(char *del, t_data *data)
 // 	while (s_error != 130)
 // 	{
 // 		readstr = readline("> ");
-// 		// dprintf(1,"ft_strlen(readstr) - 1:%ld ft_strlen(del):%ld ft_strncmp(del, readstr, ft_strlen(readstr) - 1):%d\n", ft_strlen(readstr), ft_strlen(del), ft_strncmp(del, readstr, ft_strlen(readstr) - 1) );
-// 		// dprintf(1, "del : $%s$\nreadstr : $%s$\n", del, readstr);
+// 		dprintf(1,"ft_strlen(readstr) - 1:%ld ft_strlen(del):%ld ft_strncmp(del, readstr, ft_strlen(readstr) - 1):%d\n", ft_strlen(readstr), ft_strlen(del), ft_strncmp(del, readstr, ft_strlen(readstr) - 1) );
+// 		dprintf(1, "del : $%s$\nreadstr : $%s$\n", del, readstr);
 // 		if (!readstr)
 // 		{
 // 			ft_dprintf(2, "%s : %s", warn, del);
 // 			break ;
 // 		}
-// 		if (!ft_strncmp(del, readstr, ft_strlen(readstr))\
+// 		if (!ft_strncmp(del, readstr, ft_strlen(readstr))
 // 			&& ft_strlen(readstr) == ft_strlen(del))
 // 			break ;
 // 		line = ft_strjoin(line, readstr);

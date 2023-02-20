@@ -35,6 +35,8 @@ int main(int argc, char **argv, char **env)
 	data.env = env;
 	data.argv = argv;
 	init_data(&data);
+	get_var_hd("$HOME$HOME", &data);
+	return (0);
 	ft_dprintf(1, "\033[1;90mMINI.SHELL  |  ale-cont \\ amontalb\033[0;39m\n");
 	// display_list(&data);
 	// ------------------for : here_doc
