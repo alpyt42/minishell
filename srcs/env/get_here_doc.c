@@ -19,10 +19,15 @@ char *sub_vars(char *del, t_data *data, int *i)
 	char	*str;
 	char	*var;
 	char	*before;
+	char *user;
+	int searchd;
+
+
 	before = ft_substr(del, 0, *i);
-	printf("<<<<%s>>>>>\n", ft_substr(del, *i + 1, ft_strchars_i(&del[*i + 1], "/`!*@=><+-;#&$?~%^{}: \"\'")));
-	var = search_dico(ft_substr(del, *i + 1, ft_strchars_i(&del[*i + 1], "/`!*@=><+-;#&$?~%^{}: \"\'")), data);
-	printf("___%s___\n", search_dico(ft_substr(del, *i + 1, ft_strchars_i(&del[*i + 1], "/`!*@=><+-;#&$?~%^{}: \"\'")), data));
+	searchd = ft_strchars_i(&del[*i + 1], "/`!*@=><+-;#&$?~%^{}: \"\'");
+	user = ft_substr(del, *i + 1, searchd);
+	var = search_dico(user, data);
+	free(user);
 	if (var)
 		str = ft_strjoin(before, var);
 	else
@@ -32,10 +37,7 @@ char *sub_vars(char *del, t_data *data, int *i)
 	else
 		del = ft_strdup(str);
 	if (var)
-	{
 		(*i) ++;
-		free (var);
-	}
 	free (before);
 	free (str);
 	return (del);
@@ -49,15 +51,10 @@ char *get_var_hd(char *del, t_data *data)
 	while (del[i])
 	{
 		if (del[i] == '$' && del[i + 1])
-		{
 			del = sub_vars(del, data, &i);
-			printf("<<%s>>\n", del);
-			printf("%d\n", i);
-		}
 		else	
 			i++;
 	}
-	printf("%s\n", del);
 	return (del);
 }
 

@@ -51,7 +51,7 @@ char	**ft_append_tab(char **tab, char *line)
 	return (res);
 }
 
-char **ft_replace_in_matrix(char ***matrix, char **insert, int n)
+char **ft_replace_in_matrix(char **matrix, char **insert, int n)
 {
 	char **temp;
 	
@@ -62,18 +62,18 @@ char **ft_replace_in_matrix(char ***matrix, char **insert, int n)
 	i = -1;
 	j = -1;
 	k = -1;
-	if (!matrix || !*matrix || n < 0 || n >= len_tab(*matrix))
+	if (!matrix || n < 0 || n >= len_tab(matrix))
 		return (NULL);
-	printf("%d\n", len_tab(*matrix) + len_tab(insert));
-	temp = ft_calloc((len_tab(*matrix) + len_tab(insert)), sizeof(char*));
+	printf("Taille totale : %d\n", len_tab(matrix) + len_tab(insert));
+	temp = ft_calloc((len_tab(matrix) + len_tab(insert)), sizeof(char*));
 	if (!temp)
 		return (NULL);
-	while (temp && matrix[0][++i])
+	while (temp && matrix[++i])
 	{
 		if (i != n)
 		{
-		printf("<<<j=%d>>\n", i);
-			temp[++j] = ft_strdup(matrix[0][i]);
+			printf("<<<=%d>>\n", i);
+			temp[++j] = ft_strdup(matrix[i]);
 		}
 		else
 		{
@@ -83,8 +83,9 @@ char **ft_replace_in_matrix(char ***matrix, char **insert, int n)
 		printf("%s\n", temp[j]);
 	printf("<<<%d>>>\n", i);
 	}
-	ft_free_arr(*matrix);
-	*matrix = temp;
-	return (*matrix);
+	printf("ptr after : %p\n", matrix);
+	ft_free_arr(matrix);
+	matrix = temp;
+	return (matrix);
 }
 

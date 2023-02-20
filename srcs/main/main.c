@@ -20,22 +20,27 @@ int main(int argc, char **argv, char **env)
 	char *prompt;
 	char *command;
 	// --------------------------------------------
-	// char **tab = ft_calloc(sizeof(char), 4);
-	// tab[0] = ft_strdup("SALUT");
-	// tab[1] = ft_strdup("Les");
-	// tab[2] = ft_strdup("gars");
-	// char **insert = ft_calloc(sizeof(char), 2);
-	// insert[0] = ft_strdup("petit");
-	// ft_replace_in_matrix(&tab, insert, 1);
-	// int i = 0;
+	char **tab = ft_calloc(sizeof(char), 4);
+	tab[0] = ft_strdup("SALUT");
+	tab[1] = ft_strdup("Les");
+	tab[2] = ft_strdup("gars");
+	tab[3] = NULL;
+	char **insert = ft_calloc(sizeof(char), 3);
+	insert[0] = ft_strdup("petit");
+	insert[1] = ft_strdup("kiki");
+	insert[2] = NULL;
+	printf("ptr before : %p\n", tab);
+	ft_replace_in_matrix(tab, insert, 1);
+	int i = 0;
 	// ft_dprintf(1, "test");
-	// while(tab[i])
-	// 	printf("%s\n", tab[i++]);
-	// exit(0);
+	while(tab[i])
+		printf("%s\n", tab[i++]);
+	exit(0);
 	data.env = env;
 	data.argv = argv;
 	init_data(&data);
-	get_var_hd("$HOME$HOME", &data);
+	
+
 	return (0);
 	ft_dprintf(1, "\033[1;90mMINI.SHELL  |  ale-cont \\ amontalb\033[0;39m\n");
 	// display_list(&data);
@@ -44,7 +49,7 @@ int main(int argc, char **argv, char **env)
 	if (fd == -1)
 		exit (2);
 	char buf[20];
-	int i = 0;
+	// int i = 0;
 	while (read(fd, buf, 1) != 0)
 		printf("\nfd : %d / buf n.%d : %s", fd, i++, buf);
 	exit(0);
