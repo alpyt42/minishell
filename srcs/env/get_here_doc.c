@@ -6,7 +6,7 @@
 /*   By: amontalb <amontalb@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 17:08:00 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/02/17 09:17:16 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/02/17 18:13:09 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,13 @@ char *get_var_hd(char *del, t_data *data)
 {
 	char *str;
 	char *var;
-	// char *finish;
-	int	i;
 	char *before;
+	int	i;
 	
 	i = 0;
 	while (del[i])
 	{
-		if (del[i] == '$')
+		if (del[i] == '$' && del[i + 1])
 		{
 			before = ft_substr(del, 0, i);
 			var = search_dico(ft_substr(del, i + 1, ft_strchars_i(&del[i + 1], "$?~%^{}: \"\'")), data);
@@ -33,24 +32,18 @@ char *get_var_hd(char *del, t_data *data)
 				str = ft_strjoin(before, var);
 			else
 				str = ft_strdup(before);
-			// free (var);
-			// free (before);
-			printf("i : %d\n", i);
-			del = ft_strjoin(str, &del[i + 1 + ft_strchars_i(&del[i + 1], "$?~%^${}: \"")]);
-			printf("before :%s> \n", before);
-			printf("var :%s> \n", var);
-			printf("del :%s> \n", del);
-			// return 0;
-			i++;
+			if (ft_strchars_i(&del[i + 1], "$?~%^{}: \"\'") != - 1)
+				del = ft_strjoin(str, &del[i + 1 + ft_strchars_i(&del[i + 1], "$?~%^${}: \" \0")]);
+			else
+				del = ft_strdup(str);
+			if (var)
+			  i++;
 		}
 		else	
 			i++;
 	}
-	printf("%s\n", del);
-	(void)del;
-	(void)data;
-	str = NULL;
-	return (str);
+	printf("%s>\n", del);
+	return (del);
 }
 
 // static char	*fill_here_doc(char *del, char *warn)

@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   lexing.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amontalb <amontalb@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 08:47:16 by amontalb          #+#    #+#             */
-/*   Updated: 2023/02/07 09:02:32 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/02/16 16:41:02 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 
-int	count_word(char *cmd, char s)
+int	count_word(char *cmd, char *s)
 {
 	int	words;
 	int	simple_q;
@@ -24,12 +24,12 @@ int	count_word(char *cmd, char s)
 	words = 0;
 	while (cmd[i])
 	{
-		if (cmd[i] != s)
+		if (!ft_strchr(s, cmd[i]))
 		{
-		simple_q = 0;
-		double_q = 0;
+			simple_q = 0;
+			double_q = 0;
 			words++;
-			while (cmd[i] && (cmd[i] != s || double_q == 1 || simple_q == 1))		
+			while (cmd[i] && (!ft_strchr(s, cmd[i]) || double_q == 1 || simple_q == 1))		
 			{
 				if (cmd[i] == '\"' && simple_q == 0)
 					double_q += 1;
@@ -48,7 +48,7 @@ int	count_word(char *cmd, char s)
 	return(words);
 }
 
-char **fill_lexing2(char **cmdlex, char *cmd, char s)
+char **fill_lexing2(char **cmdlex, char *cmd, char *s)
 {
 	int	simple_q;
 	int	double_q;
@@ -60,12 +60,12 @@ char **fill_lexing2(char **cmdlex, char *cmd, char s)
 	k = 0;
 	while (cmd[i])
 	{
-		while (cmd[i] && cmd[i] == s)
+		while (cmd[i] && ft_strchr(s, cmd[i]))
 			i++;
 		j = i;
 		simple_q = 0;
 		double_q = 0;
-		while (cmd[i] && (cmd[i] != s || double_q == 1 || simple_q == 1))		
+		while (cmd[i] && (!ft_strchr(s, cmd[i]) || double_q == 1 || simple_q == 1))		
 		{
 			if (cmd[i] == '\"' && simple_q == 0)
 				double_q += 1;
@@ -90,13 +90,13 @@ char	**cmdlexing(char *cmd)
 {
 	char	**cmdlex;
 	int		nbr_words;
-	nbr_words = count_word(cmd, ' ');
+	nbr_words = count_word(cmd, " ");
 	if (nbr_words == -1)
 		return (NULL);
 	cmdlex =(char **) malloc (sizeof(char *) * (nbr_words + 1));
 	if (!cmdlex)
 		return (NULL);
-	cmdlex = fill_lexing2(cmdlex, cmd, ' ');
+	cmdlex = fill_lexing2(cmdlex, cmd, " ");
 	return (cmdlex);
 }
 
