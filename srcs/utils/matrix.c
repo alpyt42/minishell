@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   matrix.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 17:24:09 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/02/02 16:50:46 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/02/21 13:30:22 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,30 +51,41 @@ char	**ft_append_tab(char **tab, char *line)
 	return (res);
 }
 
-void	ft_replace_in_matrix(char ***newmat, char **matrix, char **insert, int n)
+char **ft_replace_in_matrix(char **matrix, char **insert, int n)
 {
 	char **temp;
-
-	int i;
-	int j;
-	int k;
+	
+	int	i;
+	int	j;
+	int	k;
 
 	i = -1;
 	j = -1;
 	k = -1;
 	if (!matrix || n < 0 || n >= len_tab(matrix))
-		return;
-	temp = ft_calloc((len_tab(matrix) + len_tab(insert)), sizeof(char *));
+		return (NULL);
+	// printf("Taille totale : %d\n", len_tab(matrix) + len_tab(insert));
+	temp = ft_calloc((len_tab(matrix) + len_tab(insert)), sizeof(char*));
 	if (!temp)
-		return;
+		return (NULL);
 	while (temp && matrix[++i])
 	{
 		if (i != n)
+		{
+			// printf("<<<=%d>>\n", i);
 			temp[++j] = ft_strdup(matrix[i]);
+		}
 		else
+		{
 			while (insert && insert[++k])
 				temp[++j] = ft_strdup(insert[k]);
+		}
+		// printf("%s\n", temp[j]);
+	// printf("<<<%d>>>\n", i);
 	}
+	// printf("ptr after : %p\n", matrix);
 	ft_free_arr(matrix);
-	*newmat = temp;
+	matrix = temp;
+	return (matrix);
 }
+

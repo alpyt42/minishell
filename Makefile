@@ -2,7 +2,7 @@ NAME = minishell
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror -g3
+CFLAGS = -Wall -Wextra -Werror -g3 #-O2 -pipe
 # CFLAGS += -fsanitize=address
 CFLAGS += -I includes/ -I libft/
 
@@ -14,7 +14,7 @@ BUILTINS = builtin
 ENV = env init get_here_doc get_file
 EXEC = exec_cmd mini
 MAIN = main
-PARSING = token expand lexing
+PARSING = token expand lexing parse_all cmdsplit
 TOOLS = error
 UTILS = matrix other_function
 PROMPT = prompt

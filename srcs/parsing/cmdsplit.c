@@ -3,61 +3,91 @@
 /*                                                        :::      ::::::::   */
 /*   cmdsplit.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amontalb <amontalb@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 15:52:13 by amontalb          #+#    #+#             */
-/*   Updated: 2023/02/16 16:29:45 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/02/21 13:25:55 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static char	**ft_fill_array(char **aux, char *s, char *set, int i[3])
+static int	count_word(char *cmd, char *s)
 {
-	int		q[2];
+	int	words;
+	int	simple_q;
+	int	double_q;
+	int	i;
 
-	q[0] = 0;
-	q[1] = 0;
-	int j = 0;
-	while (s && s[i[0]] != '\0')
+	i = 0;
+	words = 0;
+	while (cmd[i])
 	{
-		i[1] = i[0];
-		if (!ft_strchr(set, s[i[0]]))
+		words++;
+		if (!ft_strchr(s, cmd[i]))
 		{
-			while ((!ft_strchr(set, s[i[0]]) || q[0] || q[1]) && s[i[0]])
+			simple_q = 0;
+			double_q = 0;
+			while (cmd[i] && (!ft_strchr(s, cmd[i]) || double_q || simple_q))		
 			{
-				q[0] = (q[0] + (!q[1] && s[i[0]] == '\'')) % 2;
-				q[1] = (q[1] + (!q[0] && s[i[0]] == '\"')) % 2;
-				i[0]++;
+				simple_q = (simple_q + (!double_q && cmd[i] == '\'')) % 2 ;
+      			double_q = (double_q + (!simple_q && cmd[i] == '\"')) % 2 ;
+				i++;
+			}
+			if ((simple_q == 1) || (double_q == 1))
+				return (-1);
+		} 
+		else
+			i++;		
+	}
+	return(words);
+}
+
+static char **fill_array(char **cmdlex, char *cmd, char *s)
+{
+	int	simple_q;
+	int	double_q;
+	int	i;
+	int j;
+	int k;
+
+	i = 0;
+	k = 0;
+	while (cmd[i])
+	{
+		j = i;
+		if (!ft_strchr(s, cmd[i]))
+		{
+			while (cmd[i] && (!ft_strchr(s, cmd[i]) || double_q|| simple_q))		
+			{
+				simple_q = (simple_q + (!double_q && cmd[i] == '\'')) % 2 ;
+        		double_q = (double_q + (!simple_q && cmd[i] == '\"')) % 2 ;
+				i++;
 			}
 		}
 		else
-			i[0]++;
-		aux[j] = ft_substr(s, i[1], i[0] - i[1]);
-		printf("cmdsubslip[%d] :%s\n", j, aux[j]);
-		j++;
+			i++;
+		cmdlex[k] = ft_substr(cmd, j, i - j);
+		k++;
 	}
-	return (aux);
+	return (cmdlex);
 }
 
 
 
-
-
-char **cmdsplit(char *cmd,char *s)
+char **ft_cmdsplit(char *cmd, char *s)
 {
 	char **cmdsplit;
 	int  nbrwords;
-
-	nbrwords = count_word(cmd, "><|");
-	if (nbrwords = - 1)
+	
+	// dprintf(2, "nbr_words\n");
+	nbrwords = count_word(cmd, s);
+	if (nbrwords == -1)
 		return (NULL);
 	cmdsplit = malloc((nbrwords + 1) * sizeof(char *));
 	if (!cmdsplit)
 		return (NULL);
-
-	
+	cmdsplit = fill_array(cmdsplit, cmd, s);
 	cmdsplit[nbrwords] = NULL;
 	return (cmdsplit);
-	
 }
