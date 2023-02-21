@@ -14,7 +14,7 @@ BUILTINS = builtin
 ENV = env init get_here_doc get_file
 EXEC = exec_cmd mini
 MAIN = main
-PARSING = token expand lexing parse_all cmdsplit
+PARSING = token expand lexing cmdsplit
 TOOLS = error
 UTILS = matrix other_function
 PROMPT = prompt
@@ -39,16 +39,16 @@ SRC = $(addsuffix .c, $(addprefix srcs/builtins/, $(BUILTINS))) \
 
 OBJ = $(SRC:c=o)
 
-all: lib $(NAME)
+all: $(NAME)
 
-$(NAME): $(OBJ)
+$(NAME): lib $(OBJ)
 	@echo "\n"
 	@echo "\033[0;32mCompiling minishell...\033[0m"
-	@$(CC) -L $(CFLAGS) -o $(NAME) $(OBJ) -lreadline $(LIBFT)
+	@$(CC) -L $(CFLAGS) -o $(NAME) $(OBJ) $(LIBFT) -lreadline
 	@echo "\nDone !"
 
 %.o: %.c $(HEADER) $(LIBFT)
-	@printf "\033[0;33mGenerating minishell objects... %-33.33s\r" $@
+	@echo "\033[0;33mGenerating minishell objects... %-33.33s\r" $@
 	@${CC} -I $(CFLAGS) -c $< -o $@
 
 lib :

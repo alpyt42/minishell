@@ -3,23 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_here_doc.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 17:08:00 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/02/21 14:30:32 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/02/21 22:52:01 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	s_error = 0;
-
-static void delquotes(char *del, int *q)
-{
-	if (!del)
-		return ;
-	
-}
+extern int	s_error;
 
 static char *sub_vars(char *del, t_data *data, int *i)
 {
@@ -112,8 +105,7 @@ int	get_here_doc(char *del, t_data *data)
 	q = 0;
 	warning = "minishell: warning: here-document delimited by end-of-file";
 	dprintf(1, "delimiter : --%s--\n", del);
-	delquotes(&del, &q);
-	if (!del || (ft_strchr(del, '<') || ft_strchr(del, '|') && q == 0))
+	if (!del || ft_strchr(del, '<') || ft_strchr(del, '|'))
 		return(errors("minishell: syntax error near unexpected token", del, 1));
 	if (pipe(fd) == -1)
 		perror("pipe");

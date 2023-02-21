@@ -78,7 +78,7 @@ int		set_env_vars(t_data *data, char *glob_var, char *val);
 char	*find_in_arr(char **arr, char *to_find);
 void	display_list(t_data *data);
 void	init_data(t_data *data);
-int		get_here_doc(char *del, int quotes, t_data *data);
+int		get_here_doc(char *del, t_data *data);
 //----------------------------------------exec--------
 void	exec_cmd_path(char ***res, char *path, char *cmd, char **env);
 int		errors(char *strerr, char *error, int n);
