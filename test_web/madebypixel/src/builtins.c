@@ -120,6 +120,9 @@ int	mini_echo(t_list *cmd)
 	newline = 1;
 	node = cmd->content;
 	argv = node->full_cmd;
+	int j =-1;
+	while (argv[++j])
+		dprintf(2, "echo_cmd[%d] : %s, ptr : %p\n", j, argv[j], argv[j]);
 	while (argv && argv[++i[0]])
 	{
 		if (!i[1] && !ft_strncmp(argv[i[0]], "-n", 2) && \

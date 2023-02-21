@@ -12,4 +12,4 @@
 
 #include "../../includes/minishell.h"
 
-t_list *fill_nodes(char **cmds, int i)
+t_list *fill_nodes(char **cmds, int i);

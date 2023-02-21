@@ -63,7 +63,9 @@ static char	**get_trimmed(char **args)
 	temp = ft_dup_matrix(args);
 	while (temp && temp[++j])
 	{
+		printf("get_trimmed_temp[%d] : %s\n", j, temp[j]);
 		aux = ft_strtrim_all(temp[j], 0, 0);
+		printf("aux (after strtrim): %s\n", aux);
 		free(temp[j]);
 		temp[j] = aux;
 	}
@@ -85,6 +87,9 @@ t_list	*fill_nodes(char **args, int i)
 
 	cmds[0] = NULL;
 	temp[1] = get_trimmed(args);
+	int j =-1;
+	while (temp[1][++j])
+		dprintf(2, "fill_nodes_temp[1][%d] : %s\n", j, temp[1][j]);
 	while (args[++i])
 	{
 		cmds[1] = ft_lstlast(cmds[0]);

@@ -24,11 +24,11 @@ static char	**split_all(char **args, t_prompt *prompt)
 	while (args && args[++i])
 	{
 		args[i] = expand_vars(args[i], -1, quotes, prompt);
-		printf("b[%d]%s\n", i, args[i]);
+		// printf("b[%d]%s\n", i, args[i]);
 		args[i] = expand_path(args[i], -1, quotes, \
 			mini_getenv("HOME", prompt->envp, 4));
-				printf("b[%d]%s\n", i, args[i]);
-		printf("c[%d]%s\n", i, args[i]);
+		// printf("b[%d]%s\n", i, args[i]);
+		// printf("c[%d]%s\n", i, args[i]);
 		subsplit = ft_cmdsubsplit(args[i], "<|>");
 		ft_matrix_replace_in(&args, subsplit, i);
 		i += ft_matrixlen(subsplit) - 1;
@@ -59,9 +59,14 @@ static void	*parse_args(char **args, t_prompt *p)
 {
 	int	is_exit;
 	int	i;
+	char	**sp;
 
+	sp = split_all(args, p);
 	is_exit = 0;
-	p->cmds = fill_nodes(split_all(args, p), -1);
+	int j =-1;
+	while (sp[++j])
+		dprintf(2, "sp[%d] : %s\n", j, sp[j]);
+	p->cmds = fill_nodes(sp, -1);
 	display(p->cmds);
 	if (!p->cmds)
 		return (p);

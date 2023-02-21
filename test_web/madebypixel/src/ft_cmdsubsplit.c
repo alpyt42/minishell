@@ -62,7 +62,7 @@ static char	**ft_fill_array(char **aux, char *s, char *set, int i[3])
 		else
 			i[0]++;
 		aux[j] = ft_substr(s, i[1], i[0] - i[1]);
-		printf("cmdsubslip[%d] :%s\n", j, aux[j]);
+		// printf("cmdsubslip[%d] :%s\n", j, aux[j]);
 		j++;
 	}
 	return (aux);

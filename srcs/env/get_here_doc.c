@@ -14,6 +14,13 @@
 
 int	s_error = 0;
 
+static void delquotes(char *del, int *q)
+{
+	if (!del)
+		return ;
+	
+}
+
 static char *sub_vars(char *del, t_data *data, int *i)
 {
 	char	*str;
@@ -32,7 +39,7 @@ static char *sub_vars(char *del, t_data *data, int *i)
 	else
 		str = ft_strdup(before);
 	if (ft_strchars_i(&del[*i + 1], "|/`!*@=><+-;#&$?~%^{}: \"\'\n") != - 1)
-		del = ft_strjoin(str, &del[*i + 1 + ft_strchars_i(&del[*i + 1], "|/`!*@=><+-;#&$?~%^{}: \"\'\0")]);
+		del = ft_strjoin(str, &del[*i + 1 + ft_strchars_i(&del[*i + 1], "|/`!*@=><+-;#&$?~%^{}: \"\'\n\0")]);
 	else
 		del = ft_strdup(str);
 	if (var)
@@ -94,26 +101,29 @@ static char	*fill_here_doc(char *del, char *warn)
 	return (line);
 }
 
-int	get_here_doc(char *del, int quotes, t_data *data)
+int	get_here_doc(char *del, t_data *data)
 {
 	int		fd[2];
 	char	*warning;
 	char	*str;
+	int		q;
 
 	s_error = 0;
+	q = 0;
 	warning = "minishell: warning: here-document delimited by end-of-file";
 	dprintf(1, "delimiter : --%s--\n", del);
-	if (!del || ft_strchr(del, '<') || ft_strchr(del, '|'))
+	delquotes(&del, &q);
+	if (!del || (ft_strchr(del, '<') || ft_strchr(del, '|') && q == 0))
 		return(errors("minishell: syntax error near unexpected token", del, 1));
 	if (pipe(fd) == -1)
 		perror("pipe");
 	str = fill_here_doc(del, warning);
-	if (quotes == 1)
+	if (q == 1)
 		str = get_var_hd(str, data);
 	dprintf(2, "str : %s", str);
-	ft_dprintf(fd[1], "%s", str);
-	free(str);
+	write(fd[1], str, ft_strlen(str));
 	close(fd[1]);
+	free(str);
 	if (s_error == 130)
 	{
 		close(fd[0]);
