@@ -14,17 +14,16 @@
 
 int	s_error = 0;
 
-char *sub_vars(char *del, t_data *data, int *i)
+static char *sub_vars(char *del, t_data *data, int *i)
 {
 	char	*str;
 	char	*var;
 	char	*before;
-	char *user;
-	int searchd;
-
+	char	*user;
+	int		searchd;
 
 	before = ft_substr(del, 0, *i);
-	searchd = ft_strchars_i(&del[*i + 1], "/`!*@=><+-;#&$?~%^{}: \"\'");
+	searchd = ft_strchars_i(&del[*i + 1], "/`!*@=><+-;#&$?~%^{}: \"\'\n");
 	user = ft_substr(del, *i + 1, searchd);
 	var = search_dico(user, data);
 	free(user);
@@ -32,27 +31,33 @@ char *sub_vars(char *del, t_data *data, int *i)
 		str = ft_strjoin(before, var);
 	else
 		str = ft_strdup(before);
-	if (ft_strchars_i(&del[*i + 1], "|/`!*@=><+-;#&$?~%^{}: \"\'") != - 1)
+	if (ft_strchars_i(&del[*i + 1], "|/`!*@=><+-;#&$?~%^{}: \"\'\n") != - 1)
 		del = ft_strjoin(str, &del[*i + 1 + ft_strchars_i(&del[*i + 1], "|/`!*@=><+-;#&$?~%^{}: \"\'\0")]);
 	else
 		del = ft_strdup(str);
 	if (var)
-		(*i) ++;
+		(*i)++;
 	free (before);
 	free (str);
 	return (del);
 }
 
-char *get_var_hd(char *del, t_data *data)
+static char *get_var_hd(char *del, t_data *data)
 {
-	int	i;
+	int		i;
+	char	*tmp;
 	
 	i = 0;
-	while (del[i])
+	tmp = NULL;
+	while (del && del[i])
 	{
 		if (del[i] == '$' && del[i + 1])
+		{
+			tmp = del;
 			del = sub_vars(del, data, &i);
-		else	
+			free(tmp);
+		}
+		else
 			i++;
 	}
 	return (del);
@@ -69,8 +74,6 @@ static char	*fill_here_doc(char *del, char *warn)
 	while (s_error != 130)
 	{
 		readstr = readline("> ");
-		dprintf(1,"ft_strlen(readstr) - 1:%ld ft_strlen(del):%ld ft_strncmp(del, readstr, ft_strlen(readstr) - 1):%d\n", ft_strlen(readstr), ft_strlen(del), ft_strncmp(del, readstr, ft_strlen(readstr) - 1) );
-		dprintf(1, "del : $%s$\nreadstr : $%s$\n", del, readstr);
 		if (!readstr)
 		{
 			ft_dprintf(2, "%s : %s", warn, del);
@@ -79,12 +82,15 @@ static char	*fill_here_doc(char *del, char *warn)
 		if (!ft_strncmp(del, readstr, ft_strlen(readstr))
 			&& ft_strlen(readstr) == ft_strlen(del))
 			break ;
+		tmp = line;
 		line = ft_strjoin(line, readstr);
+		free(tmp);
 		tmp = line;
 		line = ft_strjoin(line, "\n");
 		free(tmp);
 		free(readstr);
 	}
+	dprintf(1, "line : %s", line);
 	return (line);
 }
 
@@ -93,7 +99,6 @@ int	get_here_doc(char *del, int quotes, t_data *data)
 	int		fd[2];
 	char	*warning;
 	char	*str;
-	char	*tmp;
 
 	s_error = 0;
 	warning = "minishell: warning: here-document delimited by end-of-file";
@@ -104,9 +109,8 @@ int	get_here_doc(char *del, int quotes, t_data *data)
 		perror("pipe");
 	str = fill_here_doc(del, warning);
 	if (quotes == 1)
-		tmp = get_var_hd(str, data);
-	free(str);
-	str = tmp;
+		str = get_var_hd(str, data);
+	dprintf(2, "str : %s", str);
 	ft_dprintf(fd[1], "%s", str);
 	free(str);
 	close(fd[1]);
