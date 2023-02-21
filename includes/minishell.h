@@ -86,8 +86,10 @@ void	exec_cmd_path(char ***res, char *path, char *cmd, char **env);
 int		errors(char *strerr, char *error, int n);
 //----------------------------------------main--------
 //----------------------------------------parsing-----
-char	*expand_vars(char *cmd, t_data *data);
-char	*expand_path(char *cmd, t_data *data);
+char	**ft_cmdsplit(char *cmd, char *s);
+char	**cmdlexing(char *cmd);
+char	*check_pars(char *cmd, t_data *data);
+char    **expand_all(char **cmd, t_data *data);
 int		launch_mini(t_data *data, char *cmd);
 //----------------------------------------prompt------
 char	*get_prompt(t_data *data);
@@ -98,6 +100,6 @@ void	signal_receive(int sig);
 char	**ft_append_tab(char **in, char *newstr);
 int		len_tab(char **tab);
 int		ft_strchars_i(const char *s, char *set);
-void	ft_replace_in_matrix(char ***newmat, char **matrix, char **insert, int n);
+char	**ft_replace_in_matrix(char **matrix, char **insert, int n);
 
 #endif

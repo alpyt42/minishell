@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:32:53 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/02/14 12:18:06 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/02/21 13:24:51 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,9 @@ int main(int argc, char **argv, char **env)
 	data.env = env;
 	data.argv = argv;
 	init_data(&data);
-	display_list(&data);
+	// --------------------for : parsing
+	check_pars(" echo \"hello      there\" | how << are \'you \'doing? ~ $USER$USER |wc -l >outfile ~", &data);
+	// display_list(&data);
 	// ------------------for : here_doc
 	// int fd = get_here_doc("ls", 1, &data);
 	// if (fd == -1)
@@ -59,7 +61,7 @@ int main(int argc, char **argv, char **env)
 	// // int i = 0;
 	// while (read(fd, buf, 1) != 0)
 	// 	printf("\nfd : %d / buf n.%d : %s", fd, i++, buf);
-	// exit(0);
+	exit(0);
 	// --------------------------------------------
 	ft_dprintf(1, "\033[1;90mMINI.SHELL  |  ale-cont \\ amontalb\033[0;39m\n");
 	while (argc && argv)
