@@ -42,10 +42,9 @@ OBJ = $(SRC:c=o)
 all: $(NAME)
 
 $(NAME): lib $(OBJ)
-	@echo "\n"
-	@echo "\033[0;32mCompiling minishell...\033[0m"
+	@echo "\n\033[0;32mCompiling minishell...\033[0m"
 	@$(CC) -L $(CFLAGS) -o $(NAME) $(OBJ) $(LIBFT) -lreadline
-	@echo "\nDone !"
+	@echo "\nMinishell is up to date !"
 
 %.o: %.c $(HEADER) $(LIBFT)
 	@echo "\033[0;33mGenerating minishell objects... %-33.33s\r" $@

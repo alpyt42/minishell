@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_args.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 12:08:12 by aperez-b          #+#    #+#             */
-/*   Updated: 2023/02/21 13:45:28 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/02/22 00:33:37 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void	*check_args(char *out, t_prompt *p)
 		mini_perror(QUOTE, NULL, 1);
 	if (!a)
 		return ("");
-	int i = -1;
+	// int i = -1;
 	// while (a[++i])
 	// 	printf("a[%d]%s\n", i, a[i]);
 	p = parse_args(a, p);
