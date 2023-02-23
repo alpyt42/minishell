@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aperez-b <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 18:49:29 by aperez-b          #+#    #+#             */
-/*   Updated: 2022/03/07 21:16:45 by aperez-b         ###   ########.fr       */
+/*   Updated: 2023/02/23 18:58:12 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,25 +57,11 @@ static void	*child_redir(t_list *cmd, int fd[2])
 	return ("");
 }
 
-void	*child_process(t_prompt *prompt, t_list *cmd, int fd[2])
-{
-	t_mini	*n;
-	int		l;
-
-	n = cmd->content;
-	l = 0;
-	if (n->full_cmd)
-		l = ft_strlen(*n->full_cmd);
-	child_redir(cmd, fd);
-	close(fd[READ_END]);
-	child_builtin(prompt, n, l, cmd);
-	ft_lstclear(&prompt->cmds, free_content);
-	exit(g_status);
-}
-
 void	exec_fork(t_prompt *prompt, t_list *cmd, int fd[2])
 {
 	pid_t	pid;
+	t_mini	*n;
+	int		l;
 
 	pid = fork();
 	if (pid < 0)
@@ -85,7 +71,17 @@ void	exec_fork(t_prompt *prompt, t_list *cmd, int fd[2])
 		mini_perror(FORKERR, NULL, 1);
 	}
 	else if (!pid)
-		child_process(prompt, cmd, fd);
+	{
+		n = cmd->content;
+		l = 0;
+		if (n->full_cmd)
+			l = ft_strlen(*n->full_cmd);
+		child_redir(cmd, fd);
+		close(fd[READ_END]);
+		child_builtin(prompt, n, l, cmd);
+		ft_lstclear(&prompt->cmds, free_content);
+		exit(g_status);
+	}
 }
 
 void	*check_to_fork(t_prompt *prompt, t_list *cmd, int fd[2])

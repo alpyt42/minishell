@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aperez-b <aperez-b@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 15:51:24 by aperez-b          #+#    #+#             */
-/*   Updated: 2022/03/07 21:27:00 by aperez-b         ###   ########.fr       */
+/*   Updated: 2023/02/23 18:32:25 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ static char	*find_command(char **env_path, char *cmd, char *full_path)
 		free(full_path);
 		return (NULL);
 	}
+	printf("find_command/ cmd : %s && path : %s\n", cmd, full_path);
 	return (full_path);
 }
 
@@ -93,6 +94,8 @@ void	*exec_cmd(t_prompt *prompt, t_list *cmd)
 	int		fd[2];
 
 	get_cmd(prompt, cmd, NULL, NULL);
+	printf("\nEXEC_function_ T_PROMPT_cmds : \n");
+	display_list(prompt->cmds);
 	if (pipe(fd) == -1)
 		return (mini_perror(PIPERR, NULL, 1));
 	if (!check_to_fork(prompt, cmd, fd))
