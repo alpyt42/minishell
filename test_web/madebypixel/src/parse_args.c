@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 12:08:12 by aperez-b          #+#    #+#             */
-/*   Updated: 2023/02/22 00:33:37 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/02/23 17:14:36 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,19 @@
 
 extern int	g_status;
 
-static char	**split_all(char **args, t_prompt *prompt)
+void	display_arr(char **arr, char *info)
 {
-	char	**subsplit;
-	int		i;
-	int		quotes[2];
-
-	i = -1;
-	while (args && args[++i])
+	if (!arr)
+		return ;
+	int i = -1;
+	while (arr[++i])
 	{
-		args[i] = expand_vars(args[i], -1, quotes, prompt);
-		// printf("b[%d]%s\n", i, args[i]);
-		args[i] = expand_path(args[i], -1, quotes, \
-			mini_getenv("HOME", prompt->envp, 4));
-		// printf("b[%d]%s\n", i, args[i]);
-		// printf("c[%d]%s\n", i, args[i]);
-		subsplit = ft_cmdsubsplit(args[i], "<|>");
-		ft_matrix_replace_in(&args, subsplit, i);
-		i += ft_matrixlen(subsplit) - 1;
-		ft_free_matrix(&subsplit);
+		printf("%s", info);
+		printf("[%d] : %s\n", i, arr[i]);
 	}
-	return (args);
 }
 
-void display(t_list *cmds)
+void display_list(t_list *cmds)
 {
 	int	i,j;
 	
@@ -55,6 +44,31 @@ void display(t_list *cmds)
 	}
 }
 
+static char	**split_all(char **args, t_prompt *prompt)
+{
+	char	**subsplit;
+	int		i;
+	int		quotes[2];
+
+	i = -1;
+	while (args && args[++i])
+	{
+		printf("2.1 : splitall_bef_args[%d] : %s\n", i, args[i]);
+		args[i] = expand_vars(args[i], -1, quotes, prompt);
+		printf("2.1 a) split_all_args[%d] : %s\n", i, args[i]);
+		args[i] = expand_path(args[i], -1, quotes, \
+			mini_getenv("HOME", prompt->envp, 4));
+		printf("2.1 b) split_all_args[%d] : %s\n", i, args[i]);
+		subsplit = ft_cmdsubsplit(args[i], "<|>");
+		display_arr(subsplit, "2.1 c) split_all_subsplit");
+		ft_matrix_replace_in(&args, subsplit, i);
+		i += ft_matrixlen(subsplit) - 1;
+		ft_free_matrix(&subsplit);
+	}
+	return (args);
+}
+
+
 static void	*parse_args(char **args, t_prompt *p)
 {
 	int	is_exit;
@@ -65,9 +79,9 @@ static void	*parse_args(char **args, t_prompt *p)
 	is_exit = 0;
 	int j =-1;
 	while (sp[++j])
-		dprintf(2, "sp[%d] : %s\n", j, sp[j]);
+		dprintf(2, "2, split_all[%d] : %s\n", j, sp[j]);
 	p->cmds = fill_nodes(sp, -1);
-	display(p->cmds);
+	display_list(p->cmds);
 	if (!p->cmds)
 		return (p);
 	i = ft_lstsize(p->cmds);
@@ -104,10 +118,12 @@ void	*check_args(char *out, t_prompt *p)
 		mini_perror(QUOTE, NULL, 1);
 	if (!a)
 		return ("");
-	// int i = -1;
-	// while (a[++i])
-	// 	printf("a[%d]%s\n", i, a[i]);
+	int i = -1;
+	while (a[++i])
+		printf("1, cmdtrim[%d] : %s\n", i, a[i]);
 	p = parse_args(a, p);
+	printf("\nEND CHECK ARGS __ -----> DISPLAY CMD (t_list)\n");
+	display_prompt(p);
 	if (p && p->cmds)
 		n = p->cmds->content;
 	if (p && p->cmds && n && n->full_cmd && ft_lstsize(p->cmds) == 1)

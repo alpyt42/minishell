@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_node.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbueno-g <mbueno-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 17:05:01 by aperez-b          #+#    #+#             */
-/*   Updated: 2022/03/07 21:20:17 by aperez-b         ###   ########.fr       */
+/*   Updated: 2023/02/23 15:59:02 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static t_mini	*get_params(t_mini *node, char **a[2], int *i)
 {
 	if (a[0][*i])
 	{
+		printf("4, a[0][%d][0] : %c && a[0][%d][0] : %c\n", *i, a[0][*i][0], *i + 1, a[0][*i + 1][0]);
 		if (a[0][*i][0] == '>' && a[0][*i + 1] && a[0][*i + 1][0] == '>')
 			node = get_outfile2(node, a[1], i);
 		else if (a[0][*i][0] == '>')
@@ -63,9 +64,9 @@ static char	**get_trimmed(char **args)
 	temp = ft_dup_matrix(args);
 	while (temp && temp[++j])
 	{
-		printf("get_trimmed_temp[%d] : %s\n", j, temp[j]);
+		// printf("get_trimmed_temp[%d] : %s\n", j, temp[j]);
 		aux = ft_strtrim_all(temp[j], 0, 0);
-		printf("aux (after strtrim): %s\n", aux);
+		// printf("aux (after strtrim): %s\n", aux);
 		free(temp[j]);
 		temp[j] = aux;
 	}
@@ -87,9 +88,7 @@ t_list	*fill_nodes(char **args, int i)
 
 	cmds[0] = NULL;
 	temp[1] = get_trimmed(args);
-	int j =-1;
-	while (temp[1][++j])
-		dprintf(2, "fill_nodes_temp[1][%d] : %s\n", j, temp[1][j]);
+	display_arr(temp[1], "3, fill_nodes_temp_trimmed[1]");
 	while (args[++i])
 	{
 		cmds[1] = ft_lstlast(cmds[0]);

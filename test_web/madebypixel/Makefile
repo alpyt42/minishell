@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: amontalb <amontalb@student.42lyon.fr>      +#+  +:+       +#+         #
+#    By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/22 13:38:18 by aperez-b          #+#    #+#              #
-#    Updated: 2023/01/27 11:25:23 by amontalb         ###   ########.fr        #
+#    Updated: 2023/02/23 16:18:29 by ale-cont         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ endif
 
 # Make variables
 AR = ar rcs
-CFLAGS = -Wall -Wextra -Werror -MD -g3 
+CFLAGS = -Wall -Wextra -Werror -g3 
 RM = rm -f
 CC = gcc
 PRINTF = LC_NUMERIC="en_US.UTF-8" printf
