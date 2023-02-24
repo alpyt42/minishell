@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_node.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 17:05:01 by aperez-b          #+#    #+#             */
-/*   Updated: 2023/02/23 18:21:18 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/02/24 15:48:00 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ t_list	*fill_nodes(char **args, int i)
 
 	cmds[0] = NULL;
 	temp[1] = get_trimmed(args);
-	display_arr(temp[1], "3, fill_nodes_temp_trimmed[1]");
+	display_arr(temp[1], "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<3, fill_nodes_temp_trimmed[1]");
 	while (args[++i])
 	{
 		cmds[1] = ft_lstlast(cmds[0]);

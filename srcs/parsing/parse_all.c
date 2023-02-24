@@ -6,7 +6,7 @@
 /*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 08:43:12 by amontalb          #+#    #+#             */
-/*   Updated: 2023/02/21 16:11:03 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/02/24 11:26:08 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char *check_pars(char *cmd, t_data *data)
     parsed = cmdlexing(cmd);
     // free(cmd);
     parsed = split_all(parsed, data);
-    
+    data->cmds = fill_nodes(parsed);
 
     
     int i = -1;
