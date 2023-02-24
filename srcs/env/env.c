@@ -104,8 +104,8 @@ char *search_dico(char *search, t_data *data)
 	while (data->dico)
 	{
 		cmd = data->dico->content;
-		ft_dprintf(1, "\nsearch : $%s$ && cmd[0] $%s$\n", search, cmd[0]);
-		ft_dprintf(1, "\n cmd : %d && search %d strcomp %d\n", ft_strlen(cmd[0]), ft_strlen(search), ft_strncmp(cmd[0], search, ft_strlen(search)));
+		// ft_dprintf(1, "\nsearch : $%s$ && cmd[0] $%s$\n", search, cmd[0]);
+		// ft_dprintf(1, "\n cmd : %d && search %d strcomp %d\n", ft_strlen(cmd[0]), ft_strlen(search), ft_strncmp(cmd[0], search, ft_strlen(search)));
 		if (!ft_strncmp(cmd[0], search, ft_strlen(search))\
 			&& ft_strlen(cmd[0]) == ft_strlen(search))
 		{

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_here_doc.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 17:08:00 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/02/21 14:30:32 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/02/21 22:52:01 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	s_error = 0;
+extern int	s_error;
 
 static char *sub_vars(char *del, t_data *data, int *i)
 {
@@ -32,7 +32,7 @@ static char *sub_vars(char *del, t_data *data, int *i)
 	else
 		str = ft_strdup(before);
 	if (ft_strchars_i(&del[*i + 1], "|/`!*@=><+-;#&$?~%^{}: \"\'\n") != - 1)
-		del = ft_strjoin(str, &del[*i + 1 + ft_strchars_i(&del[*i + 1], "|/`!*@=><+-;#&$?~%^{}: \"\'\0\n")]);
+		del = ft_strjoin(str, &del[*i + 1 + ft_strchars_i(&del[*i + 1], "|/`!*@=><+-;#&$?~%^{}: \"\'\n\0")]);
 	else
 		del = ft_strdup(str);
 	if (var)
@@ -94,13 +94,15 @@ static char	*fill_here_doc(char *del, char *warn)
 	return (line);
 }
 
-int	get_here_doc(char *del, int quotes, t_data *data)
+int	get_here_doc(char *del, t_data *data)
 {
 	int		fd[2];
 	char	*warning;
 	char	*str;
+	int		q;
 
 	s_error = 0;
+	q = 0;
 	warning = "minishell: warning: here-document delimited by end-of-file";
 	dprintf(1, "delimiter : --%s--\n", del);
 	if (!del || ft_strchr(del, '<') || ft_strchr(del, '|'))
@@ -108,12 +110,12 @@ int	get_here_doc(char *del, int quotes, t_data *data)
 	if (pipe(fd) == -1)
 		perror("pipe");
 	str = fill_here_doc(del, warning);
-	if (quotes == 1)
+	if (q == 1)
 		str = get_var_hd(str, data);
 	dprintf(2, "str : %s", str);
-	ft_dprintf(fd[1], "%s", str);
-	free(str);
+	write(fd[1], str, ft_strlen(str));
 	close(fd[1]);
+	free(str);
 	if (s_error == 130)
 	{
 		close(fd[0]);

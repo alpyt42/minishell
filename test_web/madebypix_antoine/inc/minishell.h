@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aperez-b <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 15:08:50 by aperez-b          #+#    #+#             */
-/*   Updated: 2023/02/23 17:08:34 by ale-cont         ###   ########.fr       */
+/*   Updated: 2022/03/14 16:05:19 by aperez-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,12 +169,4 @@ void	handle_sigint(int sig);
 /* Function to handle SIGINT signals for child process */
 void	handle_sigint_child(int sig);
 
-/* Display the arr** with info at the beginning*/
-void	display_arr(char **arr, char *info);
-
-/* Display the t_list*/
-void	display_list(t_list *cmds);
-
-/* Display the t_prompt*/
-void	display_prompt(t_prompt *prompt);
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aperez-b <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 15:08:07 by aperez-b          #+#    #+#             */
-/*   Updated: 2023/02/23 17:15:05 by ale-cont         ###   ########.fr       */
+/*   Updated: 2022/05/12 17:37:52 by aperez-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,14 @@
 
 extern int	g_status;
 
-void display_prompt(t_prompt *prompt)
-{
-	printf("\n\n-----> DISPLAY PROMPT :\n");
-	printf("-----> PROMPT, DISPLAY CMDS :\n");
-	display_list(prompt->cmds);
-	printf("-----> PROMPT, DISPLAY ENVP :\n");
-	display_arr(prompt->envp, "t_prompt envp");
-	printf("-----> PROMPT, DISPLAY PID :\n");
-	printf("pid : %d\n", prompt->pid);
-}
-
 int	builtin(t_prompt *prompt, t_list *cmd, int *is_exit, int n)
 {
 	char	**a;
-	
-	display_prompt(prompt);
-	printf("\nBUILTINS __ -----> DISPLAY CMD (t_list)\n");
-	display_list(cmd);
-	printf("\n\n----EXECUTION----\n\n");
+
 	while (cmd)
 	{
 		a = ((t_mini *)cmd->content)->full_cmd;
 		n = 0;
-		display_arr(a, "I. cmd");
 		if (a)
 			n = ft_strlen(*a);
 		if (a && !ft_strncmp(*a, "exit", n) && n == 4)
@@ -56,7 +40,6 @@ int	builtin(t_prompt *prompt, t_list *cmd, int *is_exit, int n)
 		}
 		cmd = cmd->next;
 	}
-	printf("\n----END EXECUTION----\n\n");
 	return (g_status);
 }
 
@@ -137,9 +120,6 @@ int	mini_echo(t_list *cmd)
 	newline = 1;
 	node = cmd->content;
 	argv = node->full_cmd;
-	int j =-1;
-	while (argv[++j])
-		dprintf(2, "echo_cmd[%d] : %s, ptr : %p\n", j, argv[j], argv[j]);
 	while (argv && argv[++i[0]])
 	{
 		if (!i[1] && !ft_strncmp(argv[i[0]], "-n", 2) && \

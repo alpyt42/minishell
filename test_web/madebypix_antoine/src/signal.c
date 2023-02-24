@@ -1,15 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fill_nodes.c                                       :+:      :+:    :+:   */
+/*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aperez-b <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/21 13:43:24 by amontalb          #+#    #+#             */
-/*   Updated: 2023/02/21 13:44:46 by amontalb         ###   ########.fr       */
+/*   Created: 2021/11/18 15:44:53 by aperez-b          #+#    #+#             */
+/*   Updated: 2022/03/08 12:38:07 by aperez-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../inc/minishell.h"
 
-t_list *fill_nodes(char **cmds, int i);
+int	g_status;
+
+void	handle_sigint(int sig)
+{
+	if (sig == SIGINT)
+	{
+		g_status = 130;
+		ioctl(STDIN_FILENO, TIOCSTI, "\n");
+		rl_replace_line("", 0);
+		rl_on_new_line();
+	}
+}

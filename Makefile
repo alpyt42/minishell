@@ -39,16 +39,15 @@ SRC = $(addsuffix .c, $(addprefix srcs/builtins/, $(BUILTINS))) \
 
 OBJ = $(SRC:c=o)
 
-all: lib $(NAME)
+all: $(NAME)
 
-$(NAME): $(OBJ)
-	@echo "\n"
-	@echo "\033[0;32mCompiling minishell...\033[0m"
-	@$(CC) -L $(CFLAGS) -o $(NAME) $(OBJ) -lreadline $(LIBFT)
-	@echo "\nDone !"
+$(NAME): lib $(OBJ)
+	@echo "\n\033[0;32mCompiling minishell...\033[0m"
+	@$(CC) -L $(CFLAGS) -o $(NAME) $(OBJ) $(LIBFT) -lreadline
+	@echo "\nMinishell is up to date !"
 
 %.o: %.c $(HEADER) $(LIBFT)
-	@printf "\033[0;33mGenerating minishell objects... %-33.33s\r" $@
+	@echo "\033[0;33mGenerating minishell objects... %-33.33s\r" $@
 	@${CC} -I $(CFLAGS) -c $< -o $@
 
 lib :
