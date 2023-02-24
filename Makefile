@@ -19,6 +19,7 @@ TOOLS = error
 UTILS = matrix other_function
 PROMPT = prompt
 SIGNALS = signals
+TEST = main_alric struct_test
 
 UNAME = $(shell uname -s)
 
@@ -27,10 +28,18 @@ ifeq ($(UNAME), Linux)
 	LEAKS = valgrind --leak-check=full --track-fds=yes --trace-children=yes -s -q 
 endif
 
-SRC = $(addsuffix .c, $(addprefix srcs/builtins/, $(BUILTINS))) \
+# Check if the current user is "cuentolinux"
+ifeq ($(shell echo $$USER), cuentolinux)
+	# If the current user is "cuentolinux", add the test source files to the list of source files
+	SRC = $(addsuffix .c, $(addprefix srcs/test_struct/, $(TEST)))
+else
+	# If the current user is not "cuentolinux", add the main source files to the list of source files
+	SRC = $(addsuffix .c, $(addprefix srcs/main/, $(MAIN)))
+endif
+
+SRC += $(addsuffix .c, $(addprefix srcs/builtins/, $(BUILTINS))) \
 	  $(addsuffix .c, $(addprefix srcs/env/, $(ENV))) \
 	  $(addsuffix .c, $(addprefix srcs/exec/, $(EXEC))) \
-	  $(addsuffix .c, $(addprefix srcs/main/, $(MAIN))) \
 	  $(addsuffix .c, $(addprefix srcs/parsing/, $(PARSING))) \
 	  $(addsuffix .c, $(addprefix srcs/tools/, $(TOOLS))) \
 	  $(addsuffix .c, $(addprefix srcs/utils/, $(UTILS))) \

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:32:53 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/02/24 09:22:55 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/02/24 16:58:58 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int main(int argc, char **argv, char **env)
 	// --------------------for : parsing
 	check_pars(" echo \"hello      there\" | how << are \'you \'doing? ~ '$USER' \'\"$USER\"\' |wc -l >outfile ~", &data);
 	// check_pars(" echo \"hello      there\" | how << are \'you \'doing? ~ $USER$USER |wc -l >outfile ~", &data);
-	// display_list(&data);
+	// display_data(&data);
 	// ------------------for : here_doc
 	// int fd = get_here_doc("ls", 1, &data);
 	// if (fd == -1)
@@ -67,6 +67,7 @@ int main(int argc, char **argv, char **env)
 	// return(0);
 	// --------------------------------------------
 	ft_dprintf(1, "\033[1;90mMINI.SHELL  |  ale-cont \\ amontalb\033[0;39m\n");
+	
 	while (argc && argv)
 	{
 		signal(SIGINT, signal_receive);

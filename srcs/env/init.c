@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 13:33:30 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/02/08 15:50:13 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/02/24 17:02:25 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,13 @@ void init_data(t_data *data)
 	init_dico(data);
 }
 
-void display_list(t_data *data)
+void display_data(t_data *data)
 {
 	char **cmd;
 	void *tmp;
 
 	tmp = data->dico;
+	printf("------------------DICO-------------------\n");
 	while (data->dico)
 	{
 		cmd = data->dico->content;
@@ -77,4 +78,10 @@ void display_list(t_data *data)
 		data->dico = data->dico->next;
 	}
 	data->dico = tmp;
+	printf("------------------END / DICO-------------------\n");
+	printf("------------------OTHER info-------------------\n");
+	printf("quit : %d\n", data->quit);
+	printf("quotes_hd : %d\n", data->quotes_hd);
+	printf("n_cmd : %d\n", data->n_cmd);
+	printf("------------------END / OTHER info-------------\n");
 }
