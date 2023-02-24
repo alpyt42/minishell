@@ -6,41 +6,42 @@
 /*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 14:57:31 by amontalb          #+#    #+#             */
-/*   Updated: 2023/02/21 15:49:32 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/02/21 15:57:21 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../../includes/minishell.h"
 
 
 static int  malloc_len(char *s)
 {
     int size;
     int i;
-    int simple_quotes;
-    int double_quotes;
+    int simple_q;
+    int double_q;
 
     i = 0;
-    count = 0;
+    size = 0;
     simple_q = 0;
-    double_quotes = 0;
+    double_q = 0;
 
     while (s[i])
     {
-        simple_q = (simple_q + (!double_q && cmd[i] == '\'')) % 2 ;
-        double_q = (double_q + (!simple_q && cmd[i] == '\"')) % 2 ;
-        if (((s[i]) == '\"' && !simple_quotes) || ((s[i]) == '\"' && !double_quotes))
+        simple_q = (simple_q + (!double_q && s[i] == '\'')) % 2 ;
+        double_q = (double_q + (!simple_q && s[i] == '\"')) % 2 ;
+        if (((s[i]) == '\"' && !simple_q) || ((s[i]) == '\"' && !double_q))
             size++;
         i++;
     }
-    if (simple_quotes || double_quotes)
-        return (-1)
+    if (simple_q || double_q)
+        return (-1);
      return (size);
 }
 
 char *ft_strim_quotes(char *s)
 {
-    int     simple_quotes;
-    int     double_quotes;
+    int     simple_q;
+    int     double_q;
     char    *trim;
     int     i;
     int     j;
@@ -49,14 +50,14 @@ char *ft_strim_quotes(char *s)
     j = -1;
     if (!s || malloc_len(s) == -1)
         return (NULL);
-    trim = malloc((ft_strlen(s) - malloc_len(s) + !) * sizeof(char));
+    trim = malloc((ft_strlen(s) - malloc_len(s) + 1) * sizeof(char));
     if (!trim)
         return (NULL);
     while (s[i])
     {
-        simple_q = (simple_q + (!double_q && cmd[i] == '\'')) % 2 ;
-        double_q = (double_q + (!simple_q && cmd[i] == '\"')) % 2 ;
-        if (s[i] != '\"' || simple_q) && (s[i] != '\'' || double_q)
+        simple_q = (simple_q + (!double_q && s[i] == '\'')) % 2 ;
+        double_q = (double_q + (!simple_q && s[i] == '\"')) % 2 ;
+        if ((s[i] != '\"' || simple_q) && (s[i] != '\'' || double_q))
             trim[++j] = s[i];
         i++;
     }
