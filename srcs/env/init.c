@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 13:33:30 by ale-cont          #+#    #+#             */
+<<<<<<< HEAD
+/*   Updated: 2023/02/27 15:03:52 by amontalb         ###   ########.fr       */
+=======
 /*   Updated: 2023/02/24 17:02:25 by ale-cont         ###   ########.fr       */
+>>>>>>> f56778d4454d8e92ee4692fee22d863a03a9a7df
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,24 +68,22 @@ void init_data(t_data *data)
 
 void display_data(t_data *data)
 {
-	char **cmd;
+	t_node *cmd;
 	void *tmp;
 
-	tmp = data->dico;
-	printf("------------------DICO-------------------\n");
-	while (data->dico)
+	tmp = data->cmds;
+	while (data->cmds)
 	{
-		cmd = data->dico->content;
-		printf("%s=", cmd[0]);
-		if (cmd[1])
-			printf("%s\n", cmd[1]);
-		data->dico = data->dico->next;
+		cmd = data->cmds->content;
+		int i = 0;
+		while(cmd->all_cmd[i])
+		{
+		printf("%s\n", cmd->all_cmd[i]);
+		i++;
+		printf("_______\n");
+		}
+		printf("<<<<>>>>>\n");
+		data->cmds = data->cmds->next;
 	}
-	data->dico = tmp;
-	printf("------------------END / DICO-------------------\n");
-	printf("------------------OTHER info-------------------\n");
-	printf("quit : %d\n", data->quit);
-	printf("quotes_hd : %d\n", data->quotes_hd);
-	printf("n_cmd : %d\n", data->n_cmd);
-	printf("------------------END / OTHER info-------------\n");
+	data->cmds = tmp;
 }
