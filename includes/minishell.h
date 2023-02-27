@@ -76,12 +76,13 @@ void	init_dico(t_data *data);
 char	*search_dico(char *search, t_data *data);
 int		set_env_vars(t_data *data, char *glob_var, char *val);
 char	*find_in_arr(char **arr, char *to_find);
-void	display_list(t_data *data);
+void	display_data(t_data *data);
 void	init_data(t_data *data);
 int		get_here_doc(char *del, t_data *data);
 //----------------------------------------exec--------
 void	exec_cmd_path(char ***res, char *path, char *cmd, char **env);
 int		errors(char *strerr, char *error, int n);
+int		mini_process(t_data *data, t_list *cmds);
 //----------------------------------------main--------
 //----------------------------------------parsing-----
 char	**ft_cmdsplit(char *cmd, char *s);
@@ -103,4 +104,8 @@ int		len_tab(char **tab);
 int		ft_strchars_i(const char *s, char *set);
 char	**ft_replace_in_matrix(char **matrix, char **insert, int n);
 
+//----------------------------------------debug-------
+void	display_cmd(t_list *cmds);
+void	display_arr(char **arr, char *info);
+t_list	*fill_struct_test(t_data *data);
 #endif

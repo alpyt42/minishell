@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 17:03:39 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/02/14 17:17:22 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/02/24 16:57:33 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,19 @@
 
 extern int	s_error;
 
-// int	mini_process(t_data *data)
-// {
-// 	char	*com;
-// 	int		i;
-
-// 	i = -1;
-// 	data->p_ids = malloc(sizeof(int) * data->n_cmd);
-// 	if (pipe(data->pipa) < 0 || pipe(data->pipb))
-// 		return(errors(strerror(errno), "", 0));
-// 	while (++i < data->n_cmd)
-// 	{
-// 		data->p_ids[i] = fork();
+int	mini_process(t_data *data, t_list *cmds)
+{
+	(void)data;
+	(void)cmds;
+	// int	fd[2];
+	// if ()
+	// while(cmds)
+	// {
 		
-// 	}
-//     return (0);
-// }
+	// 	cmds->next;
+	// }
+	return (0);
+}
 
 int	launch_mini(t_data *data, char *cmd)
 {
@@ -44,6 +41,6 @@ int	launch_mini(t_data *data, char *cmd)
 	}
 	if (cmd[0] != '\0')
 		add_history(cmd);
-	// s_error = mini_process(data);
+	// --------> ADD MINI PROCESS HERE <-------
 	return (1);
 }

@@ -6,7 +6,11 @@
 /*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 13:33:30 by ale-cont          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/02/27 15:03:52 by amontalb         ###   ########.fr       */
+=======
+/*   Updated: 2023/02/24 17:02:25 by ale-cont         ###   ########.fr       */
+>>>>>>> f56778d4454d8e92ee4692fee22d863a03a9a7df
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +66,7 @@ void init_data(t_data *data)
 	init_dico(data);
 }
 
-void display_list(t_data *data)
+void display_data(t_data *data)
 {
 	t_node *cmd;
 	void *tmp;

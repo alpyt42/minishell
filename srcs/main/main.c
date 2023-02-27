@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:32:53 by ale-cont          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/02/27 15:04:23 by amontalb         ###   ########.fr       */
+=======
+/*   Updated: 2023/02/24 16:58:58 by ale-cont         ###   ########.fr       */
+>>>>>>> f56778d4454d8e92ee4692fee22d863a03a9a7df
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +71,7 @@ int main(int argc, char **argv, char **env)
 	return(0);
 	// --------------------------------------------
 	ft_dprintf(1, "\033[1;90mMINI.SHELL  |  ale-cont \\ amontalb\033[0;39m\n");
+	
 	while (argc && argv)
 	{
 		signal(SIGINT, signal_receive);
