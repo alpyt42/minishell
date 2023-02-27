@@ -32,8 +32,11 @@ endif
 ifeq ($(shell echo $$USER), cuentolinux)
 	# If the current user is "cuentolinux", add the test source files to the list of source files
 	SRC = $(addsuffix .c, $(addprefix srcs/test_struct/, $(TEST)))
+else ifeq ($(shell echo $$USER), ale-cont)
+	# If the current user is "ale-cont", add the test source files to the list of source files
+	SRC = $(addsuffix .c, $(addprefix srcs/test_struct/, $(TEST)))
 else
-	# If the current user is not "cuentolinux", add the main source files to the list of source files
+	# If the current user is not "cuentolinux" or "ale-cont", add the main source files to the list of source files
 	SRC = $(addsuffix .c, $(addprefix srcs/main/, $(MAIN)))
 endif
 

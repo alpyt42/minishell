@@ -71,6 +71,7 @@ typedef struct s_node
 
 //----------------------------------------builtins----
 int		is_builtin(char *cmd);
+int		built_exit(t_data *data);
 //----------------------------------------env---------
 void	init_dico(t_data *data);
 char	*search_dico(char *search, t_data *data);
@@ -82,7 +83,7 @@ int		get_here_doc(char *del, t_data *data);
 //----------------------------------------exec--------
 void	exec_cmd_path(char ***res, char *path, char *cmd, char **env);
 int		errors(char *strerr, char *error, int n);
-int		mini_process(t_data *data, t_list *cmds);
+int		mini_process(t_data *data);
 //----------------------------------------main--------
 //----------------------------------------parsing-----
 char	**ft_cmdsplit(char *cmd, char *s);
