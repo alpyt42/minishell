@@ -90,6 +90,7 @@ char	*check_pars(char *cmd, t_data *data);
 char    **expand_all(char **cmd, t_data *data);
 int		launch_mini(t_data *data, char *cmd);
 char	*ft_strim_quotes(char *s);
+t_list	*fill_nodes(char **cmds);
 
 //----------------------------------------prompt------
 char	*get_prompt(t_data *data);
