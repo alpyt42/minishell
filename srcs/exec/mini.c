@@ -14,18 +14,37 @@
 
 extern int	s_error;
 
-int	mini_process(t_data *data, t_list *cmds)
+int	mini_process(t_data *data)
 {
 	(void)data;
-	(void)cmds;
-	// int	fd[2];
-	// if ()
-	// while(cmds)
-	// {
-		
-	// 	cmds->next;
-	// }
-	return (0);
+	char	**cmd;
+
+	cmd = NULL;
+	while(data->cmds)
+	{
+		cmd = ((t_node *)data->cmds->content)->all_cmd;
+		if (!cmd)
+			return (-1);
+		// if (data->n_cmd == 1 && is_builtin(*cmd) == 0)
+		// 	s_error = built_cd(data);
+		// else if (data->n_cmd == 1 && is_builtin(*cmd) == 1)
+		// 	s_error = built_export(data);
+		else if (is_builtin(*cmd) == 2)
+			s_error = built_exit(data);
+		// else if (data->n_cmd == 1 && is_builtin(*cmd) == 3)
+		// 	s_error = built_unset(data);
+		// else if (data->n_cmd > 1 && is_builtin(*cmd) <= 3)
+		// 	s_error = 0;
+		else
+		{
+			signal(SIGINT, SIG_IGN);
+			signal(SIGQUIT, SIG_IGN);
+			// exec(data);
+		}
+		data->cmds = data->cmds->next;
+	}
+	printf("s_error : %d", s_error);
+	return (s_error);
 }
 
 int	launch_mini(t_data *data, char *cmd)

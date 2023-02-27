@@ -28,7 +28,7 @@ void display_prompt(t_prompt *prompt)
 int	builtin(t_prompt *prompt, t_list *cmd, int *is_exit, int n)
 {
 	char	**a;
-	
+
 	display_prompt(prompt);
 	printf("\nBUILTINS __ -----> DISPLAY CMD (t_list)\n");
 	display_list(cmd);

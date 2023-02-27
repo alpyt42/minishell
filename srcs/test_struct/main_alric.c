@@ -37,7 +37,7 @@ int main(int argc, char **argv, char **env)
 	display_data(&data);
 	ft_dprintf(1, "\033[1;90mMINI.SHELL  |  ale-cont \\ amontalb\033[0;39m\n");
 	ft_dprintf(1, "------------------EXEC--------------\n");
-	mini_process(&data, cmds);
+	mini_process(&data);
 	ft_dprintf(1, "----------------END_EXEC------------\n");
 	return (0);
 }

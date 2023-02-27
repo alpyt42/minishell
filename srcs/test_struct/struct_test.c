@@ -57,8 +57,8 @@ t_list	*fill_struct_test(t_data *data)
 	node2->all_path = ft_calloc(sizeof(char), 30);
 	node2->all_path = NULL;
 
-	node1->all_cmd[0] = "ls";
-	node1->all_cmd[1] = "-l";
+	node1->all_cmd[0] = "exit";
+	node1->all_cmd[1] = "25";
 	node1->infile = 0;
 	node1->outfile = 1;
 
@@ -67,7 +67,8 @@ t_list	*fill_struct_test(t_data *data)
 	node2->outfile = 1;
 
 	ft_lstadd_back(&cmds, ft_lstnew(node1));
-	ft_lstadd_back(&cmds, ft_lstnew(node2));
-	data->n_cmd = 2;
+	// ft_lstadd_back(&cmds, ft_lstnew(node2));
+	data->n_cmd = 1;
+	data->cmds = cmds;
 	return (cmds);
 }

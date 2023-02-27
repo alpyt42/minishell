@@ -65,6 +65,7 @@ int	ft_atoi2(const char *nptr, long *nbr)
 	if (*nptr && !ft_isspace(*nptr))
 		return (-1);
 	*nbr *= sign;
+	printf("----> NBR : %ln", nbr);
 	return (0);
 }
 

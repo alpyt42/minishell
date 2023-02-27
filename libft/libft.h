@@ -88,5 +88,6 @@ int		ft_putchar(char c, int fd);
 int		ft_putstr(char *str, int fd);
 int		ft_putnbr_int(long int nbr, char *base, int fd);
 int		ft_putnbr_uns(unsigned long nbr, char *base, int fd);
+long	ft_atoi_long(char *str);
 
 #endif
