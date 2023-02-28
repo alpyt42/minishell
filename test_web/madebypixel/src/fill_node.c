@@ -6,7 +6,7 @@
 /*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 17:05:01 by aperez-b          #+#    #+#             */
-/*   Updated: 2023/02/24 15:48:00 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/02/28 15:35:18 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ static t_mini	*get_params(t_mini *node, char **a[2], int *i)
 {
 	if (a[0][*i])
 	{
-		if (a[0][*i] && a[0][*i + 1])
-			printf("4, a[0][%d][0] : %c && a[0][%d][0] : %c\n", *i, a[0][*i][0], *i + 1, a[0][*i + 1][0]);
 		if (a[0][*i][0] == '>' && a[0][*i + 1] && a[0][*i + 1][0] == '>')
 			node = get_outfile2(node, a[1], i);
 		else if (a[0][*i][0] == '>')
@@ -89,7 +87,7 @@ t_list	*fill_nodes(char **args, int i)
 
 	cmds[0] = NULL;
 	temp[1] = get_trimmed(args);
-	display_arr(temp[1], "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<3, fill_nodes_temp_trimmed[1]");
+	// display_arr(temp[1], "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<3, fill_nodes_temp_trimmed[1]");
 	while (args[++i])
 	{
 		cmds[1] = ft_lstlast(cmds[0]);

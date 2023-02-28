@@ -6,7 +6,7 @@
 /*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:11:15 by amontalb          #+#    #+#             */
-/*   Updated: 2023/02/21 13:27:07 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/02/28 16:27:42 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ char    *sub_var(char *cmd, t_data *data, int i)
 
     before = ft_substr(cmd, 0, i);
     // printf("before : <%s>\n", before);
-    var = search_dico(ft_substr(cmd, i + 1, ft_strchars_i(&cmd[i + 1], "$?~%^{}: \"\'")), data);
+    var = search_dico(ft_substr(cmd, i + 1, ft_strchars_i(&cmd[i + 1], "|$?~%^{}: \"\'")), data);
     // printf("var : <%c>\n", cmd[i + 1]);
     if (before)
         path = ft_strdup(before);
@@ -96,8 +96,8 @@ char    *sub_var(char *cmd, t_data *data, int i)
     // printf("<<<%s>>>\n", path);
     // printf("int : %d\n", ft_strchars_i(&cmd[i + 1], "$?~%^${}: \""));
     // path = ft_strjoin(path, &cmd[i]);
-    if(ft_strchars_i(&cmd[i + 1], "$?~%^${}: \"") != -1)
-        path = ft_strjoin(path, &cmd[i + 1 + ft_strchars_i(&cmd[i + 1], "$?~%^${}: \"")]);
+    if(ft_strchars_i(&cmd[i + 1], "|$?~%^${}: \"") != -1)
+        path = ft_strjoin(path, &cmd[i + 1 + ft_strchars_i(&cmd[i + 1], "|$?~%^${}: \"")]);
     // printf("end : <<<%s>>>\n", path);
     return (path);   
 }
@@ -117,12 +117,12 @@ char    *expand_vars(char *cmd, t_data *data)
     {
         simple_q = (simple_q + (!double_q && cmd[i] == '\'')) % 2 ;
         double_q = (double_q + (!simple_q && cmd[i] == '\"')) % 2 ;
-        if (!simple_q && cmd[i] == '$' && cmd[i + 1] && ((ft_strchars_i(&cmd[i + 1], "?~$%^{}: \"") && double_q) || (ft_strchars_i(&cmd[i + 1], "?~$%^{}: ") && !double_q)))
+        if (!simple_q && cmd[i] == '$' && cmd[i + 1] && ((ft_strchars_i(&cmd[i + 1], "|?~$%^{}: \"") && double_q) || (ft_strchars_i(&cmd[i + 1], "?~$%^{}: ") && !double_q)))
         {
             cmd = sub_var(cmd, data, i);
             // printf("___%d\n", i);
-            i = i * k  - (1 * k) + ft_strchars_i(&cmd[i], "?~%$^{}: \"");
-            if (ft_strchars_i(&cmd[i], "?~%$^{}: \"") && i < 0)
+            i = i * k  - (1 * k) + ft_strchars_i(&cmd[i], "|?~%$^{}: \"");
+            if (ft_strchars_i(&cmd[i], "|?~%$^{}: \"") && i < 0)
                 i++;
             k = 1;
             // printf("___%d\n", i);

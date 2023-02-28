@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 15:08:07 by aperez-b          #+#    #+#             */
-/*   Updated: 2023/02/23 17:15:05 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/02/28 15:38:28 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ void display_prompt(t_prompt *prompt)
 	printf("\n\n-----> DISPLAY PROMPT :\n");
 	printf("-----> PROMPT, DISPLAY CMDS :\n");
 	display_list(prompt->cmds);
-	printf("-----> PROMPT, DISPLAY ENVP :\n");
-	display_arr(prompt->envp, "t_prompt envp");
-	printf("-----> PROMPT, DISPLAY PID :\n");
-	printf("pid : %d\n", prompt->pid);
+// 	printf("-----> PROMPT, DISPLAY ENVP :\n");
+// 	display_arr(prompt->envp, "t_prompt envp");
+// 	printf("-----> PROMPT, DISPLAY PID :\n");
+// 	printf("pid : %d\n", prompt->pid);
 }
 
 int	builtin(t_prompt *prompt, t_list *cmd, int *is_exit, int n)

@@ -12,6 +12,19 @@
 
 #include "../../includes/minishell.h"
 
+extern int	s_error;
+
+// void *print_error(int type,int error, char *print)
+// {
+
+
+
+
+
+
+
+// }
+
 // void	ft_free_content(void *content)
 // {
 
