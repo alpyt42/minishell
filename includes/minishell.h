@@ -94,6 +94,12 @@ int		launch_mini(t_data *data, char *cmd);
 char	*ft_strim_quotes(char *s);
 t_list	*fill_nodes(char **cmds);
 
+t_node  *get_out1(t_node *node, char **cmds, int *i);
+t_node  *get_out2(t_node *node, char **cmds, int *i);
+t_node  *get_in1(t_node *node, char **cmds, int *i);
+t_node  *get_in2(t_data *data, t_node *node, char **cmds, int *i);
+
+
 //----------------------------------------prompt------
 char	*get_prompt(t_data *data);
 //----------------------------------------signals-----
