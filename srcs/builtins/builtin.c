@@ -40,7 +40,7 @@ int	is_builtin(char *cmd)
 
 int	built_exit(t_data *data)
 {
-	t_node *node;
+	t_node		*node;
 	long		nb_ex;
 
 	nb_ex = 0;
@@ -62,7 +62,57 @@ int	built_exit(t_data *data)
 		ft_dprintf(2, "minishell: exit: too many arguments\n");
 		return (1);
 	}
-	nb_ex %= 256 + 256 * (nb_ex < 0);
-	printf("nb_ex : %ld\n", nb_ex);
+	nb_ex = (nb_ex + 256) % 256;
 	return (nb_ex);
+}
+
+int	built_pwd(void)
+{
+	char	*b_pwd;
+
+	b_pwd = getcwd(NULL, 0);
+	if (!b_pwd)
+	{
+		ft_dprintf(2, "minishell : %s", strerror(errno));
+		return(errno);
+	}
+	ft_dprintf(2, "%s", b_pwd);
+	free(b_pwd);
+	return(0);
+}
+
+int	built_echo(t_data *data)
+{
+	char	**str;
+	int		i;
+	int		new_line;
+
+	new_line = 1;
+	i = 0;
+	str = ((t_node *)data->cmds->content)->all_cmd;
+	if (!str)
+		return (0);
+	while(str && str[++i])
+	{
+		if (str && str[0] && str[1] && !ft_strncmp(str[1], "-n", 2)
+		&& ft_strlen(str[1]) == ft_strlen("-n") && i == 1)
+			new_line = 0;
+		else
+		{
+			ft_putstr_fd(str[i], 1);
+			if (str[i + 1])
+				ft_putchar_fd(' ', 1);
+		}
+	}
+	if (new_line)
+		ft_putchar_fd('\n', 1);
+	return (0);
+}
+
+int	built_cd(t_data *data)
+{
+	char	**str;
+
+	str = ((t_node *)data->cmds->content)->all_cmd;
+	
 }

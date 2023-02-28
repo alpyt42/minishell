@@ -39,5 +39,6 @@ int main(int argc, char **argv, char **env)
 	ft_dprintf(1, "------------------EXEC--------------\n");
 	mini_process(&data);
 	ft_dprintf(1, "----------------END_EXEC------------\n");
+	printf("s_error : %d\nquit : %d", s_error, data.quit);
 	return (0);
 }

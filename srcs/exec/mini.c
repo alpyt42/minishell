@@ -43,7 +43,6 @@ int	mini_process(t_data *data)
 		}
 		data->cmds = data->cmds->next;
 	}
-	printf("s_error : %d", s_error);
 	return (s_error);
 }
 

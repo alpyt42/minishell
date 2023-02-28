@@ -19,16 +19,17 @@ t_list	*fill_struct_test(t_data *data)
 	t_node	*node1 = ft_calloc(sizeof(t_node), 1);
 	t_node	*node2 = ft_calloc(sizeof(t_node), 1);
 
-	node1->all_cmd = ft_calloc(sizeof(char *), 2);
+	node1->all_cmd = ft_calloc(sizeof(char *), 4);
 	node1->all_path = ft_calloc(sizeof(char), 30);
 	node1->all_path = NULL;
 
-	node2->all_cmd = ft_calloc(sizeof(char *), 2);
+	node2->all_cmd = ft_calloc(sizeof(char *), 4);
 	node2->all_path = ft_calloc(sizeof(char), 30);
 	node2->all_path = NULL;
 
 	node1->all_cmd[0] = "exit";
-	node1->all_cmd[1] = "25";
+	node1->all_cmd[1] = "-31";
+	node1->all_cmd[2] = "12";
 	node1->infile = 0;
 	node1->outfile = 1;
 
