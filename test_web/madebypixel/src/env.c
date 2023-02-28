@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 17:28:02 by mbueno-g          #+#    #+#             */
-/*   Updated: 2023/01/26 12:21:30 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/02/28 17:48:28 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ int	mini_export(t_prompt *prompt)
 	char	**argv;
 
 	argv = ((t_mini *)prompt->cmds->content)->full_cmd;
+	display_arr(argv, "mini_export");
 	if (ft_matrixlen(argv) >= 2)
 	{
 		ij[0] = 1;
