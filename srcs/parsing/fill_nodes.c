@@ -6,7 +6,7 @@
 /*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 13:43:24 by amontalb          #+#    #+#             */
-/*   Updated: 2023/03/01 09:00:02 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/03/01 16:50:18 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,12 @@ static t_node *fill_nodes2(t_node *node, char **cmds, int *i, t_data *data)
             node = get_out2(node, cmds, i);
         else if (cmds[*i][0] == '>')
             node = get_out1(node, cmds, i);
-        // else if (cmds[*i][0] == '<' && cmds [*i + 1][0] == '<')
-        //     node = get_in2(node, cmds, i);
+        else if (cmds[*i][0] == '<' && cmds [*i + 1][0] == '<')
+            node = get_in2(data, node, cmds, i);
         else if (cmds[*i][0] == '<')
             node = get_in1(node, cmds, i);
-        if (cmds[*i] && cmds[*i][0] != '|')
-        {
-            node->all_cmd = ft_append_tab(node->all_cmd, expand_all2(cmds[*i], data));
-        }
+        else if (cmds[*i] && cmds[*i][0] != '|')
+            node->all_cmd = ft_append_tab(node->all_cmd, ft_strim_quotes(expand_all2(cmds[*i], data)));
     }
     return (node);
 

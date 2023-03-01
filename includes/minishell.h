@@ -69,6 +69,21 @@ typedef struct s_node
 	int		outfile;
 }			t_node;
 
+enum	e_error
+{
+	QUOTE = 1,
+	NDIR = 2,
+	NPERM = 3,
+	NCMD = 6,
+	DUPERR = 7,
+	FORKERR = 8,
+	PIPERR = 9,
+	PIPENDERR = 10,
+	MEM = 11,
+	IS_DIR = 12,
+	NOT_DIR = 13
+};
+
 //----------------------------------------builtins----
 int		is_builtin(char *cmd);
 int		built_exit(t_data *data);

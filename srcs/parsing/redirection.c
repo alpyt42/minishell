@@ -6,7 +6,7 @@
 /*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:08:47 by amontalb          #+#    #+#             */
-/*   Updated: 2023/02/28 10:37:35 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/03/01 16:53:05 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_node  *get_out1(t_node *node, char **cmds, int *i)
     if (cmds[*i])
     {
         node->outfile = get_fd(node->outfile, cmds[*i], 1, 0);
-        (*i)++;
+        printf("<<<<<<<<<<<<<<<<<%s>>>>>>>>>>>\n", cmds[*i]);
     }
 
     return (node);
@@ -54,10 +54,11 @@ t_node  *get_out1(t_node *node, char **cmds, int *i)
 t_node  *get_out2(t_node *node, char **cmds, int *i)
 {
     (*i)++;
+    (*i)++;
     if (cmds[*i])
     {
         node->outfile = get_fd(node->outfile, cmds[*i], 1, 1);
-        (*i)++;
+        
     }
 
     return (node);    
@@ -69,18 +70,23 @@ t_node  *get_in1(t_node *node, char **cmds, int *i)
     if (cmds[*i])
     {
         node->outfile = get_fd(node->outfile, cmds[*i], 0, 0);
-        (*i)++;
+        
     }
 
     return (node);    
 }
 
-// t_node  *get_in2(t_data *data, t_node *node, char **cmds, int *i)
-// {
+t_node  *get_in2(t_data *data, t_node *node, char **cmds, int *i)
+{
     
-//     (*i)++;
-//     if(cmds[*i])
-//         node->infile = get_here_doc(cmds[*i], data);
-    
-//     return (node)
-// }
+    (*i)++;
+    (*i)++;
+    if(cmds[*i])
+    {
+        (void) data;
+        // node->infile = get_here_doc(cmds[*i], data);
+        printf("<<%s>>\n", cmds[*i]);
+
+    }
+    return (node);
+}
