@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 14:14:36 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/02/28 18:29:21 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/01 15:02:16 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ t_list	*fill_struct_test(t_data *data)
 	node2->all_path = ft_calloc(sizeof(char), 30);
 	node2->all_path = NULL;
 
-	node1->all_cmd[0] = "export";
-	node1->all_cmd[1] = "test=test1";
+	node1->all_cmd[0] = "unset";
+	node1->all_cmd[1] = "USER";
 	// node1->all_cmd[2] = "12";
 	node1->infile = 0;
 	node1->outfile = 1;

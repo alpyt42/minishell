@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 13:33:30 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/02/28 14:51:15 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/03/01 15:20:50 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,9 @@ void display_data(t_data *data)
 		int i = 0;
 		while(cmd->all_cmd[i])
 		{
-		printf("%s\n", cmd->all_cmd[i]);
-		i++;
-		printf("_______\n");
+			printf("cmd[%d] %s\n", i, cmd->all_cmd[i]);
+			i++;
+			printf("_______\n");
 		}
 		printf("<<<<>>>>>\n");
 		data->cmds = data->cmds->next;

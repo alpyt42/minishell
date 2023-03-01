@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:45:23 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/02/28 19:04:40 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/01 15:33:32 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,22 @@ int	ft_strchars_i(const char *s, char *set)
 		if (ft_strchr(set, s[i]))
 			return (i);
 		i++;
+	}
+	return (-1);
+}
+
+int	pos_in_arr(char **arr, char *to_find, char set)
+{
+	int		i;
+	int		len;
+
+	i = -1;
+	len = ft_strlen(to_find);
+	while (arr[++i])
+	{
+		if (!ft_strncmp(arr[i], to_find, len)
+			&& arr[i][len] && arr[i][len] == set)
+			return (i);
 	}
 	return (-1);
 }
