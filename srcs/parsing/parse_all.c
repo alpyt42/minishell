@@ -6,7 +6,7 @@
 /*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 08:43:12 by amontalb          #+#    #+#             */
-/*   Updated: 2023/02/27 14:09:10 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/03/01 09:00:51 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ static char **split_all(char **cmd, t_data *data)
     int     i;
     
     i = -1;
-    cmd = expand_all(cmd, data);
+    (void) data;
+    // cmd = expand_all(cmd, data);
     while (cmd[++i])
     {
         cmdsplit = ft_cmdsplit(cmd[i], "<|>");
@@ -49,7 +50,7 @@ char *check_pars(char *cmd, t_data *data)
     parsed = cmdlexing(cmd);
     // free(cmd);
     parsed = split_all(parsed, data);
-    data->cmds = fill_nodes(parsed);
+    data->cmds = fill_nodes(parsed, data);
 
     
     // int i = -1;

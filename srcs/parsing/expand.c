@@ -6,7 +6,7 @@
 /*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:11:15 by amontalb          #+#    #+#             */
-/*   Updated: 2023/02/28 16:27:42 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/03/01 08:43:55 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,5 +144,13 @@ char    **expand_all(char **cmd, t_data *data)
         cmd[i] = expand_path(cmd[i], data);
         i++;
     }
+    return (cmd);
+}
+
+char    *expand_all2(char *cmd, t_data *data)
+{
+
+    cmd = expand_vars(cmd, data);
+    cmd= expand_path(cmd, data);
     return (cmd);
 }

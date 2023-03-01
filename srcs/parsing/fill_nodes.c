@@ -6,7 +6,7 @@
 /*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 13:43:24 by amontalb          #+#    #+#             */
-/*   Updated: 2023/02/28 11:12:40 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/03/01 09:00:02 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_node  *init_node()
     return (node);
 }
 
-static t_node *fill_nodes2(t_node *node, char **cmds, int *i)
+static t_node *fill_nodes2(t_node *node, char **cmds, int *i, t_data *data)
 {
     if (cmds[*i])
     {
@@ -41,8 +41,9 @@ static t_node *fill_nodes2(t_node *node, char **cmds, int *i)
         else if (cmds[*i][0] == '<')
             node = get_in1(node, cmds, i);
         if (cmds[*i] && cmds[*i][0] != '|')
-            node->all_cmd = ft_append_tab(node->all_cmd, cmds[*i]);
-
+        {
+            node->all_cmd = ft_append_tab(node->all_cmd, expand_all2(cmds[*i], data));
+        }
     }
     return (node);
 
@@ -50,7 +51,7 @@ static t_node *fill_nodes2(t_node *node, char **cmds, int *i)
 }
 
 
-t_list  *fill_nodes(char **cmds)
+t_list  *fill_nodes(char **cmds, t_data *data)
 {
     t_list  *begin;
     t_list  *temp; 
@@ -67,7 +68,7 @@ t_list  *fill_nodes(char **cmds)
             ft_lstadd_back(&begin, ft_lstnew(init_node()));
             temp = ft_lstlast(begin);
         }
-        temp->content = fill_nodes2(temp->content, cmds, &i);
+        temp->content = fill_nodes2(temp->content, cmds, &i, data);
     }
     return (begin);
 }
