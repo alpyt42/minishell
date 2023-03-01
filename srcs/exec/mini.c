@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 17:03:39 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/02/28 18:29:02 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/01 15:59:33 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +18,25 @@ int	mini_process(t_data *data)
 {
 	(void)data;
 	char	**cmd;
+	int		i;
 
 	cmd = NULL;
+	i = 0;
 	while(data->cmds)
 	{
 		cmd = ((t_node *)data->cmds->content)->all_cmd;
 		if (!cmd)
 			return (-1);
-		// if (data->n_cmd == 1 && is_builtin(*cmd) == 0)
-		// 	s_error = built_cd(data);
+		if (data->n_cmd == 1 && is_builtin(*cmd) == 0)
+			s_error = built_cd(data);
 		else if (data->n_cmd == 1 && is_builtin(*cmd) == 1)
 			s_error = built_export(data);
-		else if (is_builtin(*cmd) == 2)
+		else if (data->n_cmd == 1 && is_builtin(*cmd) == 2)
 			s_error = built_exit(data);
-		// else if (data->n_cmd == 1 && is_builtin(*cmd) == 3)
-		// 	s_error = built_unset(data);
-		// else if (data->n_cmd > 1 && is_builtin(*cmd) <= 3)
-		// 	s_error = 0;
+		else if (data->n_cmd == 1 && is_builtin(*cmd) == 3)
+			s_error = built_unset(data);
+		else if (data->n_cmd > 1 && is_builtin(*cmd) <= 3)
+			i++;
 		else
 		{
 			signal(SIGINT, SIG_IGN);
