@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 17:40:09 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/02/28 18:30:46 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/01 15:52:31 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	built_exit(t_data *data)
 	node = data->cmds->content;
 	data->quit = 1;
 	ft_putstr_fd("exit\n", 2);
-	if (!data->cmds->next && !node->all_cmd[1])
+	if (!node->all_cmd[1])
 		return (0);
 	nb_ex = ft_atoi_long(node->all_cmd[1]);
 	if (nb_ex == 2147483649)
@@ -138,6 +138,7 @@ int	built_cd(t_data *data)
 	if (!val)
 		val = ft_strdup("");
 	set_env_vars(data, "PWD", val);
+	printf("PWD : %s\n", val);
 	free(val);
 	ft_free_arr(str[1]);
 	return (err);
