@@ -72,6 +72,10 @@ typedef struct s_node
 //----------------------------------------builtins----
 int		is_builtin(char *cmd);
 int		built_exit(t_data *data);
+int		built_export(t_data *data);
+int		built_pwd(void);
+int		built_echo(t_data *data);
+int		built_cd(t_data *data);
 //----------------------------------------env---------
 void	init_dico(t_data *data);
 char	*search_dico(char *search, t_data *data);
@@ -111,6 +115,7 @@ char	**ft_append_tab(char **in, char *newstr);
 int		len_tab(char **tab);
 int		ft_strchars_i(const char *s, char *set);
 char	**ft_replace_in_matrix(char **matrix, char **insert, int n);
+char	**mini_split(char *str, int i, int j, int lenone);
 
 //----------------------------------------debug-------
 void	display_cmd(t_list *cmds);

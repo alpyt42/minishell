@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 14:57:24 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/02/14 15:08:38 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/02/28 17:17:07 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 int main(void)
 {
-	char *str = malloc(5 * sizeof(char));
-	// free(str);
-	exit (0);
+	char *str = readline("> ");
+	free(str);
 	return(0);
 }

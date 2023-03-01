@@ -10,7 +10,7 @@ LIBFT = libft/libft.a
 
 HEADER = minishell.h
 
-BUILTINS = builtin
+BUILTINS = builtin builtin_bis
 ENV = env init get_here_doc get_file
 EXEC = exec_cmd mini
 MAIN = main

@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 17:03:39 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/02/24 16:57:33 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/02/28 18:29:02 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ int	mini_process(t_data *data)
 			return (-1);
 		// if (data->n_cmd == 1 && is_builtin(*cmd) == 0)
 		// 	s_error = built_cd(data);
-		// else if (data->n_cmd == 1 && is_builtin(*cmd) == 1)
-		// 	s_error = built_export(data);
+		else if (data->n_cmd == 1 && is_builtin(*cmd) == 1)
+			s_error = built_export(data);
 		else if (is_builtin(*cmd) == 2)
 			s_error = built_exit(data);
 		// else if (data->n_cmd == 1 && is_builtin(*cmd) == 3)
