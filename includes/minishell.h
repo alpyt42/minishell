@@ -104,6 +104,7 @@ int		get_here_doc(char *del, t_data *data);
 void	exec_cmd_path(char ***res, char *path, char *cmd, char **env);
 int		errors(char *strerr, char *error, int n);
 int		mini_process(t_data *data);
+void	exec(t_data *data);
 //----------------------------------------main--------
 //----------------------------------------parsing-----
 char	**ft_cmdsplit(char *cmd, char *s);
