@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 17:03:39 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/01 16:19:35 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/02 23:53:26 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,26 +16,24 @@ extern int	s_error;
 
 int	mini_process(t_data *data)
 {
-	(void)data;
-	char	**cmd;
+	t_node	*n;
 	int		i;
 
-	cmd = NULL;
+	n = data->cmds->content;
 	i = 0;
 	while(data->cmds)
 	{
-		cmd = ((t_node *)data->cmds->content)->all_cmd;
-		if (!cmd)
+		if (!n->all_cmd)
 			return (-1);
-		if (data->n_cmd == 1 && is_builtin(*cmd) == 0)
+		if (data->n_cmd == 1 && is_builtin(n) == 0)
 			s_error = built_cd(data);
-		else if (data->n_cmd == 1 && is_builtin(*cmd) == 1)
+		else if (data->n_cmd == 1 && is_builtin(n) == 1)
 			s_error = built_export(data);
-		else if (data->n_cmd == 1 && is_builtin(*cmd) == 2)
+		else if (data->n_cmd == 1 && is_builtin(n) == 2)
 			s_error = built_exit(data);
-		else if (data->n_cmd == 1 && is_builtin(*cmd) == 3)
+		else if (data->n_cmd == 1 && is_builtin(n) == 3)
 			s_error = built_unset(data);
-		else if (data->n_cmd > 1 && is_builtin(*cmd) <= 3)
+		else if (data->n_cmd > 1 && is_builtin(n) <= 3)
 			i++;
 		else
 		{

@@ -85,7 +85,7 @@ enum	e_error
 };
 
 //----------------------------------------builtins----
-int		is_builtin(char *cmd);
+int		is_builtin(t_node *n);
 int		built_exit(t_data *data);
 int		built_export(t_data *data);
 int		built_pwd(void);

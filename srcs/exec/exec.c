@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 16:20:28 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/02 19:57:48 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/02 23:53:52 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static void	check_cmd(t_data *d, t_node *n)
 		free(*n->all_cmd);
 		*n->all_cmd = ft_strdup(tmp[ft_arrlen(tmp) - 1]);
 	}
-	else if (n && n->all_cmd && is_builtin(*n->all_cmd) < 0)
+	else if (n && n->all_cmd && is_builtin(n) < 0)
 		n->all_path = get_path(d, n->all_cmd);
 }
 
@@ -88,14 +88,23 @@ static void	find_cmd(t_data *d)
 	if (n && n->all_cmd)
 		dir = opendir(tmp);
 	check_cmd(d, n);
+	// printf("access(n->all_path, X_OK) %d\n", access(n->all_path, X_OK));
+	// printf("CMD n : -->>> %s\n", *n->all_cmd);
+	// printf("PATH n : -->>> %s\n", n->all_path);
 	if (dir && access(n->all_path, F_OK) == -1
-	&& is_builtin(n->all_cmd[0]) < 0)
+		&& is_builtin(n) < 0)
 		print_error(IS_DIR, "", tmp, 126);
-	else if (access(n->all_path, X_OK) == -1
-	&& is_builtin(n->all_cmd[0]) < 0)
-		print_error(IS_DIR, "", *n->all_cmd, 126);
-	printf("CMD n : -->>> %s\n", *n->all_cmd);
-	printf("PATH n : -->>> %s\n", n->all_path);
+	else if (n && n->all_path && access(n->all_path, F_OK) == -1 
+			&& is_builtin(n) < 0)
+		print_error(NDIR, "", tmp, 127);
+	else if (n && n->all_path && access(n->all_path, X_OK) == -1
+			&& is_builtin(n) < 0)
+		print_error(NPERM, "", *n->all_cmd, 126);
+	else
+	{
+		printf("CMD n : -->>> %s\n", *n->all_cmd);
+		printf("PATH n : -->>> %s\n", n->all_path);
+	}
 }
 
 void	exec(t_data *data)

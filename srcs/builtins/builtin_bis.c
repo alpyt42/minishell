@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 16:06:32 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/01 15:23:27 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/02 23:54:13 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 extern int	s_error;
 
-int	is_builtin(char *cmd)
+int	is_builtin(t_node *n)
 {
 	int			i;
 	const char	*built[9];
@@ -29,11 +29,11 @@ int	is_builtin(char *cmd)
 	built[6] = "env";
 	built[7] = "pwd";
 	built[8] = NULL;
-	if (!cmd)
+	if (!n->all_cmd || n->all_path)
 		return (-1);
 	while (built[++i])
-		if (ft_strncmp(built[i], cmd, ft_strlen(cmd)) == 0
-		&& ft_strlen(cmd) == ft_strlen(built[i]))
+		if (ft_strncmp(built[i], *n->all_cmd, ft_strlen(*n->all_cmd)) == 0
+		&& ft_strlen(*n->all_cmd) == ft_strlen(built[i]))
 			return (i);
 	return (-1);
 }

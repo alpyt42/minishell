@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 15:51:24 by aperez-b          #+#    #+#             */
-/*   Updated: 2023/03/02 15:35:28 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/02 23:25:36 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ void	get_cmd(t_prompt *prompt, t_list *cmd, char **s, char *path)
 	dir = cmd_checks(prompt, cmd, &s, path);
 	if (dir)
 		printf("Directory name: %s\n", *n->full_cmd);
+	printf("access(n->full_path, F_OK) %d\n", access(n->full_path, F_OK));
+	printf("access(n->full_path, X_OK) %d\n", access(n->full_path, X_OK));
 	if (!is_builtin(n) && n && n->full_cmd && dir)
 		mini_perror(IS_DIR, *n->full_cmd, 126);
 	else if (!is_builtin(n) && n && n->full_path && \
