@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:32:53 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/01 15:38:11 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/02 18:56:48 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int main(int argc, char **argv, char **env)
 	t_list *cmds = fill_struct_test(&data);
 	ft_dprintf(1, "PRINT CMDS : \n");
 	display_cmd(cmds);
-	// display_arr(data.env, "START --> env");
+	display_arr(data.env, "env");
 	ft_dprintf(1, "\033[1;90mMINI.SHELL  |  ale-cont \\ amontalb\033[0;39m\n");
 	ft_dprintf(1, "------------------EXEC--------------\n");
 	mini_process(&data);

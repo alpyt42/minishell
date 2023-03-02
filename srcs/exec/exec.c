@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 16:20:28 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/01 17:20:58 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/02 19:57:48 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,91 @@
 
 extern int	s_error;
 
+static char	*get_cmd_path(char *cmd, char **env)
+{
+	int		j;
+	char	*test_path;
+
+	j = 0;
+	if (!access(cmd, F_OK) && ft_strchr(cmd, '/'))
+		return (cmd);
+	while (env[j])
+	{
+		test_path = ft_strjoin(env[j], cmd);
+		if (!access(test_path, F_OK))
+			return (test_path);
+		free(test_path);
+		j++;
+	}
+	return (NULL);
+}
+
+static char	*get_path(t_data *p, char **cmd)
+{
+	char	*tmp;
+	char	*res;
+	char	**path_env;
+	int		pos;
+	int		i;
+
+	i = 0;
+	pos = pos_in_arr(p->env, "PATH", '=');
+	if (pos == -1)
+		return(NULL);
+	path_env = ft_split(p->env[pos] + 5, ':');
+	if (!path_env)
+		return (NULL);
+	while (path_env[i])
+	{
+		tmp = ft_strjoin(path_env[i], "/");
+		if (!tmp)
+			return (ft_free_arr(path_env), NULL);
+		free(path_env[i]);
+		path_env[i] = tmp;
+		i++;
+	}
+	res = get_cmd_path(*cmd, path_env);
+	ft_free_arr(path_env);
+	return (res);
+}
+
+static void	check_cmd(t_data *d, t_node *n)
+{
+	char	**tmp;
+
+	if (n && n->all_cmd && ft_strchr(*n->all_cmd, '/'))
+	{
+		tmp = ft_split(*n->all_cmd, '/');
+		n->all_path = ft_strdup(*n->all_cmd);
+		free(*n->all_cmd);
+		*n->all_cmd = ft_strdup(tmp[ft_arrlen(tmp) - 1]);
+	}
+	else if (n && n->all_cmd && is_builtin(*n->all_cmd) < 0)
+		n->all_path = get_path(d, n->all_cmd);
+}
+
+static void	find_cmd(t_data *d)
+{
+	t_node	*n;
+	DIR		*dir;
+	char	*tmp;
+
+	n = d->cmds->content;
+	tmp = ft_strdup(n->all_cmd[0]);
+	if (n && n->all_cmd)
+		dir = opendir(tmp);
+	check_cmd(d, n);
+	if (dir && access(n->all_path, F_OK) == -1
+	&& is_builtin(n->all_cmd[0]) < 0)
+		print_error(IS_DIR, "", tmp, 126);
+	else if (access(n->all_path, X_OK) == -1
+	&& is_builtin(n->all_cmd[0]) < 0)
+		print_error(IS_DIR, "", *n->all_cmd, 126);
+	printf("CMD n : -->>> %s\n", *n->all_cmd);
+	printf("PATH n : -->>> %s\n", n->all_path);
+}
+
 void	exec(t_data *data)
 {
-	(void)data;
+	find_cmd(data);
 }
