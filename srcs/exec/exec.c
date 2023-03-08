@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 16:20:28 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/08 13:24:05 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/08 15:01:09 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,11 +97,6 @@ static void	find_cmd(t_data *d)
 	else if (n && n->all_path && access(n->all_path, X_OK) == -1
 			&& is_builtin(n) < 0)
 		print_error(NPERM, "", *n->all_cmd, 126);
-	else
-	{
-		printf("CMD n : -->>> %s\n", *n->all_cmd);
-		printf("PATH n : -->>> %s\n", n->all_path);
-	}
 }
 
 void	*exec(t_data *data)

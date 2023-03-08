@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 17:03:39 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/08 14:45:05 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/08 15:05:33 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,11 @@ int	launch_mini(t_data *data, char *cmd)
 		ft_dprintf(1, "exit\n");
 		return (0);
 	}
+	if (ft_strlen(cmd) <= 0)
+		return (1);
 	if (cmd[0] != '\0')
 		add_history(cmd);
-	// --------> ADD MINI PROCESS HERE <-------
+	check_pars(cmd, data);
+	mini_process(data);
 	return (1);
 }

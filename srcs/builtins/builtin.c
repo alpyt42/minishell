@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 17:40:09 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/01 15:52:31 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/08 15:00:03 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	built_pwd(void)
 		ft_dprintf(2, "minishell : %s", strerror(errno));
 		return(errno);
 	}
-	ft_dprintf(2, "%s", b_pwd);
+	ft_dprintf(2, "%s\n", b_pwd);
 	free(b_pwd);
 	return(0);
 }

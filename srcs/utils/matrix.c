@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 17:24:09 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/08 14:50:32 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/08 14:53:01 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ char	**sort_arr(char **arr)
 	res = ft_calloc(sizeof(char *), len + 1);
 	if (!res)
 		return (NULL);
-	ft_memcpy(res, arr, len);
+	res = ft_arrdup(arr);
 	while (++i < len - 1)
 	{
 		j = i;

@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:45:23 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/01 15:33:32 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/08 14:54:30 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	display_arr(char **arr, char *info)
 	while (arr[++i])
 	{
 		printf("%s", info);
-		printf("[%d] : %s\n", i, arr[i]);
+		printf("%s\n", arr[i]);
 	}
 }
 
