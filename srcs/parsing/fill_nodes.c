@@ -6,7 +6,7 @@
 /*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 13:43:24 by amontalb          #+#    #+#             */
-/*   Updated: 2023/03/08 14:23:41 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/03/08 15:33:06 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ static t_node *fill_nodes2(t_node *node, char **cmds, int *i, t_data *data)
 {
     if (cmds[*i])
     {
-        if (cmds[*i][0] == '>' && cmds [*i + 1][0] == '>')
+        if (cmds[*i][0] == '>' && cmds[*i + 1] && cmds[*i + 1][0] == '>')
             node = get_out2(node, cmds, i);
         else if (cmds[*i][0] == '>')
             node = get_out1(node, cmds, i);
-        else if (cmds[*i][0] == '<' && cmds [*i + 1][0] == '<')
+        else if (cmds[*i][0] == '<' && cmds[*i + 1] && cmds[*i + 1][0] == '<')
             node = get_in2(data, node, cmds, i);
         else if (cmds[*i][0] == '<')
             node = get_in1(node, cmds, i);
