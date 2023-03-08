@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 17:24:09 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/01 15:16:58 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/08 14:34:04 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,4 +80,34 @@ char **ft_replace_in_matrix(char **matrix, char **insert, int n)
 	ft_free_arr(matrix);
 	matrix = temp;
 	return (matrix);
+}
+
+char	**sort_arr(char **arr)
+{
+	char	**res;
+	char	*tmp;
+	int		len;
+	int		i;
+	int		j;
+
+	i = -1;
+	len = ft_arrlen(arr);
+	if (!len)
+		return (NULL);
+	res = ft_calloc(sizeof(char *), len + 1);
+	if (!res)
+		return (NULL);
+	ft_memcpy(res, arr, len);
+	while (++i < len - 1)
+	{
+		j = i;
+		while (++j < len)
+			if (ft_strncmp(res[i], res[j], INT_MAX) > 0)
+			{
+				tmp = res[i];
+				res[i] = res[j];
+				res[j] = tmp;
+			}
+	}
+	return (res);
 }
