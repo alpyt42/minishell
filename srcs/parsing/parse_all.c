@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_all.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 08:43:12 by amontalb          #+#    #+#             */
-/*   Updated: 2023/03/08 15:00:37 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/08 16:44:16 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ char *check_pars(char *cmd, t_data *data)
     parsed = split_all(parsed, data);
     // display_arr(parsed, "parsed");
     data->cmds = fill_nodes(parsed, data);
-
     
     // int i = -1;
     // while (parsed[++i])
