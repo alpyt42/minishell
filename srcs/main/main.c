@@ -6,7 +6,7 @@
 /*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:32:53 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/01 16:50:53 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/03/01 16:56:16 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int main(int argc, char **argv, char **env)
 	init_data(&data);
 	// printf("%s\n", ft_strim_quotes("\'toto\'"));
 	// --------------------for : parsing
-	check_pars("ls -l | toto > tet.txt | toto << end | \"\"ls -t -a\"\"", &data);
+	check_pars("ls -l | toto > tet.txt | toto << end  << ls | \"\"ls -t -a\"\"", &data);
 	// check_pars(" echo \"hello      there\" | how << are \'you \'doing? ~ $USER$USER |wc -l >outfile ~", &data);
 	display_cmd(data.cmds);
 	// ------------------for : here_doc

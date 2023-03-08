@@ -6,7 +6,7 @@
 /*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:08:47 by amontalb          #+#    #+#             */
-/*   Updated: 2023/03/01 16:53:05 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/03/08 10:45:57 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,17 @@ t_node  *get_out1(t_node *node, char **cmds, int *i)
 {
     (*i)++;
     if (cmds[*i])
-    {
         node->outfile = get_fd(node->outfile, cmds[*i], 1, 0);
-        printf("<<<<<<<<<<<<<<<<<%s>>>>>>>>>>>\n", cmds[*i]);
+    if (!cmds[*i] || node->infile == -1)
+    {
+        *i -= 1;
+        if (node->infile !=  -1)
+        {
+            ft_putendl_fd("minishell: syntax error near unexpected token `newline'", 2);
+            s_error = 2;
+        }
+        else
+            s_error = 1;
     }
 
     return (node);
@@ -56,11 +64,18 @@ t_node  *get_out2(t_node *node, char **cmds, int *i)
     (*i)++;
     (*i)++;
     if (cmds[*i])
-    {
         node->outfile = get_fd(node->outfile, cmds[*i], 1, 1);
-        
+    if (!cmds[*i] || node->infile == -1)
+    {
+        *i -= 1;
+        if (node->infile !=  -1)
+        {
+            ft_putendl_fd("minishell: syntax error near unexpected token `newline'", 2);
+            s_error = 2;
+        }
+        else
+            s_error = 1;
     }
-
     return (node);    
 }
 
@@ -68,9 +83,17 @@ t_node  *get_in1(t_node *node, char **cmds, int *i)
 {
     (*i)++;
     if (cmds[*i])
-    {
         node->outfile = get_fd(node->outfile, cmds[*i], 0, 0);
-        
+    if (!cmds[*i] || node->infile == -1)
+    {
+        *i -= 1;
+        if (node->infile !=  -1)
+        {
+            ft_putendl_fd("minishell: syntax error near unexpected token `newline'", 2);
+            s_error = 2;
+        }
+        else
+            s_error = 1;
     }
 
     return (node);    
@@ -80,13 +103,16 @@ t_node  *get_in2(t_data *data, t_node *node, char **cmds, int *i)
 {
     
     (*i)++;
-    (*i)++;
-    if(cmds[*i])
+    if (cmds[++(*i)])
+        node->infile = get_here_doc(cmds[*i], data);
+    if (!cmds[*i] || node->infile == -1)
     {
-        (void) data;
-        // node->infile = get_here_doc(cmds[*i], data);
-        printf("<<%s>>\n", cmds[*i]);
-
+        *i -= 1;
+        if (node->infile !=  -1)
+        {
+            ft_putendl_fd("minishell: syntax error near unexpected token `newline'", 2);
+            s_error = 2;
+        }
     }
     return (node);
 }
