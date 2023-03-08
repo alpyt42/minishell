@@ -6,7 +6,7 @@
 /*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 15:52:13 by amontalb          #+#    #+#             */
-/*   Updated: 2023/02/21 13:25:55 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/03/08 13:23:55 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,14 @@ static char **fill_array(char **cmdlex, char *cmd, char *s)
 
 	i = 0;
 	k = 0;
+	simple_q = 0;
+	double_q = 0;
 	while (cmd[i])
 	{
 		j = i;
 		if (!ft_strchr(s, cmd[i]))
 		{
-			while (cmd[i] && (!ft_strchr(s, cmd[i]) || double_q|| simple_q))		
+			while (cmd[i] && (!ft_strchr(s, cmd[i]) || double_q || simple_q))		
 			{
 				simple_q = (simple_q + (!double_q && cmd[i] == '\'')) % 2 ;
         		double_q = (double_q + (!simple_q && cmd[i] == '\"')) % 2 ;

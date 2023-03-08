@@ -6,7 +6,7 @@
 /*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:32:53 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/01 16:56:16 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/03/08 13:18:53 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ int main(int argc, char **argv, char **env)
 	init_data(&data);
 	// printf("%s\n", ft_strim_quotes("\'toto\'"));
 	// --------------------for : parsing
-	check_pars("ls -l | toto > tet.txt | toto << end  << ls | \"\"ls -t -a\"\"", &data);
-	// check_pars(" echo \"hello      there\" | how << are \'you \'doing? ~ $USER$USER |wc -l >outfile ~", &data);
-	display_cmd(data.cmds);
+	// check_pars("ls -l | toto < tet.txt | $USER ~ | \"\"ls -t -a\"\"", &data);
+	// check_pars("ls -l", &data);
+	// display_cmd(data.cmds);
 	// ------------------for : here_doc
 	// int fd = get_here_doc("ls", 1, &data);
 	// if (fd == -1)
@@ -64,7 +64,7 @@ int main(int argc, char **argv, char **env)
 	// while (read(fd, buf, 50) != 0)
 	// 	printf("\nfd : %d / buf n.%d : %s", fd, i++, buf);
 	// printf("FIN");
-	return(0);
+	// return(0);
 	// --------------------------------------------
 	ft_dprintf(1, "\033[1;90mMINI.SHELL  |  ale-cont \\ amontalb\033[0;39m\n");
 	
@@ -80,6 +80,9 @@ int main(int argc, char **argv, char **env)
 		if (!launch_mini(&data, command))
 			break;
 		ft_dprintf(1, "command : $%s$\n", command);
+		check_pars(command, &data);
+		printf("oooooooooooooooooo\n");
+		display_cmd(data.cmds);
 		free(prompt);
 	}
 	exit(s_error);

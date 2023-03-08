@@ -6,7 +6,7 @@
 /*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 08:43:12 by amontalb          #+#    #+#             */
-/*   Updated: 2023/03/01 09:00:51 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/03/08 12:01:48 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,10 @@ char *check_pars(char *cmd, t_data *data)
     (void) data;
     
     parsed = cmdlexing(cmd);
+    display_arr(parsed, "parsed");
     // free(cmd);
     parsed = split_all(parsed, data);
+    display_arr(parsed, "parsed");
     data->cmds = fill_nodes(parsed, data);
 
     
