@@ -42,10 +42,29 @@ void	*print_error(int type, char *cmd, char *arg, int error)
 	return (NULL);
 }
 
-// void	ft_free_content(void *content)
-// {
+void	ft_free_node(void *content)
+{
+	t_node	*n;
 
-// }
+	n = content;
+	if (n->all_cmd)
+		ft_free_arr(n->all_cmd);
+	if (n->all_cmd)
+		ft_free_arr(n->all_cmd);
+	if (n->infile != STDIN_FILENO)
+		close(n->infile);
+	if (n->outfile != STDOUT_FILENO)
+		close(n->outfile);
+	free(n);
+}
+
+void	ft_free_dico(void *content)
+{
+	char	**dico;
+
+	dico = content;
+	ft_free_arr(dico);
+}
 
 // void	ft_free_mini(t_data *data)
 // {

@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 17:03:39 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/08 16:04:50 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/08 16:36:37 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	mini_process(t_data *data)
 	n = data->cmds->content;
 	printf("DISPLAY CMDS : \n");
 	display_cmd(data->cmds);
-	printf("data->n_cmd : %d\n", data->n_cmd);
+	printf("data->n_cmd : %d\n\n\n\n\n", data->n_cmd);
 	if (data->n_cmd == 1 && is_builtin(n) >= 0)
 		return(exec_builtin(data, n));
 	while(data->cmds)
@@ -80,5 +80,7 @@ int	launch_mini(t_data *data, char *cmd)
 	printf("START MINI PROCESS\n");
 	display_cmd(data->cmds);
 	mini_process(data);
+	ft_lstclear(&data->dico, ft_free_dico);
+	init_dico(data);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 16:06:32 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/08 14:44:42 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/08 16:35:29 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static int	error_built(char *cmd, char *fct)
 	else if ((ft_strchars_i(cmd, "-") != -1 && cmd[0] == '-' && !cmd[1])
 		|| ft_strchars_i(cmd, "=") != -1)
 	{
-		ft_dprintf(2, "minishell: %s: '%s': : not a valid identifier\n",
+		ft_dprintf(2, "minishell: %s: '%s': not a valid identifier\n",
 			fct, cmd);
 		return (1);
 	}
@@ -95,10 +95,10 @@ int	built_export(t_data *data)
 	i = 0;
 	while (cmds[++i])
 	{
-		if (ft_strchars_i(cmds[i], "()-") != -1)
+		if (ft_strchars_i(cmds[i], "()-[]") != -1)
 			return (error_built(cmds[i], "export"));
 		tmp = mini_split(cmds[i], -1, 0, 0);
-		if (tmp[0])
+		if (tmp[0] && ft_strchars_i(cmds[i], "=") != -1)
 		{
 			var_glob = ft_strjoin(tmp[0],"=");
 			set_env_vars(data, var_glob, tmp[1]);
@@ -127,7 +127,6 @@ int	built_unset(t_data *data)
 		pos = pos_in_arr(data->env, cmds[i], '=');
 		if (search_dico(cmds[i], data) && pos != -1)
 			data->env = ft_replace_in_matrix(data->env, NULL, pos);
-		printf("pos : %d\n", pos);
 	}
 	return (0);
 }

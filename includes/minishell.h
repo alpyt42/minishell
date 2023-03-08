@@ -129,6 +129,8 @@ char	*get_prompt(t_data *data);
 void	signal_receive(int sig);
 //----------------------------------------tools-------
 void	*print_error(int type, char *cmd, char *arg, int error);
+void	ft_free_dico(void *content);
+void	ft_free_node(void *content);
 //----------------------------------------utils-------
 char	**ft_append_tab(char **in, char *newstr);
 int		len_tab(char **tab);
