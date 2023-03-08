@@ -108,7 +108,7 @@ int		exec_builtin(t_data *d, t_node *n);
 //----------------------------------------parsing-----
 char	**ft_cmdsplit(char *cmd, char *s);
 char	**cmdlexing(char *cmd);
-char	*check_pars(char *cmd, t_data *data);
+int		check_pars(char *cmd, t_data *data);
 char    **expand_all(char **cmd, t_data *data);
 char    *expand_all2(char *cmd, t_data *data);
 int		launch_mini(t_data *data, char *cmd);

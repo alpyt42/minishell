@@ -6,7 +6,7 @@
 /*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 08:43:12 by amontalb          #+#    #+#             */
-/*   Updated: 2023/03/08 16:44:16 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/03/08 18:03:21 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,41 @@ static char **split_all(char **cmd, t_data *data)
 
 
 // }
+int	check_error(char *cmd)
+{
+	int	i;
+	int	simple_q;
+	int	double_q;
+	
+	i = 0;
+	simple_q = 0;
+	double_q = 0;
+	while (cmd[i])		
+	{
+		simple_q = (simple_q + (!double_q && cmd[i] == '\'')) % 2 ;
+        double_q = (double_q + (!simple_q && cmd[i] == '\"')) % 2 ;
+		if (!simple_q && !double_q && (cmd[i] == ';' || cmd[i] == '\\' 
+        || (cmd[i] == '|' && cmd[i + 1] && cmd[i + 1] == '|')
+        || (cmd[i] == '&' && cmd[i + 1] && cmd[i + 1] == '&')))
+			return (1);
+        i++;
+	}
+	if (simple_q == 1 || double_q == 1)
+		return (1);
+	return (0);
+}
 
 
 
-
-char *check_pars(char *cmd, t_data *data)
+int check_pars(char *cmd, t_data *data)
 {
     char **parsed;
-    (void) data;
     
+    if (check_error(cmd))
+    {
+    ft_dprintf(1, "error arg\n");
+     
+    }
     parsed = cmdlexing(cmd);
     // display_arr(parsed, "parsed");
     // free(cmd);
@@ -57,5 +83,5 @@ char *check_pars(char *cmd, t_data *data)
     // int i = -1;
     // while (parsed[++i])
     //     printf("--%s--\n", parsed[i]); 
-    return (NULL);
+    return (0);
 }
