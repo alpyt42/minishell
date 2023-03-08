@@ -52,6 +52,7 @@ typedef struct s_data
 	t_list	*cmds;
 	t_list	*dico;
 	char	**env;
+	char	**argv;
 	int		quit;
 	int		n_cmd;
 	pid_t	*p_ids;

@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 13:33:30 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/01 15:20:50 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/08 18:39:35 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,23 +53,14 @@ static void init_vars(t_data *data)
 		set_env_vars(data, "_=", data->argv[0]);
 }
 
-void init_struct(t_data *data)
-{
-	data->cmds = NULL;
-	data->dico = NULL;
-	data->env = NULL;
-	data->argv = NULL;
-	data->quit = 0;
-	data->quotes_hd = 0;
-	data->n_cmd = 0;
-}
-
 void init_data(t_data *data)
 {
 	s_error = 0;
-	// init_struct(data);
-	data->env = ft_arrdup(data->env);
+	data->cmds = NULL;
 	data->dico = NULL;
+	data->quit = 0;
+	data->n_cmd = 0;
+	data->env = ft_arrdup(data->env);
 	init_vars(data);
 	init_dico(data);
 }

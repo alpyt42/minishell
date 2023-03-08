@@ -51,8 +51,8 @@ void	ft_free_node(void *content)
 	 return ;
 	if (n->all_cmd)
 		ft_free_arr(n->all_cmd);
-	if (n->all_cmd)
-		ft_free_arr(n->all_cmd);
+	if (n->all_path)
+		free(n->all_path);
 	if (n->infile != STDIN_FILENO)
 		close(n->infile);
 	if (n->outfile != STDOUT_FILENO)

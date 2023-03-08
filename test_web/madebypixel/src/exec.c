@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 18:49:29 by aperez-b          #+#    #+#             */
-/*   Updated: 2023/03/08 13:07:55 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/08 18:08:04 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ void	*check_to_fork(t_prompt *prompt, t_list *cmd, int fd[2])
 		dir = opendir(*n->full_cmd);
 	if (n->infile == -1 || n->outfile == -1)
 		return (NULL);
+	printf("CHECK_TO_FORK : \n");
+	display_list(cmd);
 	if ((n->full_path && access(n->full_path, X_OK) == 0) || is_builtin(n))
 		exec_fork(prompt, cmd, fd);
 	else if (!is_builtin(n) && ((n->full_path && \

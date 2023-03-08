@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:32:53 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/08 17:36:22 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/08 18:42:11 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,14 @@
 
 extern int	s_error;
 
-static void	init_struct(t_data *data)
-{
-	s_error = 0;
-	data->cmds = NULL;
-	data->dico = NULL;
-	data->env = NULL;
-	data->quit = 0;
-	data->n_cmd = 0;
-}
-
 int main(int argc, char **argv, char **env)
 {
 	t_data data;
 	char *prompt;
 	char *command;
 
-	init_struct(&data);
 	data.env = env;
+	data.argv = argv;
 	init_data(&data);
 	ft_dprintf(1, "\033[1;90mMINI.SHELL  |  ale-cont \\ amontalb\033[0;39m\n");
 	while (argc && argv)

@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 13:40:47 by aperez-b          #+#    #+#             */
-/*   Updated: 2023/03/08 15:46:12 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/08 18:28:10 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,25 @@
 
 extern int	g_status;
 
-static void	mini_getpid(t_prompt *p)
-{
-	pid_t	pid;
+// static void	mini_getpid(t_prompt *p)
+// {
+// 	pid_t	pid;
 
-	pid = fork();
-	if (pid < 0)
-	{
-		mini_perror(FORKERR, NULL, 1);
-		ft_free_matrix(&p->envp);
-		exit(1);
-	}
-	if (!pid)
-	{
-		ft_free_matrix(&p->envp);
-		exit(1);
-	}
-	waitpid(pid, NULL, 0);
-	p->pid = pid - 1;
-}
+// 	pid = fork();
+// 	if (pid < 0)
+// 	{
+// 		mini_perror(FORKERR, NULL, 1);
+// 		ft_free_matrix(&p->envp);
+// 		exit(1);
+// 	}
+// 	if (!pid)
+// 	{
+// 		ft_free_matrix(&p->envp);
+// 		exit(1);
+// 	}
+// 	waitpid(pid, NULL, 0);
+// 	p->pid = pid - 1;
+// }
 
 static t_prompt	init_vars(t_prompt prompt, char *str, char **argv)
 {
@@ -70,7 +70,7 @@ static t_prompt	init_prompt(char **argv, char **envp)
 	prompt.cmds = NULL;
 	prompt.envp = ft_dup_matrix(envp);
 	g_status = 0;
-	mini_getpid(&prompt);
+	// mini_getpid(&prompt);
 	prompt = init_vars(prompt, str, argv);
 	return (prompt);
 }
