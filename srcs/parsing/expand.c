@@ -6,7 +6,7 @@
 /*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:11:15 by amontalb          #+#    #+#             */
-/*   Updated: 2023/03/08 13:42:29 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/03/08 14:26:31 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ char   *sub_path(char *cmd, t_data *data, int i)
     char    *before;
     char    *path;
 
+    before = NULL;
     if(i != 0)
     {
         before = ft_substr(cmd, 0, i);
@@ -31,7 +32,7 @@ char   *sub_path(char *cmd, t_data *data, int i)
     i ++;
     if(cmd[i])
         path = ft_strjoin(path, &cmd[i]);
-
+    free(cmd);
     return (path); 
 }
 

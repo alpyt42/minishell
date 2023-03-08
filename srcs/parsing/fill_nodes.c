@@ -6,7 +6,7 @@
 /*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 13:43:24 by amontalb          #+#    #+#             */
-/*   Updated: 2023/03/01 16:50:18 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/03/08 14:23:41 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,13 @@ static t_node *fill_nodes2(t_node *node, char **cmds, int *i, t_data *data)
             node = get_in2(data, node, cmds, i);
         else if (cmds[*i][0] == '<')
             node = get_in1(node, cmds, i);
-        else if (cmds[*i] && cmds[*i][0] != '|')
+        else if (cmds[*i][0] != '|')
             node->all_cmd = ft_append_tab(node->all_cmd, ft_strim_quotes(expand_all2(cmds[*i], data)));
+        else
+        {
+            print_error(PIPENDERR, NULL, NULL, 2);
+            *i = -2;
+        }
     }
     return (node);
 
@@ -68,5 +73,6 @@ t_list  *fill_nodes(char **cmds, t_data *data)
         }
         temp->content = fill_nodes2(temp->content, cmds, &i, data);
     }
+    ft_free_arr(cmds);
     return (begin);
 }
