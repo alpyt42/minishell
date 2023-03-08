@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 14:14:36 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/02 23:30:01 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/08 14:46:51 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_list	*fill_struct_test(t_data *data)
 	node1->infile = 0;
 	node1->outfile = 1;
 
-	node2->all_cmd[0] = ft_strdup("ls/");
+	node2->all_cmd[0] = ft_strdup("export");
 	// node2->all_cmd[1] = ft_strdup("LS_COLORS");
 	node2->infile = 3;
 	node2->outfile = 1;

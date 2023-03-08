@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 16:06:32 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/02 23:54:13 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/08 14:44:42 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,10 @@ int	is_builtin(t_node *n)
 	built[1] = "export";
 	built[2] = "exit";
 	built[3] = "unset";
-	built[4] = "ls";
-	built[5] = "echo";
-	built[6] = "env";
-	built[7] = "pwd";
-	built[8] = NULL;
+	built[4] = "echo";
+	built[5] = "env";
+	built[6] = "pwd";
+	built[7] = NULL;
 	if (!n->all_cmd || n->all_path)
 		return (-1);
 	while (built[++i])
@@ -36,6 +35,27 @@ int	is_builtin(t_node *n)
 		&& ft_strlen(*n->all_cmd) == ft_strlen(built[i]))
 			return (i);
 	return (-1);
+}
+
+int	built_env(t_data *d, int tri)
+{
+	char	**env;
+	char	**tab;
+
+	env = d->env;
+	if (!env)
+		return (0);
+	if (!tri)
+	{
+		(void)tab;
+		display_arr(env, "");
+	}
+	else if (tri)
+	{
+		tab = sort_arr(env);
+		display_arr(tab, "declare -x ");
+	}
+	return (0);
 }
 
 static int	error_built(char *cmd, char *fct)
@@ -68,8 +88,10 @@ int	built_export(t_data *data)
 	int		i;
 
 	cmds = ((t_node *)data->cmds->content)->all_cmd;
-	if (!cmds || !cmds[0] || !cmds[1])
+	if (!cmds)
 		return (0);
+	if (cmds[0] && !cmds[1])
+		return(built_env(data, 1));
 	i = 0;
 	while (cmds[++i])
 	{

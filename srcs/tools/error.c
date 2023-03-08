@@ -14,7 +14,7 @@
 
 extern int	s_error;
 
-void	print_error(int type, char *cmd, char *arg, int error)
+void	*print_error(int type, char *cmd, char *arg, int error)
 {
 	s_error = error;
 	if (type == QUOTE)
@@ -39,6 +39,7 @@ void	print_error(int type, char *cmd, char *arg, int error)
 		ft_dprintf(2, "minishell: %s: %s: Is a directory\n", cmd, arg);
 	else if (type == NOT_DIR)
 		ft_dprintf(2, "minishell: %s: %s: Not a directory\n", cmd, arg);
+	return (NULL);
 }
 
 // void	ft_free_content(void *content)

@@ -57,8 +57,6 @@ typedef struct s_data
 	int		quotes_hd;
 	int		n_cmd;
 	pid_t	*p_ids;
-	int		pipa[2];
-	int		pipb[2];
 }			t_data;
 
 typedef struct s_node
@@ -92,6 +90,7 @@ int		built_pwd(void);
 int		built_echo(t_data *data);
 int		built_cd(t_data *data);
 int		built_unset(t_data *data);
+int		built_env(t_data *d, int tri);
 //----------------------------------------env---------
 void	init_dico(t_data *data);
 char	*search_dico(char *search, t_data *data);
@@ -104,7 +103,9 @@ int		get_here_doc(char *del, t_data *data);
 void	exec_cmd_path(char ***res, char *path, char *cmd, char **env);
 int		errors(char *strerr, char *error, int n);
 int		mini_process(t_data *data);
-void	exec(t_data *data);
+void	*exec(t_data *data);
+void	*fork_fct(t_data *data, int fd[2]);
+int		exec_builtin(t_data *d, t_node *n);
 //----------------------------------------main--------
 //----------------------------------------parsing-----
 char	**ft_cmdsplit(char *cmd, char *s);
@@ -127,7 +128,7 @@ char	*get_prompt(t_data *data);
 //----------------------------------------signals-----
 void	signal_receive(int sig);
 //----------------------------------------tools-------
-void	print_error(int type, char *cmd, char *arg, int error);
+void	*print_error(int type, char *cmd, char *arg, int error);
 //----------------------------------------utils-------
 char	**ft_append_tab(char **in, char *newstr);
 int		len_tab(char **tab);
@@ -135,6 +136,7 @@ int		ft_strchars_i(const char *s, char *set);
 char	**ft_replace_in_matrix(char **matrix, char **insert, int n);
 char	**mini_split(char *str, int i, int j, int lenone);
 int		pos_in_arr(char **arr, char *to_find, char set);
+char	**sort_arr(char **arr);
 //----------------------------------------debug-------
 void	display_cmd(t_list *cmds);
 void	display_arr(char **arr, char *info);

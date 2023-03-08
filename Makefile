@@ -12,7 +12,7 @@ HEADER = minishell.h
 
 BUILTINS = builtin builtin_bis
 ENV = env init get_here_doc get_file
-EXEC = exec_cmd mini exec
+EXEC = exec_cmd mini exec fork_function
 MAIN = main
 PARSING = token expand lexing parse_all cmdsplit strim_quotes fill_nodes redirection
 TOOLS = error

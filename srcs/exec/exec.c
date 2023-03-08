@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 16:20:28 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/02 23:53:52 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/08 13:24:05 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,6 @@ static void	find_cmd(t_data *d)
 	if (n && n->all_cmd)
 		dir = opendir(tmp);
 	check_cmd(d, n);
-	// printf("access(n->all_path, X_OK) %d\n", access(n->all_path, X_OK));
-	// printf("CMD n : -->>> %s\n", *n->all_cmd);
-	// printf("PATH n : -->>> %s\n", n->all_path);
 	if (dir && access(n->all_path, F_OK) == -1
 		&& is_builtin(n) < 0)
 		print_error(IS_DIR, "", tmp, 126);
@@ -107,7 +104,15 @@ static void	find_cmd(t_data *d)
 	}
 }
 
-void	exec(t_data *data)
+void	*exec(t_data *data)
 {
+	int	fd[2];
+
 	find_cmd(data);
+	if (pipe(fd) == -1)
+		return(print_error(PIPERR, NULL, NULL, 1));
+	if (!fork_fct(data, fd))
+		return(NULL);
+	close(fd[1]);
+	return ("");
 }
