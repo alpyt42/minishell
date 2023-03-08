@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 17:03:39 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/08 15:05:33 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/08 15:42:25 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int	launch_mini(t_data *data, char *cmd)
 	if (cmd[0] != '\0')
 		add_history(cmd);
 	check_pars(cmd, data);
+	display_cmd(data->cmds);
 	mini_process(data);
 	return (1);
 }
