@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexing.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 08:47:16 by amontalb          #+#    #+#             */
-/*   Updated: 2023/03/08 17:37:23 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/03/08 17:39:22 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,26 +76,26 @@ static char **fill_array(char **cmdlex, char *cmd, char *s)
 	return (cmdlex);
 }
 
-int	check_error(char *cmd)
-{
-	int	i;
-	int	simple_q;
-	int	double_q;
+// int	check_error(char *cmd)
+// {
+// 	int	i;
+// 	int	simple_q;
+// 	int	double_q;
 	
-	i = 0;
-	simple_q = 0;
-	double_q = 0;
-	while (cmd[i])		
-	{
-		simple_q = (simple_q + (!double_q && cmd[i] == '\'')) % 2 ;
-        double_q = (double_q + (!simple_q && cmd[i] == '\"')) % 2 ;
-		if (ft_strncmp()
-	}
+// 	i = 0;
+// 	simple_q = 0;
+// 	double_q = 0;
+// 	while (cmd[i])		
+// 	{
+// 		simple_q = (simple_q + (!double_q && cmd[i] == '\'')) % 2 ;
+//         double_q = (double_q + (!simple_q && cmd[i] == '\"')) % 2 ;
+// 		if (ft_strncmp()
+// 	}
 	
 
 
 	
-}
+// }
 
 char	**cmdlexing(char *cmd)
 {
