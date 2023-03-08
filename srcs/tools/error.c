@@ -24,7 +24,7 @@ void	*print_error(int type, char *cmd, char *arg, int error)
 	else if (type == NPERM)
 		ft_dprintf(2, "minishell: %s: %s: permission denied\n", cmd, arg);
 	else if (type == NCMD)
-		ft_dprintf(2, "minishell: %s: %s: command not found\n", cmd, arg);
+		ft_dprintf(2, "minishell: %s: command not found\n", cmd);
 	else if (type == DUPERR)
 		ft_dprintf(2, "minishell: dup2 failed\n");
 	else if (type == FORKERR)
@@ -47,6 +47,8 @@ void	ft_free_node(void *content)
 	t_node	*n;
 
 	n = content;
+	if (!n)
+	 return ;
 	if (n->all_cmd)
 		ft_free_arr(n->all_cmd);
 	if (n->all_cmd)
@@ -66,10 +68,14 @@ void	ft_free_dico(void *content)
 	ft_free_arr(dico);
 }
 
-// void	ft_free_mini(t_data *data)
-// {
-
-// }
+void	ft_free_mini(t_data *data)
+{
+	if (data->cmds)
+		ft_lstclear(&data->cmds, ft_free_node);
+	if (data->dico)
+		ft_lstclear(&data->dico, ft_free_dico);
+	ft_free_arr(data->env);
+}
 
 int	errors(char *strerr, char *error, int n)
 {

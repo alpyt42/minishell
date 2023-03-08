@@ -52,9 +52,7 @@ typedef struct s_data
 	t_list	*cmds;
 	t_list	*dico;
 	char	**env;
-	char	**argv;
 	int		quit;
-	int		quotes_hd;
 	int		n_cmd;
 	pid_t	*p_ids;
 }			t_data;
@@ -131,6 +129,7 @@ void	signal_receive(int sig);
 void	*print_error(int type, char *cmd, char *arg, int error);
 void	ft_free_dico(void *content);
 void	ft_free_node(void *content);
+void	ft_free_mini(t_data *data);
 //----------------------------------------utils-------
 char	**ft_append_tab(char **in, char *newstr);
 int		len_tab(char **tab);

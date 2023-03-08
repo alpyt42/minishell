@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 16:20:28 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/08 15:01:09 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/08 16:52:34 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ static void	check_cmd(t_data *d, t_node *n)
 	}
 	else if (n && n->all_cmd && is_builtin(n) < 0)
 		n->all_path = get_path(d, n->all_cmd);
+	if (n && is_builtin(n) < 0 && n->all_cmd && !n->all_path)
+		print_error(NCMD, *n->all_cmd, NULL, 127);
 }
 
 static void	find_cmd(t_data *d)
@@ -109,5 +111,5 @@ void	*exec(t_data *data)
 	if (!fork_fct(data, fd))
 		return(NULL);
 	close(fd[1]);
-	return ("");
+	return (NULL);
 }
