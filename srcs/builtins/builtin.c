@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 17:40:09 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/09 17:13:51 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/09 17:49:24 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	built_echo(t_data *data)
 	return (0);
 }
 
-static int	test_cd(char **str[2])
+static int	open_cd(char **str[2])
 {
 	DIR	*dir;
 	int	err;
@@ -105,22 +105,22 @@ static int	test_cd(char **str[2])
 	if (str[0][1] && dir && access(str[0][1], F_OK) != -1)
 		chdir(str[0][1]);
 	else if (str[0][1] && access(str[0][1], F_OK) == -1)
-		ft_dprintf(2, "minishell: No such file or directory: %s", str[0][1]);
+		print_error(NDIR, "cd", str[0][1], 1);
 	else if (str[0][1])
-		ft_dprintf(2, "minishell: Not a directory: %s", str[0][1]);
+		print_error(NOT_DIR, "cd", str[0][1], 1);
 	if (str[0][1] && dir)
 		closedir(dir);
 	return (err);
 }
 
-int	built_cd(t_data *data)
+int	built_cd(t_data *data, t_node *n)
 {
 	char	**str[2];
 	char	*val;
 	int		err;
 
 	err = 0;
-	str[0] = ((t_node *)data->cmds->content)->all_cmd;
+	str[0] = n->all_cmd;
 	if (!str[0])
 		return (0);
 	val = ft_strjoin(search_dico("HOME", data), "");
@@ -131,7 +131,7 @@ int	built_cd(t_data *data)
 		val = ft_strdup("");
 	str[1] = ft_append_tab(str[1], val);
 	free(val);
-	err = test_cd(str);
+	err = open_cd(str);
 	if (!s_error)
 		set_env_vars(data, "OLDPWD", str[1][1]);
 	val = getcwd(NULL, 0);

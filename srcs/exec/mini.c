@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 17:03:39 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/09 17:12:31 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/09 17:54:01 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	exec_builtin(t_data *d, t_node *n)
 	if (is_builtin(n) == -1)
 		return (0);
 	if (is_builtin(n) == 0)
-		s_error = built_cd(d);
+		s_error = built_cd(d, n);
 	else if (is_builtin(n) == 1)
 		s_error = built_export(d);
 	else if (is_builtin(n) == 2)
