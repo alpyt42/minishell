@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 17:40:09 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/08 17:55:00 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/09 17:13:51 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ int	built_cd(t_data *data)
 	if (!val)
 		val = ft_strdup("");
 	set_env_vars(data, "PWD", val);
-	printf("PWD : %s\n", val);
+	// printf("PWD : %s\n", val);
 	free(val);
 	ft_free_arr(str[1]);
 	return (err);

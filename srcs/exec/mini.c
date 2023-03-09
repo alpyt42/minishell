@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 17:03:39 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/09 16:25:57 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/09 17:12:31 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ int	mini_process(t_data *data, t_list *cmds)
 	n = data->cmds->content;
 	printf("DISPLAY CMDS : \n");
 	display_cmd(data->cmds);
-	printf("data->n_cmd : %d\n----------------\n", data->n_cmd);
+	printf("data->n_cmd : %d\n", data->n_cmd);
+	printf("START MINI PROCESS\n----------------\n");
 	if (data->n_cmd == 1 && is_builtin(n) >= 0)
 		return(exec_builtin(data, n));
 	while(cmds)
@@ -74,15 +75,14 @@ int	launch_mini(t_data *data, char *cmd)
 		add_history(cmd);
 	if (check_pars(cmd, data))
 		return (1);
-	printf("START MINI PROCESS\n");
-	display_cmd(data->cmds);
+	// display_cmd(data->cmds);
 	data->n_cmd = ft_lstsize(data->cmds);
 	if (data->n_cmd > 0)
 		mini_process(data, data->cmds);
 	while (data->n_cmd-- > 0)
 		waitpid(-1, &s_error, 0);
-	printf("END MINI_PROCESS\n");
-	display_cmd(data->cmds);
+	printf("----------------\nEND MINI_PROCESS\n");
+	// display_cmd(data->cmds);
 	ft_lstclear(&data->dico, ft_free_dico);
 	ft_lstclear(&data->cmds, ft_free_node);
 	init_dico(data);
