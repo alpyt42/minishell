@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 16:20:28 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/08 16:52:34 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/09 16:07:21 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,13 +79,13 @@ static void	check_cmd(t_data *d, t_node *n)
 		print_error(NCMD, *n->all_cmd, NULL, 127);
 }
 
-static void	find_cmd(t_data *d)
+static void	find_cmd(t_data *d, t_list *cmd)
 {
 	t_node	*n;
 	DIR		*dir;
 	char	*tmp;
 
-	n = d->cmds->content;
+	n = cmd->content;
 	tmp = ft_strdup(n->all_cmd[0]);
 	if (n && n->all_cmd)
 		dir = opendir(tmp);
@@ -99,17 +99,31 @@ static void	find_cmd(t_data *d)
 	else if (n && n->all_path && access(n->all_path, X_OK) == -1
 			&& is_builtin(n) < 0)
 		print_error(NPERM, "", *n->all_cmd, 126);
+	if (dir)
+		closedir(dir);
 }
 
-void	*exec(t_data *data)
+void	*exec(t_data *data, t_list *cmd)
 {
 	int	fd[2];
 
-	find_cmd(data);
+	find_cmd(data, cmd);
+	printf("DISPLAY CMD EXEC :\n");
+	display_cmd(cmd);
 	if (pipe(fd) == -1)
 		return(print_error(PIPERR, NULL, NULL, 1));
-	if (!fork_fct(data, fd))
+	printf("pipe : fd[0] : %d && fd[1] : %d\n", fd[0], fd[1]);
+	if (!fork_fct(data, cmd, fd))
 		return(NULL);
 	close(fd[1]);
+	// printf("WHAT IN fd[0] (%d) : %s \n",fd[0], get_next_line(fd[0]));
+	if (cmd->next && !((t_node *)cmd->next->content)->infile)
+		((t_node *)cmd->next->content)->infile = fd[0];
+	else
+		close(fd[0]);
+	if (((t_node *)cmd->content)->infile > 2)
+		close(((t_node *)cmd->content)->infile);
+	if (((t_node *)cmd->content)->outfile > 2)
+		close(((t_node *)cmd->content)->outfile);
 	return (NULL);
 }

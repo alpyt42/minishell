@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 15:51:24 by aperez-b          #+#    #+#             */
-/*   Updated: 2023/03/02 23:25:36 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/09 14:17:28 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,13 +106,26 @@ void	*exec_cmd(t_prompt *prompt, t_list *cmd)
 	if (!check_to_fork(prompt, cmd, fd))
 		return (NULL);
 	close(fd[WRITE_END]);
+	printf("pipe : fd[0] : %d && fd[1] : %d\n", fd[0], fd[1]);
 	if (cmd->next && !((t_mini *)cmd->next->content)->infile)
+	{
+		printf("((t_mini *)cmd->next->content)->infile = %d\n", fd[READ_END]);
 		((t_mini *)cmd->next->content)->infile = fd[READ_END];
+	}
 	else
+	{
+		printf("close(%d)\n", fd[READ_END]);
 		close(fd[READ_END]);
+	}
 	if (((t_mini *)cmd->content)->infile > 2)
+	{
+		printf("close(((t_mini *)cmd->content)->infile) : %d\n", ((t_mini *)cmd->content)->infile);
 		close(((t_mini *)cmd->content)->infile);
+	}
 	if (((t_mini *)cmd->content)->outfile > 2)
+	{
+		printf("close((t_mini *)cmd->content)->outfile : %d\n", ((t_mini *)cmd->content)->outfile);
 		close(((t_mini *)cmd->content)->outfile);
+	}
 	return (NULL);
 }
