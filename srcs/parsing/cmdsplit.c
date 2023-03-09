@@ -6,7 +6,7 @@
 /*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 15:52:13 by amontalb          #+#    #+#             */
-/*   Updated: 2023/03/08 13:23:55 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/03/09 12:34:33 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@ static int	count_word(char *cmd, char *s)
       			double_q = (double_q + (!simple_q && cmd[i] == '\"')) % 2 ;
 				i++;
 			}
-			if ((simple_q == 1) || (double_q == 1))
-				return (-1);
 		} 
 		else
 			i++;		
@@ -82,11 +80,11 @@ char **ft_cmdsplit(char *cmd, char *s)
 	char **cmdsplit;
 	int  nbrwords;
 	
-	// dprintf(2, "nbr_words\n");
+	
 	nbrwords = count_word(cmd, s);
 	if (nbrwords == -1)
 		return (NULL);
-	cmdsplit = malloc((nbrwords + 1) * sizeof(char *));
+	cmdsplit = ft_calloc((nbrwords + 1) , sizeof(char *));
 	if (!cmdsplit)
 		return (NULL);
 	cmdsplit = fill_array(cmdsplit, cmd, s);

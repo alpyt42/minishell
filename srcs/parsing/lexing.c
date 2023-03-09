@@ -6,7 +6,7 @@
 /*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 08:47:16 by amontalb          #+#    #+#             */
-/*   Updated: 2023/03/08 18:11:30 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/03/09 12:01:01 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static char **fill_array(char **cmdlex, char *cmd, char *s)
 	int k;
 
 	i = 0;
-	k = 0;
+	k = -1;
 	simple_q = 0;
 	double_q = 0;
 	while (cmd[i])
@@ -66,12 +66,10 @@ static char **fill_array(char **cmdlex, char *cmd, char *s)
         	double_q = (double_q + (!simple_q && cmd[i] == '\"')) % 2 ;
 			i++;
 		}
-		if (i > (int)ft_strlen(cmd))
-			cmdlex[k++] = NULL;
-		else if(simple_q == 2 || double_q == 2)
-			cmdlex[k++] = ft_substr(cmd, j + 1, i - j - 2);	
+		if (++k == count_word(cmd, " "))
+			cmdlex[k] = NULL;
 		else
-			cmdlex[k++] = ft_substr(cmd, j, i - j);		
+			cmdlex[k] = ft_substr(cmd, j, i - j);		
 	}
 	return (cmdlex);
 }

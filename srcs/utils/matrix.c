@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   matrix.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 17:24:09 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/08 14:53:01 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/09 10:44:25 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ char	**ft_append_tab(char **tab, char *line)
 char **ft_replace_in_matrix(char **matrix, char **insert, int n)
 {
 	char **temp;
-	
 	int	i;
 	int	j;
 	int	k;
@@ -65,8 +64,6 @@ char **ft_replace_in_matrix(char **matrix, char **insert, int n)
 	if (!matrix || n < 0 || n >= len_tab(matrix))
 		return (NULL);
 	temp = ft_calloc((len_tab(matrix) + len_tab(insert)), sizeof(char*));
-	int test = len_tab(matrix);
-	(void) test;
 	if (!temp)
 		return (NULL);
 	while (temp && matrix[++i])
