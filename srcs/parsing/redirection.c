@@ -6,7 +6,7 @@
 /*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:08:47 by amontalb          #+#    #+#             */
-/*   Updated: 2023/03/09 13:53:24 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/03/09 14:23:44 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ int get_fd(int oldfd, char *path, int create, int append)
 		close(oldfd);
     if (!path)
         return (-1);
-    // if(access(path, F_OK) == -1 && !create)
-    //     error();
-    // else if (access(path, R_OK) == -1 && !create)
-    //     error();
-    // else if (access(path, W_OK) == -1 && access(path, F_OK) == 0 && create)
-    //     error();
+    if(access(path, F_OK) == -1 && !create)
+        print_error(NDIR, "ERROR", path, 1);
+    else if (access(path, R_OK) == -1 && !create)
+        print_error(NPERM, "ERROR", path, 126);
+    else if (access(path, W_OK) == -1 && access(path, F_OK) == 0)
+        print_error(NPERM, "ERROR", path, 126);
     if (create && append)
         fd = open(path, O_CREAT | O_WRONLY | O_APPEND, 0666);
     else if (create && !append)
@@ -94,7 +94,6 @@ t_node  *get_in1(t_node *node, char **cmds, int *i)
         }
         else
         {
-            print_error(2, "parsing", cmds[*i], 1);
             s_error = 1;
         }
     }

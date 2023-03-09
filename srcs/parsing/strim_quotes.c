@@ -6,7 +6,7 @@
 /*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 14:57:31 by amontalb          #+#    #+#             */
-/*   Updated: 2023/03/08 16:45:01 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/03/09 15:04:28 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char *ft_strim_quotes(char *s)
     double_q = 0;
     if (!s || malloc_len(s) == -1)
         return (NULL);
-    trim = malloc((ft_strlen(s) - malloc_len(s) + 1) * sizeof(char));
+    trim = ft_calloc((ft_strlen(s) - malloc_len(s) + 1), sizeof(char));
     if (!trim)
         return (NULL);
     while (s[i])

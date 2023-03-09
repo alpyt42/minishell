@@ -6,7 +6,7 @@
 /*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:11:15 by amontalb          #+#    #+#             */
-/*   Updated: 2023/03/08 14:26:31 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/03/09 15:20:35 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ char    *sub_var(char *cmd, t_data *data, int i)
     else
         path = ft_strjoin(before, var);
     if (ft_strchars_i(&cmd[i + 1], "|$?~%^${}: \"") != -1)
-        path = ft_strjoin(path, &cmd[i + 1 + ft_strchars_i(&cmd[i + 1], "|$?~%^${}: \"")]);
+        path = ft_strjoin(path, &cmd[i + ft_strchars_i(&cmd[i + 1], "|$?~%^${}: \"")]);
     return (path);   
 }
 
