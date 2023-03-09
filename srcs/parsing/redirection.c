@@ -6,7 +6,7 @@
 /*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:08:47 by amontalb          #+#    #+#             */
-/*   Updated: 2023/03/09 14:23:44 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/03/09 17:02:57 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,20 +84,12 @@ t_node  *get_in1(t_node *node, char **cmds, int *i)
     (*i)++;
     if (cmds[*i])
         node->infile = get_fd(node->infile, cmds[*i], 0, 0);
-    if (!cmds[*i] || node->infile == -1)
-    {
-        // *i -= 1;
-        if (node->infile !=  -1)
-        {
-            ft_putendl_fd("minishell: syntax error near unexpected token `newline'", 2);
-            s_error = 2;
-        }
-        else
-        {
-            s_error = 1;
-        }
+    else
+    { 
+        node->infile = -1;
+        ft_putendl_fd("minishell: syntax error near unexpected token `newline'", 2);
+        s_error = 2;
     }
-
     return (node);    
 }
 

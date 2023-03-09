@@ -6,7 +6,7 @@
 /*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 13:43:24 by amontalb          #+#    #+#             */
-/*   Updated: 2023/03/09 09:22:48 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/03/09 16:45:01 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static t_node *fill_nodes2(t_node *node, char **cmds, int *i, t_data *data)
 {
     if (cmds[*i])
     {
+        printf("fill_node2 for\n");
         if (cmds[*i][0] == '>' && cmds[*i + 1] && cmds[*i + 1][0] == '>')
             node = get_out2(node, cmds, i);
         else if (cmds[*i][0] == '>')
@@ -48,9 +49,8 @@ static t_node *fill_nodes2(t_node *node, char **cmds, int *i, t_data *data)
             *i = -2;
         }
     }
+    printf("end fill_node2\n");
     return (node);
-
-
 }
 
 
@@ -64,8 +64,11 @@ t_list  *fill_nodes(char **cmds, t_data *data)
     i = -1;
     while(cmds[i] && cmds[++i])
     {
-        temp = ft_lstlast(begin); 
-        if (i == 0 || (cmds[i][0] == '|' && cmds[i + 1]))
+        temp = ft_lstlast(begin);
+        if ((cmds[i][0] == '|' && cmds[i + 1] && cmds[i + 1][0] == '|')
+            || (cmds[i][0] == '|' && !cmds[i + 1]))
+            return (NULL);
+        if (i == 0 || (cmds[i][0] == '|' && cmds[i + 1] && cmds[i + 1][0] != '|'))
         {
             i+= cmds[i][0] == '|';
             ft_lstadd_back(&begin, ft_lstnew(init_node()));
