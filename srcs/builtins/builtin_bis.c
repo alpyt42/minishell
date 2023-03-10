@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 16:06:32 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/08 16:35:29 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/10 17:37:42 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,14 +80,14 @@ static int	error_built(char *cmd, char *fct)
 	return (2);
 }
 
-int	built_export(t_data *data)
+int	built_export(t_data *data, t_node *n)
 {
 	char	**cmds;
 	char	**tmp;
 	char	*var_glob;
 	int		i;
 
-	cmds = ((t_node *)data->cmds->content)->all_cmd;
+	cmds = n->all_cmd;
 	if (!cmds)
 		return (0);
 	if (cmds[0] && !cmds[1])
@@ -109,13 +109,13 @@ int	built_export(t_data *data)
 	return (0);
 }
 
-int	built_unset(t_data *data)
+int	built_unset(t_data *data, t_node *n)
 {
 	char	**cmds;
 	int		i;
 	int		pos;
 
-	cmds = ((t_node *)data->cmds->content)->all_cmd;
+	cmds = n->all_cmd;
 	pos = 0;
 	if (!cmds || !cmds[0] || !cmds[1])
 		return (0);

@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 17:40:09 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/09 17:49:24 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/10 20:28:52 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,11 @@
 
 extern int	s_error;
 
-int	built_exit(t_data *data)
+int	built_exit(t_data *data, t_node *node)
 {
-	t_node		*node;
 	long		nb_ex;
 
 	nb_ex = 0;
-	node = data->cmds->content;
 	data->quit = 1;
 	ft_putstr_fd("exit\n", 2);
 	if (!node->all_cmd[1])
@@ -57,7 +55,7 @@ int	built_pwd(void)
 	return(0);
 }
 
-int	built_echo(t_data *data)
+int	built_echo(t_node *n)
 {
 	char	**str;
 	int		i;
@@ -65,7 +63,7 @@ int	built_echo(t_data *data)
 
 	new_line = 1;
 	i = 0;
-	str = ((t_node *)data->cmds->content)->all_cmd;
+	str = n->all_cmd;
 	if (!str)
 		return (0);
 	while(str && str[++i])
@@ -110,6 +108,7 @@ static int	open_cd(char **str[2])
 		print_error(NOT_DIR, "cd", str[0][1], 1);
 	if (str[0][1] && dir)
 		closedir(dir);
+	printf("s_error : %d\n", s_error);
 	return (err);
 }
 
@@ -121,7 +120,8 @@ int	built_cd(t_data *data, t_node *n)
 
 	err = 0;
 	str[0] = n->all_cmd;
-	if (!str[0])
+	// dprintf(2, "built_cd  : n->all_cmd : %s", *n->all_cmd);
+	if (!n->all_cmd)
 		return (0);
 	val = ft_strjoin(search_dico("HOME", data), "");
 	str[1] = ft_append_tab(NULL, val);

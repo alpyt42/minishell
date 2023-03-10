@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 17:03:39 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/09 17:54:01 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/10 20:12:39 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,19 @@ extern int	s_error;
 
 int	exec_builtin(t_data *d, t_node *n)
 {
+	// dprintf(2,"exec_builtins for %s\n", *n->all_cmd);
 	if (is_builtin(n) == -1)
 		return (0);
 	if (is_builtin(n) == 0)
 		s_error = built_cd(d, n);
 	else if (is_builtin(n) == 1)
-		s_error = built_export(d);
+		s_error = built_export(d, n);
 	else if (is_builtin(n) == 2)
-		s_error = built_exit(d);
+		s_error = built_exit(d, n);
 	else if (is_builtin(n) == 3)
-		s_error = built_unset(d);
+		s_error = built_unset(d, n);
 	else if (is_builtin(n) == 4)
-		s_error = built_echo(d);
+		s_error = built_echo(n);
 	else if (is_builtin(n) == 5)
 		s_error = built_env(d, 0);
 	else if (is_builtin(n) == 6)
@@ -40,10 +41,10 @@ int	mini_process(t_data *data, t_list *cmds)
 	t_node	*n;
 
 	n = data->cmds->content;
-	printf("DISPLAY CMDS : \n");
-	display_cmd(data->cmds);
-	printf("data->n_cmd : %d\n", data->n_cmd);
-	printf("START MINI PROCESS\n----------------\n");
+	// printf("DISPLAY CMDS : \n");
+	// display_cmd(data->cmds);
+	// printf("data->n_cmd : %d\n", data->n_cmd);
+	// printf("START MINI PROCESS\n----------------\n");
 	if (data->n_cmd == 1 && is_builtin(n) >= 0)
 		return(exec_builtin(data, n));
 	while(cmds)
@@ -81,10 +82,11 @@ int	launch_mini(t_data *data, char *cmd)
 		mini_process(data, data->cmds);
 	while (data->n_cmd-- > 0)
 		waitpid(-1, &s_error, 0);
-	printf("----------------\nEND MINI_PROCESS\n");
+	// printf("----------------\nEND MINI_PROCESS\n");
 	// display_cmd(data->cmds);
 	ft_lstclear(&data->dico, ft_free_dico);
 	ft_lstclear(&data->cmds, ft_free_node);
 	init_dico(data);
+	printf("s_error : %d\n", s_error);
 	return (1);
 }

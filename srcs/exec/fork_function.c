@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 10:58:56 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/09 17:51:24 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/10 20:14:07 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ static void	exec_cmd(t_data *d, t_list *cmd)
 	n = cmd->content;
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
-	// display_cmd(cmd);
-	if (is_builtin(n) > 0)
+	// dprintf(2, "EXEC_CMD for %s\n", *((t_node *)cmd->content)->all_cmd);
+	if (is_builtin(n) >= 0)
 		s_error = exec_builtin(d, n);
 	else if (is_builtin(n) < 0 && n->all_cmd && n->all_path)
 		execve(n->all_path, n->all_cmd, d->env);
@@ -55,6 +55,7 @@ static void	get_fork(t_data *d, t_list *cmd, int fd[2])
 {
 	pid_t	pdt;
 
+	// printf("GET_FORK for %s\n", *((t_node *)cmd->content)->all_cmd);
 	pdt = fork();
 	if (pdt == -1)
 	{
@@ -85,10 +86,7 @@ void	*fork_fct(t_data *d, t_list *cmd, int fd[2])
 	if (n->all_cmd)
 		dir = opendir(*n->all_cmd);
 	if (is_builtin(n) >= 0 || (n->all_path && !access(n->all_path, X_OK)))
-	{
-		// printf("GET_FORK\n------------\n");
 		get_fork(d, cmd, fd);
-	}
 	else if (is_builtin(n) < 0 && (dir ||
 		(n->all_path && !access(n->all_path, F_OK))))
 		s_error = 126;

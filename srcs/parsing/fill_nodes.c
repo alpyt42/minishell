@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_nodes.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 13:43:24 by amontalb          #+#    #+#             */
-/*   Updated: 2023/03/09 16:45:01 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/03/10 19:49:33 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ static t_node *fill_nodes2(t_node *node, char **cmds, int *i, t_data *data)
 {
     if (cmds[*i])
     {
-        printf("fill_node2 for\n");
         if (cmds[*i][0] == '>' && cmds[*i + 1] && cmds[*i + 1][0] == '>')
             node = get_out2(node, cmds, i);
         else if (cmds[*i][0] == '>')
@@ -49,7 +48,6 @@ static t_node *fill_nodes2(t_node *node, char **cmds, int *i, t_data *data)
             *i = -2;
         }
     }
-    printf("end fill_node2\n");
     return (node);
 }
 

@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 17:08:00 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/02/21 22:52:01 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/10 19:52:56 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int	get_here_doc(char *del, t_data *data)
 	s_error = 0;
 	q = 0;
 	warning = "minishell: warning: here-document delimited by end-of-file";
-	dprintf(1, "delimiter : --%s--\n", del);
+	// dprintf(1, "delimiter : --%s--\n", del);
 	if (!del || ft_strchr(del, '<') || ft_strchr(del, '|'))
 		return(errors("minishell: syntax error near unexpected token", del, 1));
 	if (pipe(fd) == -1)
@@ -112,7 +112,7 @@ int	get_here_doc(char *del, t_data *data)
 	str = fill_here_doc(del, warning);
 	if (q == 1)
 		str = get_var_hd(str, data);
-	dprintf(2, "str : %s", str);
+	// dprintf(2, "str : %s", str);
 	write(fd[1], str, ft_strlen(str));
 	close(fd[1]);
 	free(str);

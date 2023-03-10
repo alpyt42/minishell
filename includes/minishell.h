@@ -83,12 +83,12 @@ enum	e_error
 
 //----------------------------------------builtins----
 int		is_builtin(t_node *n);
-int		built_exit(t_data *data);
-int		built_export(t_data *data);
+int		built_exit(t_data *data, t_node *n);
+int		built_export(t_data *data, t_node *n);
 int		built_pwd(void);
-int		built_echo(t_data *data);
+int		built_echo(t_node *n);
 int		built_cd(t_data *data, t_node *n);
-int		built_unset(t_data *data);
+int		built_unset(t_data *data, t_node *n);
 int		built_env(t_data *d, int tri);
 //----------------------------------------env---------
 void	init_dico(t_data *data);
