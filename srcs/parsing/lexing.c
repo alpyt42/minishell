@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   lexing.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 08:47:16 by amontalb          #+#    #+#             */
-/*   Updated: 2023/03/09 12:01:01 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/03/12 01:29:54 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "parsing.h"
 
 int	count_word(char *cmd, char *s)
 {

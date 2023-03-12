@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "utils.h"
 
 extern int	s_error;
 
@@ -77,7 +77,7 @@ void	ft_free_mini(t_data *data)
 	ft_free_arr(data->env);
 }
 
-int	errors(char *strerr, char *error, int n)
+int	symbol_errors(char *strerr, char *error, int n)
 {
 	if (n == 1)
 	{

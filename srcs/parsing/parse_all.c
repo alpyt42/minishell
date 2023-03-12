@@ -6,11 +6,11 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 08:43:12 by amontalb          #+#    #+#             */
-/*   Updated: 2023/03/10 19:51:01 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/12 01:29:58 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "parsing.h"
 
 static char **split_all(char **cmd, t_data *data)
 {

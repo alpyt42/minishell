@@ -6,11 +6,11 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 16:20:28 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/09 17:10:21 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/12 01:20:58 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "exec.h"
 
 extern int	s_error;
 

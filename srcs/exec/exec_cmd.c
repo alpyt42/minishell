@@ -6,11 +6,11 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 17:39:52 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/02/02 16:32:03 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/12 01:53:07 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "exec.h"
 
 static void	get_exec_res(char ***res, int fd)
 {
@@ -40,24 +40,24 @@ void	exec_cmd_path(char ***res, char *path, char *cmd, char **env)
 	char	**cmd_exec;
 
 	if (pipe(fd) == -1)
-			errors(strerror(errno), "", 0);
+			symbol_errors(strerror(errno), "", 0);
 	pid_fork = fork();
 	if (pid_fork == -1)
-			errors(strerror(errno), "", 0);
+			symbol_errors(strerror(errno), "", 0);
 	if (!pid_fork)
 	{
-		close(fd[FD_READ]);
+		close(fd[0]);
 		cmd_exec = ft_split(cmd, ' ');
-		if (dup2(fd[FD_WRITE], STDOUT_FILENO) == -1)
-			errors(strerror(errno), "", 0);
-		close(fd[FD_WRITE]);
+		if (dup2(fd[1], STDOUT_FILENO) == -1)
+			symbol_errors(strerror(errno), "", 0);
+		close(fd[1]);
 		if (!access(path, F_OK))
 			if (execve(path, cmd_exec, env) == -1)
-				errors(strerror(errno), cmd_exec[0], 0);
+				symbol_errors(strerror(errno), cmd_exec[0], 0);
 		exit(1);
 	}
-	close(fd[FD_WRITE]);
+	close(fd[1]);
 	waitpid(pid_fork, NULL, 0);
-	get_exec_res(res, fd[FD_READ]);
-	close(fd[FD_READ]);
+	get_exec_res(res, fd[0]);
+	close(fd[0]);
 }

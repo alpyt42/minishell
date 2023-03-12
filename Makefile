@@ -11,15 +11,11 @@ LIBFT = libft/libft.a
 HEADER = minishell.h
 
 BUILTINS = builtin builtin_bis
-ENV = env init get_here_doc get_file
+ENV = env init get_here_doc
 EXEC = exec_cmd mini exec fork_function
-MAIN = main
-PARSING = token expand lexing parse_all cmdsplit strim_quotes fill_nodes redirection
-TOOLS = error
-UTILS = matrix other_function
-PROMPT = prompt
-SIGNALS = signals
-TEST = main_alric struct_test
+MAIN = main prompt signals
+PARSING = expand lexing parse_all cmdsplit strim_quotes fill_nodes redirection
+UTILS = matrix other_function error struct_test
 
 UNAME = $(shell uname -s)
 
@@ -29,25 +25,23 @@ ifeq ($(UNAME), Linux)
 endif
 
 # Check if the current user is "cuentolinux"
-ifeq ($(shell echo $$USER), cuentolinux)
-	# If the current user is "cuentolinux", add the test source files to the list of source files
-	SRC = $(addsuffix .c, $(addprefix srcs/test_struct/, $(TEST)))
-else ifeq ($(shell echo $$USER), ale-cont)
-	# If the current user is "ale-cont", add the test source files to the list of source files
-	SRC = $(addsuffix .c, $(addprefix srcs/test_struct/, $(TEST)))
-else
-	# If the current user is not "cuentolinux" or "ale-cont", add the main source files to the list of source files
-	SRC = $(addsuffix .c, $(addprefix srcs/main/, $(MAIN)))
-endif
+# ifeq ($(shell echo $$USER), cuentolinux)
+# 	# If the current user is "cuentolinux", add the test source files to the list of source files
+# 	SRC = $(addsuffix .c, $(addprefix srcs/test_struct/, $(TEST)))
+# else ifeq ($(shell echo $$USER), ale-cont)
+# 	# If the current user is "ale-cont", add the test source files to the list of source files
+# 	SRC = $(addsuffix .c, $(addprefix srcs/test_struct/, $(TEST)))
+# else
+# 	# If the current user is not "cuentolinux" or "ale-cont", add the main source files to the list of source files
+# 	SRC = $(addsuffix .c, $(addprefix srcs/main/, $(MAIN)))
+# endif
 
-SRC += $(addsuffix .c, $(addprefix srcs/builtins/, $(BUILTINS))) \
-	  $(addsuffix .c, $(addprefix srcs/env/, $(ENV))) \
-	  $(addsuffix .c, $(addprefix srcs/exec/, $(EXEC))) \
-	  $(addsuffix .c, $(addprefix srcs/parsing/, $(PARSING))) \
-	  $(addsuffix .c, $(addprefix srcs/tools/, $(TOOLS))) \
-	  $(addsuffix .c, $(addprefix srcs/utils/, $(UTILS))) \
-	  $(addsuffix .c, $(addprefix srcs/prompt/, $(PROMPT))) \
-	  $(addsuffix .c, $(addprefix srcs/signals/, $(SIGNALS))) \
+SRC =	$(addsuffix .c, $(addprefix srcs/main/, $(MAIN))) \
+		$(addsuffix .c, $(addprefix srcs/builtins/, $(BUILTINS))) \
+		$(addsuffix .c, $(addprefix srcs/env/, $(ENV))) \
+		$(addsuffix .c, $(addprefix srcs/exec/, $(EXEC))) \
+		$(addsuffix .c, $(addprefix srcs/parsing/, $(PARSING))) \
+		$(addsuffix .c, $(addprefix srcs/utils/, $(UTILS))) \
 
 OBJ = $(SRC:c=o)
 

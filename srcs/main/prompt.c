@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 15:29:54 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/02/02 16:51:19 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/12 01:48:45 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ char	*get_prompt(t_data *data)
 	char	*path;
 	char	*tmp;
 
-	
 	user_name = get_user_name(data);
 	path = get_path(data);
 	tmp = ft_strjoin(user_name, path);

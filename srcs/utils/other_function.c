@@ -6,11 +6,11 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:45:23 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/08 14:54:30 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/12 01:44:20 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "utils.h"
 
 int	ft_strchars_i(const char *s, char *set)
 {

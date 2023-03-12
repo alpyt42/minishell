@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "env.h"
 
 char	*find_in_arr(char **arr, char *to_find)
 {
