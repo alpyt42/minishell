@@ -9,6 +9,11 @@ CFLAGS += -I includes/ -I libft/
 LIBFT = libft/libft.a
 
 HEADER = minishell.h
+HEADS = srcs/builtins/builtins.h \
+		srcs/env/env.h \
+		srcs/exec/exec.h \
+		srcs/parsing/parsing.h \
+		srcs/utils/utils.h
 
 BUILTINS = builtin builtin_bis
 ENV = env init get_here_doc
@@ -24,24 +29,12 @@ ifeq ($(UNAME), Linux)
 	LEAKS = valgrind --leak-check=full --track-fds=yes --trace-children=yes -s -q 
 endif
 
-# Check if the current user is "cuentolinux"
-# ifeq ($(shell echo $$USER), cuentolinux)
-# 	# If the current user is "cuentolinux", add the test source files to the list of source files
-# 	SRC = $(addsuffix .c, $(addprefix srcs/test_struct/, $(TEST)))
-# else ifeq ($(shell echo $$USER), ale-cont)
-# 	# If the current user is "ale-cont", add the test source files to the list of source files
-# 	SRC = $(addsuffix .c, $(addprefix srcs/test_struct/, $(TEST)))
-# else
-# 	# If the current user is not "cuentolinux" or "ale-cont", add the main source files to the list of source files
-# 	SRC = $(addsuffix .c, $(addprefix srcs/main/, $(MAIN)))
-# endif
-
 SRC =	$(addsuffix .c, $(addprefix srcs/main/, $(MAIN))) \
 		$(addsuffix .c, $(addprefix srcs/builtins/, $(BUILTINS))) \
 		$(addsuffix .c, $(addprefix srcs/env/, $(ENV))) \
 		$(addsuffix .c, $(addprefix srcs/exec/, $(EXEC))) \
 		$(addsuffix .c, $(addprefix srcs/parsing/, $(PARSING))) \
-		$(addsuffix .c, $(addprefix srcs/utils/, $(UTILS))) \
+		$(addsuffix .c, $(addprefix srcs/utils/, $(UTILS)))
 
 OBJ = $(SRC:c=o)
 
@@ -52,8 +45,7 @@ $(NAME): lib $(OBJ)
 	@$(CC) -L $(CFLAGS) -o $(NAME) $(OBJ) $(LIBFT) -lreadline
 	@echo "\nMinishell is up to date !"
 
-%.o: %.c $(HEADER) $(LIBFT)
-	@echo "\033[0;33mGenerating minishell objects... %-33.33s\r" $@
+%.o: %.c $(HEADS) $(HEADER) $(LIBFT)
 	@${CC} -I $(CFLAGS) -c $< -o $@
 
 lib :
