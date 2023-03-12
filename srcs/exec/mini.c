@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 17:03:39 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/12 20:21:18 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/13 00:05:05 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,14 @@ int	mini_process(t_data *data, t_list *cmds)
 	return (s_error);
 }
 
+static void	get_error(t_data *d)
+{
+	if (!d->quit && s_error == 13)
+		s_error = 0;
+	if (s_error > 255)
+		s_error = s_error / 255;
+}
+
 int	launch_mini(t_data *data, char *cmd)
 {
 	if (!cmd)
@@ -82,6 +90,7 @@ int	launch_mini(t_data *data, char *cmd)
 		mini_process(data, data->cmds);
 	while (data->n_cmd-- > 0)
 		waitpid(-1, &s_error, 0);
+	get_error(data);
 	// printf("----------------\nEND MINI_PROCESS\n");
 	// display_cmd(data->cmds);
 	ft_lstclear(&data->dico, ft_free_dico);

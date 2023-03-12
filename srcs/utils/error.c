@@ -52,6 +52,8 @@ int	symbol_errors(char *error, int type, int *exit)
 		ft_dprintf(2, "minishell: syntax error near unexpected token `%s'\n", "|");
 	else if (ft_strchr(error, '>'))
 		ft_dprintf(2, "minishell: syntax error near unexpected token `%s'\n", ">");
+	else
+		ft_dprintf(2, "minishell: syntax error near unexpected token `newline'\n");
 	return(0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 10:58:56 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/12 20:41:36 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/12 23:33:56 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ static void	exec_cmd(t_data *d, t_list *cmd)
 	if (is_builtin(n) >= 0)
 		s_error = exec_builtin(d, n);
 	else if (is_builtin(n) < 0 && n->all_cmd && n->all_path)
-		execve(n->all_path, n->all_cmd, d->env);
+		if (execve(n->all_path, n->all_cmd, d->env) == -1)
+			s_error = errno;
 }
 
 static void	*redir_dup(t_list *cmd, int fd[2])
