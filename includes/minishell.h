@@ -48,6 +48,7 @@ typedef struct s_data
 	char	**env;
 	char	**argv;
 	int		quit;
+	int		exe;
 	int		n_cmd;
 	pid_t	*p_ids;
 }			t_data;

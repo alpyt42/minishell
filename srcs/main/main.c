@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:32:53 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/12 01:49:16 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/12 22:28:46 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int main(int argc, char **argv, char **env)
 	ft_dprintf(1, "\033[1;90mMINI.SHELL  |  ale-cont \\ amontalb\033[0;39m\n");
 	while (argc && argv)
 	{
+		data.exe = 1;
 		signal(SIGINT, signal_receive);
 		signal(SIGQUIT, SIG_IGN);
 		prompt = get_prompt(&data);
@@ -33,9 +34,10 @@ int main(int argc, char **argv, char **env)
 			command = readline("minishell $ ");
 		else
 			command = readline(prompt);
+		free(prompt);
 		if (!launch_mini(&data, command) || data.quit)
 			break;
-		free(prompt);
+		printf("s_error : %d\n", s_error);
 	}
 	exit(s_error);
 }

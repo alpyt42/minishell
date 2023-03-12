@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 16:20:28 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/12 01:20:58 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/12 20:39:05 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ static void	find_cmd(t_data *d, t_list *cmd)
 		print_error(IS_DIR, "", tmp, 126);
 	else if (n && n->all_path && access(n->all_path, F_OK) == -1 
 			&& is_builtin(n) < 0)
-		print_error(NDIR, "", tmp, 127);
+		print_error(NDIR, "", tmp, 1);
 	else if (n && n->all_path && access(n->all_path, X_OK) == -1
 			&& is_builtin(n) < 0)
 		print_error(NPERM, "", *n->all_cmd, 126);
@@ -111,7 +111,7 @@ void	*exec(t_data *data, t_list *cmd)
 	// printf("DISPLAY CMD EXEC :\n");
 	// display_cmd(cmd);
 	if (pipe(fd) == -1)
-		return(print_error(PIPERR, NULL, NULL, 1));
+		return(print_error(PIPERR, NULL, NULL, errno));
 	// printf("pipe : fd[0] : %d && fd[1] : %d\n", fd[0], fd[1]);
 	if (!fork_fct(data, cmd, fd))
 		return(NULL);

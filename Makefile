@@ -2,18 +2,12 @@ NAME = minishell
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror -g3 #-O2 -pipe
-# CFLAGS += -fsanitize=address
-CFLAGS += -I includes/ -I libft/
+CFLAGS = -Wall -Wextra -Werror -g3
+CDEBUG = #-fsanitize=address
 
 LIBFT = libft/libft.a
 
 HEADER = minishell.h
-HEADS = srcs/builtins/builtins.h \
-		srcs/env/env.h \
-		srcs/exec/exec.h \
-		srcs/parsing/parsing.h \
-		srcs/utils/utils.h
 
 BUILTINS = builtin builtin_bis
 ENV = env init get_here_doc
@@ -36,23 +30,20 @@ SRC =	$(addsuffix .c, $(addprefix srcs/main/, $(MAIN))) \
 		$(addsuffix .c, $(addprefix srcs/parsing/, $(PARSING))) \
 		$(addsuffix .c, $(addprefix srcs/utils/, $(UTILS)))
 
-OBJ = $(SRC:c=o)
+OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
 
 $(NAME): lib $(OBJ)
 	@echo "\n\033[0;32mCompiling minishell...\033[0m"
-	@$(CC) -L $(CFLAGS) -o $(NAME) $(OBJ) $(LIBFT) -lreadline
+	@$(CC) -L /usr/local/opt/readline/lib -I /usr/local/opt/readline/include -L ~/.brew/opt/readline/lib -I ~/.brew/opt/readline/include $(CFLAGS) $(CDEBUG) $(OBJ) $(LIBFT) -lreadline -o $@
 	@echo "\nMinishell is up to date !"
 
-%.o: %.c $(HEADS) $(HEADER) $(LIBFT)
-	@${CC} -I $(CFLAGS) -c $< -o $@
+%.o: %.c
+	@${CC} -I ~/.brew/opt/readline/include -I /usr/local/opt/readline/include $(CFLAGS) $(CDEBUG) -c $< -o $@
 
 lib :
 	$(MAKE) -C ./libft
-
-leak: all
-	@$(LEAKS)./$(NAME)
 
 clean:
 	@echo "\033[0;31mCleaning libft..."
@@ -74,4 +65,4 @@ fclean:
 
 re: fclean all
 
-.PHONY: clean fclean re test norm
+.PHONY: all clean fclean re lib

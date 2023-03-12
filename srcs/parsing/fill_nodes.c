@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 13:43:24 by amontalb          #+#    #+#             */
-/*   Updated: 2023/03/12 01:59:32 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/12 20:43:45 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static t_node *fill_nodes2(t_node *node, char **cmds, int *i, t_data *data)
             node->all_cmd = ft_append_tab(node->all_cmd, ft_strim_quotes(expand_all2(cmds[*i], data)));
         else
         {
-            print_error(SYMB, NULL, "|", 2);
+            symbol_errors("|", 2, &data->exe);
             *i = -2;
         }
     }

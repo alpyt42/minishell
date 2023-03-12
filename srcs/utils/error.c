@@ -42,15 +42,16 @@ void	*print_error(int type, char *cmd, char *arg, int error)
 	return (NULL);
 }
 
-int	symbol_errors(char *error, int type)
+int	symbol_errors(char *error, int type, int *exit)
 {
 	s_error = type;
+	*exit = 0;
 	if (ft_strchr(error, '<'))
-		ft_dprintf(2, "minishell: syntax error near unexpected token `%s'\n", "'<'");
+		ft_dprintf(2, "minishell: syntax error near unexpected token `%s'\n", "<");
 	else if (ft_strchr(error, '|'))
-		ft_dprintf(2, "minishell: syntax error near unexpected token `%s'\n", "'|'");
+		ft_dprintf(2, "minishell: syntax error near unexpected token `%s'\n", "|");
 	else if (ft_strchr(error, '>'))
-		ft_dprintf(2, "minishell: syntax error near unexpected token `%s'\n", "'>'");
+		ft_dprintf(2, "minishell: syntax error near unexpected token `%s'\n", ">");
 	return(0);
 }
 

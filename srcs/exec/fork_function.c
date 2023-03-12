@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 10:58:56 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/12 01:22:26 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/12 20:41:36 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,17 @@ static void	*redir_dup(t_list *cmd, int fd[2])
 	if (n->infile != STDIN_FILENO)
 	{
 		if (dup2(n->infile, STDIN_FILENO) == -1)
-			return(print_error(DUPERR, NULL, NULL, 1));
+			return(print_error(DUPERR, NULL, NULL, errno));
 		close(n->infile);
 	}
 	if (n->outfile != STDOUT_FILENO)
 	{
 		if (dup2(n->outfile, STDOUT_FILENO) == -1)
-			return(print_error(DUPERR, NULL, NULL, 1));
+			return(print_error(DUPERR, NULL, NULL, errno));
 		close(n->outfile);
 	}
 	else if (cmd->next && dup2(fd[1], STDOUT_FILENO) == -1)
-		return (print_error(DUPERR, NULL, NULL, 1));
+		return (print_error(DUPERR, NULL, NULL, errno));
 	close(fd[1]);
 	return ("");
 }
@@ -55,7 +55,6 @@ static void	get_fork(t_data *d, t_list *cmd, int fd[2])
 {
 	pid_t	pdt;
 
-	// printf("GET_FORK for %s\n", *((t_node *)cmd->content)->all_cmd);
 	pdt = fork();
 	if (pdt == -1)
 	{

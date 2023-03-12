@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 17:08:00 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/12 02:05:33 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/12 21:00:54 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static char	*fill_here_doc(char *del, char *warn)
 		readstr = readline("> ");
 		if (!readstr)
 		{
-			ft_dprintf(2, "%s : %s", warn, del);
+			ft_dprintf(2, "%s : %s\n", warn, del);
 			break ;
 		}
 		if (!ft_strncmp(del, readstr, ft_strlen(readstr))
@@ -90,7 +90,6 @@ static char	*fill_here_doc(char *del, char *warn)
 		free(tmp);
 		free(readstr);
 	}
-	dprintf(1, "line : %s", line);
 	return (line);
 }
 
@@ -104,16 +103,16 @@ int	get_here_doc(char *del, t_data *data)
 	s_error = 0;
 	q = 0;
 	warning = "minishell: warning: here-document delimited by end-of-file";
-	// dprintf(1, "delimiter : --%s--\n", del);
+	// dprintf(1, "delimiter : %s\n", del);
 	if (!del || ft_strchr(del, '<') || ft_strchr(del, '|'))
-		return(symbol_errors(del, 2));
+		return(symbol_errors(del, 2, &data->exe));
 	if (pipe(fd) == -1)
-		perror("pipe");
+		print_error(PIPERR, NULL, NULL, errno);
 	str = fill_here_doc(del, warning);
-	if (q == 1)
+	if (q == 1 && str)
 		str = get_var_hd(str, data);
-	// dprintf(2, "str : %s", str);
-	write(fd[1], str, ft_strlen(str));
+	if (str)
+		write(fd[1], str, ft_strlen(str));
 	close(fd[1]);
 	free(str);
 	if (s_error == 130)

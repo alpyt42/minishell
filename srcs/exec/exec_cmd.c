@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 17:39:52 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/12 02:13:20 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/12 22:11:12 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static void	get_exec_res(char ***res, int fd)
 	char	*line;
 
 	tab = NULL;
+	line = NULL;
 	while (1)
 	{
 		line = get_next_line(fd);

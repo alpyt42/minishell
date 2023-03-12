@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 15:29:54 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/12 01:48:45 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/12 22:29:07 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,23 @@ static char	*get_user_name(t_data *data)
 	char	*tmp2;
 
 	user_name = NULL;
-	(void)data;
+	tmp = NULL;
+	tmp2 = NULL;
 	exec_cmd_path(&user_name, "/usr/bin/whoami", "whoami", data->env);
 	if (!user_name)
-		ft_append_tab(user_name, "unknown");
-	tmp = ft_strjoin(user_name[0], "@minishell:");
-	tmp2 = ft_strjoin(GREEN, tmp);
-	free(tmp);
-	tmp = ft_strjoin(tmp2, DEFAULT);
-	free(tmp2);
-	ft_free_arr(user_name);
+		ft_append_tab(user_name, "guest");
+	if (user_name && *user_name)
+	{
+		tmp = ft_strjoin(user_name[0], "@minishell:");
+		tmp2 = ft_strjoin(GREEN, tmp);
+		free(tmp);
+		tmp = ft_strjoin(tmp2, DEFAULT);
+		free(tmp2);
+		ft_free_arr(user_name);
+		return (tmp);
+	}
+	else
+		tmp = ft_strjoin("unknown", "@minishell:");
 	return (tmp);
 }
 
