@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 01:43:39 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/12 01:51:39 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/12 02:07:48 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "../../includes/minishell.h"
 
 void	*print_error(int type, char *cmd, char *arg, int error);
-int		symbol_errors(char *strerr, char *error, int n);
+int		symbol_errors(char *error, int type);
 void	ft_free_dico(void *content);
 void	ft_free_node(void *content);
 void	ft_free_mini(t_data *data);

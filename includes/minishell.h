@@ -69,7 +69,7 @@ enum	e_error
 	DUPERR = 7,
 	FORKERR = 8,
 	PIPERR = 9,
-	PIPENDERR = 10,
+	SYMB = 10,
 	MEM = 11,
 	IS_DIR = 12,
 	NOT_DIR = 13

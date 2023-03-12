@@ -31,8 +31,8 @@ void	*print_error(int type, char *cmd, char *arg, int error)
 		ft_dprintf(2, "minishell: fork failed\n");
 	else if (type == PIPERR)
 		ft_dprintf(2, "minishell: error creating pipe\n");
-	else if (type == PIPENDERR)
-		ft_dprintf(2, "minishell: syntax error near unexpected token `|'\n");
+	else if (type == SYMB)
+		ft_dprintf(2, "minishell: syntax error near unexpected token `%s'\n", arg);
 	else if (type == MEM)
 		ft_dprintf(2, "minishell: no memory left on device\n");
 	else if (type == IS_DIR)
@@ -40,6 +40,18 @@ void	*print_error(int type, char *cmd, char *arg, int error)
 	else if (type == NOT_DIR)
 		ft_dprintf(2, "minishell: %s: %s: Not a directory\n", cmd, arg);
 	return (NULL);
+}
+
+int	symbol_errors(char *error, int type)
+{
+	s_error = type;
+	if (ft_strchr(error, '<'))
+		ft_dprintf(2, "minishell: syntax error near unexpected token `%s'\n", "'<'");
+	else if (ft_strchr(error, '|'))
+		ft_dprintf(2, "minishell: syntax error near unexpected token `%s'\n", "'|'");
+	else if (ft_strchr(error, '>'))
+		ft_dprintf(2, "minishell: syntax error near unexpected token `%s'\n", "'>'");
+	return(0);
 }
 
 void	ft_free_node(void *content)
@@ -77,18 +89,3 @@ void	ft_free_mini(t_data *data)
 	ft_free_arr(data->env);
 }
 
-int	symbol_errors(char *strerr, char *error, int n)
-{
-	if (n == 1)
-	{
-		if (ft_strchr(error, '<'))
-			ft_dprintf(2,"%s %s",strerr, "'<'");
-		else if (ft_strchr(error, '|'))
-			ft_dprintf(2,"%s %s",strerr, "'|'");
-		else if (ft_strchr(error, '>'))
-			ft_dprintf(2,"%s %s",strerr, "'>'");
-		return (-1);
-	}
-	ft_dprintf(2,"%s :%s",strerr, error);
-	return(-1);
-}

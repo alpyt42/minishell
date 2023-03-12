@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 17:39:52 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/12 01:53:07 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/12 02:13:20 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,20 +40,20 @@ void	exec_cmd_path(char ***res, char *path, char *cmd, char **env)
 	char	**cmd_exec;
 
 	if (pipe(fd) == -1)
-			symbol_errors(strerror(errno), "", 0);
+			print_error(PIPERR, NULL, NULL, errno);
 	pid_fork = fork();
 	if (pid_fork == -1)
-			symbol_errors(strerror(errno), "", 0);
+			print_error(FORKERR, NULL, NULL, errno);
 	if (!pid_fork)
 	{
 		close(fd[0]);
 		cmd_exec = ft_split(cmd, ' ');
 		if (dup2(fd[1], STDOUT_FILENO) == -1)
-			symbol_errors(strerror(errno), "", 0);
+			print_error(DUPERR, NULL, NULL, errno);
 		close(fd[1]);
 		if (!access(path, F_OK))
 			if (execve(path, cmd_exec, env) == -1)
-				symbol_errors(strerror(errno), cmd_exec[0], 0);
+				print_error(PIPERR, NULL, NULL, errno);
 		exit(1);
 	}
 	close(fd[1]);
