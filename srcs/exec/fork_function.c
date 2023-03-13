@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 10:58:56 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/13 12:35:05 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/13 19:26:09 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ static void	exec_cmd(t_data *d, t_list *cmd)
 	t_node	*n;
 
 	n = cmd->content;
-	signal(SIGINT, signal_receive);
-	signal(SIGQUIT, SIG_DFL);
 	if (is_builtin(n) >= 0)
 		s_error = exec_builtin(d, n);
 	else if (is_builtin(n) < 0 && n->all_cmd && n->all_path)
@@ -65,6 +63,8 @@ static void	get_fork(t_data *d, t_list *cmd, int fd[2])
 	}
 	else if (pdt == 0)
 	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		redir_dup(cmd, fd);
 		close(fd[0]);
 		exec_cmd(d, cmd);
@@ -79,7 +79,6 @@ void	*fork_fct(t_data *d, t_list *cmd, int fd[2])
 
 	dir = NULL;
 	n = cmd->content;
-	// printf("fork for %s\n", *n->all_cmd);
 	if (!n || !n->all_cmd || n->outfile < 0 || n->infile < 0)
 		return (NULL);
 	if (n->all_cmd)

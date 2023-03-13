@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 17:03:39 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/13 14:03:09 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/13 19:26:41 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,10 @@ int	mini_process(t_data *data, t_list *cmds)
 
 static void	get_error(t_data *d)
 {
+	// printf("s_error :%d \n", s_error);
 	if (!d->quit && s_error == 13)
 		s_error = 0;
-	if (s_error > 255)
+	else if (s_error > 255)
 		s_error = s_error / 255;
 }
 
