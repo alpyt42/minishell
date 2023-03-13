@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 16:20:28 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/12 20:39:05 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/13 14:02:45 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,15 +108,11 @@ void	*exec(t_data *data, t_list *cmd)
 	int	fd[2];
 
 	find_cmd(data, cmd);
-	// printf("DISPLAY CMD EXEC :\n");
-	// display_cmd(cmd);
 	if (pipe(fd) == -1)
 		return(print_error(PIPERR, NULL, NULL, errno));
-	// printf("pipe : fd[0] : %d && fd[1] : %d\n", fd[0], fd[1]);
 	if (!fork_fct(data, cmd, fd))
 		return(NULL);
 	close(fd[1]);
-	// printf("WHAT IN fd[0] (%d) : %s \n",fd[0], get_next_line(fd[0]));
 	if (cmd->next && !((t_node *)cmd->next->content)->infile)
 		((t_node *)cmd->next->content)->infile = fd[0];
 	else
