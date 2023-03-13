@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 17:40:09 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/13 13:59:48 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/13 16:28:51 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,11 +132,11 @@ int	built_cd(t_data *data, t_node *n)
 	free(val);
 	err = open_cd(str);
 	if (!s_error)
-		set_env_vars(data, "OLDPWD", str[1][1]);
+		set_env_vars(data, "OLDPWD=", str[1][1]);
 	val = getcwd(NULL, 0);
 	if (!val)
 		val = ft_strdup("");
-	set_env_vars(data, "PWD", val);
+	set_env_vars(data, "PWD=", val);
 	// printf("PWD : %s\n", val);
 	free(val);
 	ft_free_arr(str[1]);
