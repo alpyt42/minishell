@@ -59,3 +59,9 @@ dinguerie de tuto qui explique tout : https://www.notion.so/Minishell-e856e9af37
 Utils Doc :
 https://discordapp.com/channels/1031300918840402021/1031307799260565504/1041362447770066964 page 901 (pipe)
 https://www.gnu.org/software/bash/manual/bash.pdf 
+
+
+erreur parsing
+
+||
+<> mauvais code erreur
