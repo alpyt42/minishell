@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 13:40:47 by aperez-b          #+#    #+#             */
-/*   Updated: 2023/03/10 18:03:46 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/13 11:46:54 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,10 @@ int	main(int argc, char **argv, char **envp)
 		// printf("str : %s\n", str);
 		free(str);
 		if (!check_args(out, &prompt))
+		{
+			printf("g_status : %d\n", g_status);
 			break ;
+		}
 	}
 	exit(g_status);
 }

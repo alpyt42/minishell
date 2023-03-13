@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 13:40:47 by aperez-b          #+#    #+#             */
-/*   Updated: 2023/03/08 18:37:08 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/13 11:48:45 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,11 @@ int	main(int argc, char **argv, char **envp)
 			out = readline("guest@minishell $ ");
 		free(str);
 		if (!check_args(out, &prompt))
+		{
+			printf("g_status : %d\n", g_status);
 			break ;
+		}
+		printf("g_status : %d\n", g_status);
 	}
 	exit(g_status);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aperez-b <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 18:49:29 by aperez-b          #+#    #+#             */
-/*   Updated: 2022/03/07 21:16:45 by aperez-b         ###   ########.fr       */
+/*   Updated: 2023/03/13 11:58:48 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	child_builtin(t_prompt *prompt, t_mini *n, int l, t_list *cmd)
 		ft_putmatrix_fd(prompt->envp, 1, 1);
 		g_status = 0;
 	}
+	printf("g_status CB: %d\n", g_status);
 }
 
 static void	*child_redir(t_list *cmd, int fd[2])
@@ -108,5 +109,6 @@ void	*check_to_fork(t_prompt *prompt, t_list *cmd, int fd[2])
 		g_status = 127;
 	if (dir)
 		closedir(dir);
+	printf("g_status CF: %d\n", g_status);
 	return ("");
 }
