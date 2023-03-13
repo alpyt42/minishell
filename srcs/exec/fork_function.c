@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 10:58:56 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/12 23:33:56 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/13 12:35:05 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,8 @@ static void	exec_cmd(t_data *d, t_list *cmd)
 	t_node	*n;
 
 	n = cmd->content;
-	signal(SIGINT, SIG_DFL);
+	signal(SIGINT, signal_receive);
 	signal(SIGQUIT, SIG_DFL);
-	// dprintf(2, "EXEC_CMD for %s\n", *((t_node *)cmd->content)->all_cmd);
 	if (is_builtin(n) >= 0)
 		s_error = exec_builtin(d, n);
 	else if (is_builtin(n) < 0 && n->all_cmd && n->all_path)

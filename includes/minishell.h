@@ -50,7 +50,7 @@ typedef struct s_data
 	int		quit;
 	int		exe;
 	int		n_cmd;
-	pid_t	*p_ids;
+	pid_t	p_ids;
 }			t_data;
 
 typedef struct s_node
