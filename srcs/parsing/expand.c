@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:11:15 by amontalb          #+#    #+#             */
-/*   Updated: 2023/03/12 01:29:47 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/14 09:16:21 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,15 @@ char    *expand_path(char *cmd, t_data *data)
         simple_q = (simple_q + (!double_q && cmd[i] == '\'')) % 2 ;
         double_q = (double_q + (!simple_q && cmd[i] == '\"')) % 2 ;
         if (!simple_q && !double_q && cmd[i] == '~' && (i == 0 || cmd[i - 1] != '$'))
+        {
+            if ((cmd[i + 1] && cmd[i + 1] == '~') || (cmd[i - 1] && cmd[i - 1] == '~'))
+                i++;
+            else
             {
                 cmd = sub_path(cmd, data, i);
                 i += size_home;
             }
+        }
         else
             i++;
     }
