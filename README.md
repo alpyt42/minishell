@@ -65,3 +65,5 @@ erreur parsing
 
 ||
 <> mauvais code erreur
+
+tester : https://github.com/thallard/minishell_tester

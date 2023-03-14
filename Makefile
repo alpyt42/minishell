@@ -2,12 +2,12 @@ NAME = minishell
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror -g3
+HEADER = ./includes/
+CFLAGS = -Wall -Wextra -Werror -g3 -I $(HEADER)
 CDEBUG = #-fsanitize=address
 
 LIBFT = libft/libft.a
-
-HEADER = minishell.h
+		
 
 BUILTINS = builtin builtin_bis
 ENV = env init get_here_doc
@@ -34,13 +34,13 @@ OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
 
-$(NAME): lib $(OBJ)
+$(NAME): lib $(OBJ) $(HEADER)
 	@echo "\n\033[0;32mCompiling minishell...\033[0m"
 	@$(CC) -L /usr/local/opt/readline/lib -I /usr/local/opt/readline/include -L ~/.brew/opt/readline/lib -I ~/.brew/opt/readline/include $(CFLAGS) $(CDEBUG) $(OBJ) $(LIBFT) -lreadline -o $@
 	@echo "\nMinishell is up to date !"
 
 %.o: %.c
-	@${CC} -I ~/.brew/opt/readline/include -I /usr/local/opt/readline/include $(CFLAGS) $(CDEBUG) -c $< -o $@
+	$(CC) -I ~/.brew/opt/readline/include -I /usr/local/opt/readline/include $(CFLAGS) $(CDEBUG) -c $< -o $@
 
 lib :
 	$(MAKE) -C ./libft
