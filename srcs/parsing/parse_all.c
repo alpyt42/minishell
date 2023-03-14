@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parse_all.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 08:43:12 by amontalb          #+#    #+#             */
-/*   Updated: 2023/03/12 01:29:58 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/14 11:18:23 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
+
+extern int	s_error;
 
 static char **split_all(char **cmd, t_data *data)
 {
@@ -19,7 +21,6 @@ static char **split_all(char **cmd, t_data *data)
     
     i = -1;
     (void) data;
-    // cmd = expand_all(cmd, data);
     while (cmd[++i])
     {
         cmdsplit = ft_cmdsplit(cmd[i], "<|>");
@@ -33,13 +34,7 @@ static char **split_all(char **cmd, t_data *data)
 
 
 
-// static void parse_args(char **cmd, t_data *data)
-// {
-//     data
 
-
-
-// }
 int	check_error(char *cmd)
 {
 	int	i;
@@ -77,14 +72,8 @@ int check_pars(char *cmd, t_data *data)
         return (1);
     }
     parsed = cmdlexing(cmd);
-    // display_arr(parsed, "parsed");
-    // free(cmd);
+    free(cmd);
     parsed = split_all(parsed, data);
-    // display_arr(parsed, "parsed :");
     data->cmds = fill_nodes(parsed, data);
-    
-    // int i = -1;
-    // while (parsed[++i])
-    //     printf("--%s--\n", parsed[i]); 
     return (0);
 }
