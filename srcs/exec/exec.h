@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 20:16:59 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/12 01:40:40 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/14 13:14:00 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,6 @@ void	*exec(t_data *data, t_list *cmd);
 void	*fork_fct(t_data *d, t_list *cmd, int fd[2]);
 int		exec_builtin(t_data *d, t_node *n);
 int		launch_mini(t_data *data, char *cmd);
+void	*redir_dup(t_list *cmd, int fd[2]);
 
 #endif

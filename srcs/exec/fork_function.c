@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 10:58:56 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/13 19:26:09 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/14 14:09:42 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	exec_cmd(t_data *d, t_list *cmd)
 			s_error = errno;
 }
 
-static void	*redir_dup(t_list *cmd, int fd[2])
+void	*redir_dup(t_list *cmd, int fd[2])
 {
 	t_node	*n;
 

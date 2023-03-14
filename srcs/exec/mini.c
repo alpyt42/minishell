@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 17:03:39 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/13 19:26:41 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/14 15:13:21 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,42 @@ int	exec_builtin(t_data *d, t_node *n)
 	return (s_error);
 }
 
+static int	mini_no_pipe(t_data *d, t_node *n)
+{
+	display_cmd(d->cmds);
+	if (n->infile != STDIN_FILENO)
+	{
+		if (dup2(n->infile, STDIN_FILENO) == -1)
+		{
+			print_error(DUPERR, NULL, NULL, errno);
+			return(errno);
+		}
+		close(n->infile);
+	}
+	if (n->outfile != STDOUT_FILENO)
+	{
+		if (dup2(n->outfile, STDOUT_FILENO) == -1)
+		{
+			print_error(DUPERR, NULL, NULL, errno);
+			return(errno);
+		}
+		close(n->outfile);
+	}
+	exec_builtin(d, n);
+	if (n->infile > 2)
+		close(n->infile);
+	if (n->outfile > 2)
+		close(n->outfile);
+	return (0);
+}
+
 int	mini_process(t_data *data, t_list *cmds)
 {
 	t_node	*n;
 
 	n = data->cmds->content;
 	if (data->n_cmd == 1 && is_builtin(n) >= 0)
-		return(exec_builtin(data, n));
+		return(mini_no_pipe(data, n));
 	while(cmds)
 	{
 		if (!n->all_cmd)
@@ -83,8 +112,9 @@ int	launch_mini(t_data *data, char *cmd)
 	data->n_cmd = ft_lstsize(data->cmds);
 	if (data->n_cmd > 0 && data->exe)
 		mini_process(data, data->cmds);
-	while (data->n_cmd-- > 0)
-		waitpid(-1, &s_error, 0);
+	if (data->n_cmd > 1 || !(data->n_cmd == 1  && is_builtin(data->cmds->content)))
+		while (data->n_cmd-- > 0)
+			waitpid(-1, &s_error, 0);
 	get_error(data);
 	ft_lstclear(&data->dico, ft_free_dico);
 	ft_lstclear(&data->cmds, ft_free_node);

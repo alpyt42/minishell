@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:32:53 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/14 12:03:59 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/14 13:03:05 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ int main(int argc, char **argv, char **env)
 	data.argv = argv;
 	get_pid(&data);
 	init_data(&data);
-	// ft_dprintf(1, "\033[1;90mMINI.SHELL  |  ale-cont \\ amontalb\033[0;39m\n");
+	if (argc == 1)
+		ft_dprintf(1, "\033[1;90mMINI.SHELL  |  ale-cont \\ amontalb\033[0;39m\n");
 	while (argc && argv)
 	{
 		data.exe = 1;
