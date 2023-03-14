@@ -6,7 +6,7 @@
 /*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:11:15 by amontalb          #+#    #+#             */
-/*   Updated: 2023/03/14 09:16:21 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/03/14 09:46:06 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,16 @@ char    *sub_var(char *cmd, t_data *data, int i)
     printf("var : <%c>\n", cmd[i + 1]);
     if (before)
         path = ft_strdup(before);
-    if(!var && cmd[i + 1] == '?')
+    if (!var && cmd[i + 1] && cmd[i + 1] == '$')
+    {
+        var = ft_itoa(data->p_ids);
+        path = ft_strjoin(path, var);
+        path = ft_strjoin(path, &cmd[i + 2]);
+        free (var);
+        free (before);
+        return (path);    
+    }
+    if (!var && cmd[i + 1] && cmd[i + 1] == '?')
     {
         var = ft_itoa(s_error);
         path = ft_strjoin(path, var);
@@ -111,7 +120,7 @@ char    *expand_vars(char *cmd, t_data *data)
         simple_q = (simple_q + (!double_q && cmd[i] == '\'')) % 2 ;
         double_q = (double_q + (!simple_q && cmd[i] == '\"')) % 2 ;
         if (!simple_q && cmd[i] == '$' && cmd[i + 1] && ((ft_strchars_i(&cmd[i + 1], "|~$%^{}: \"")
-         && double_q) || (ft_strchars_i(&cmd[i + 1], "~$%^{}: ") && !double_q)))
+         && double_q) || (ft_strchars_i(&cmd[i + 1], "~$%^{}: ") && !double_q) || (cmd[i + 1] == '$')))
         {
             cmd = sub_var(cmd, data, i);
             i = i * k  - (1 * k) + ft_strchars_i(&cmd[i], "|?~%$^{}: \"");
