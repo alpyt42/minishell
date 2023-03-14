@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_all.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 08:43:12 by amontalb          #+#    #+#             */
-/*   Updated: 2023/03/14 11:18:23 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/03/14 12:03:16 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ int check_pars(char *cmd, t_data *data)
         return (1);
     }
     parsed = cmdlexing(cmd);
-    free(cmd);
     parsed = split_all(parsed, data);
     data->cmds = fill_nodes(parsed, data);
     return (0);
