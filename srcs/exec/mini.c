@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 17:03:39 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/14 18:06:50 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/15 19:38:37 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,73 +14,56 @@
 
 extern int	s_error;
 
-int	exec_builtin(t_data *d, t_node *n)
+static void	*redir_npipe(t_data *d, t_node *n)
 {
-	if (is_builtin(n) == -1)
-		return (0);
-	if (is_builtin(n) == 0)
-		s_error = built_cd(d, n);
-	else if (is_builtin(n) == 1)
-		s_error = built_export(d, n);
-	else if (is_builtin(n) == 2)
-		s_error = built_exit(d, n);
-	else if (is_builtin(n) == 3)
-		s_error = built_unset(d, n);
-	else if (is_builtin(n) == 4)
-		s_error = built_echo(n);
-	else if (is_builtin(n) == 5)
-		s_error = built_env(d, 0);
-	else if (is_builtin(n) == 6)
-		s_error = built_pwd();
-	return (s_error);
+	if (!n || n->infile < 0 || n->outfile < 0)
+		return(0);
+	d->stdout_fd = dup(STDOUT_FILENO);
+	d->stdin_fd = dup(STDIN_FILENO);
+	if (d->stdout_fd == -1)
+		return(print_error(DUPERR, NULL, NULL, errno));
+	if (n->infile != STDIN_FILENO)
+	{
+		if (dup2(n->infile, STDIN_FILENO) == -1)
+			return(print_error(DUPERR, NULL, NULL, errno));
+		close(n->infile);
+	}
+	if (n->outfile != STDOUT_FILENO)
+	{
+		if (dup2(n->outfile, STDOUT_FILENO) == -1)
+			return(print_error(DUPERR, NULL, NULL, errno));
+		close(n->outfile);
+	}
+	return ("");
 }
 
-// static void	*mini_no_pipe(t_data *d, t_node *n)
-// {
-// 	int	stdout_fd;
-// 	int	stdin_fd;
-
-// 	if (!n || n->infile < 0 || n->outfile < 0)
-// 		return(0);
-// 	stdout_fd = dup(STDOUT_FILENO);
-// 	stdin_fd = dup(STDIN_FILENO);
-// 	if (stdout_fd == -1)
-// 		return(print_error(DUPERR, NULL, NULL, errno));
-// 	if (n->infile != STDIN_FILENO)
-// 	{
-// 		if (dup2(n->infile, STDIN_FILENO) == -1)
-// 			return(print_error(DUPERR, NULL, NULL, errno));
-// 		close(n->infile);
-// 	}
-// 	if (n->outfile != STDOUT_FILENO)
-// 	{
-// 		if (dup2(n->outfile, STDOUT_FILENO) == -1)
-// 			return(print_error(DUPERR, NULL, NULL, errno));
-// 		close(n->outfile);
-// 	}
-// 	exec_builtin(d, n);
-// 	if (n->infile > 2)
-// 	{
-// 		dup2(stdin_fd, STDOUT_FILENO);
-// 		close(stdin_fd);
-// 		close(n->infile);
-// 	}
-// 	if (n->outfile > 2)
-// 	{
-// 		dup2(stdout_fd, STDOUT_FILENO);
-// 		close(stdout_fd);
-// 		close(n->outfile);
-// 	}
-// 	return (NULL);
-// }
+static void	*mini_no_pipe(t_data *d, t_node *n)
+{
+	if (!redir_npipe(d, n))
+		return (NULL);
+	exec_builtin(d, n);
+	if (n->infile > 2)
+	{
+		dup2(d->stdin_fd, STDIN_FILENO);
+		close(n->infile);
+	}
+	close(d->stdin_fd);
+	if (n->outfile > 2)
+	{
+		dup2(d->stdout_fd, STDOUT_FILENO);
+		close(n->outfile);
+	}
+	close(d->stdout_fd);
+	return (NULL);
+}
 
 void	*mini_process(t_data *data, t_list *cmds)
 {
 	t_node	*n;
 
 	n = data->cmds->content;
-	// if (data->n_cmd == 1 && is_builtin(n) >= 0)
-	// 	return(mini_no_pipe(data, n));
+	if (data->n_cmd == 1 && is_builtin(n) >= 0)
+		return(mini_no_pipe(data, n));
 	while(cmds)
 	{
 		if (!n->all_cmd)
@@ -98,7 +81,6 @@ void	*mini_process(t_data *data, t_list *cmds)
 
 static void	get_error(t_data *d)
 {
-	// printf("s_error :%d \n", s_error);
 	if (!d->quit && s_error == 13)
 		s_error = 0;
 	else if (s_error > 255)
@@ -109,7 +91,7 @@ int	launch_mini(t_data *data, char *cmd)
 {
 	if (!cmd)
 	{
-		ft_dprintf(1, "exit\n");
+		ft_dprintf(2, "exit\n");
 		ft_free_mini(data);
 		return (0);
 	}

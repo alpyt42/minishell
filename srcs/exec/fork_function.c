@@ -6,13 +6,34 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 10:58:56 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/14 14:09:42 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/15 18:18:01 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
 extern int	s_error;
+
+int	exec_builtin(t_data *d, t_node *n)
+{
+	if (is_builtin(n) == -1)
+		return (0);
+	if (is_builtin(n) == 0)
+		s_error = built_cd(d, n);
+	else if (is_builtin(n) == 1)
+		s_error = built_export(d, n);
+	else if (is_builtin(n) == 2)
+		s_error = built_exit(d, n);
+	else if (is_builtin(n) == 3)
+		s_error = built_unset(d, n);
+	else if (is_builtin(n) == 4)
+		s_error = built_echo(n);
+	else if (is_builtin(n) == 5)
+		s_error = built_env(d, 0);
+	else if (is_builtin(n) == 6)
+		s_error = built_pwd();
+	return (s_error);
+}
 
 static void	exec_cmd(t_data *d, t_list *cmd)
 {

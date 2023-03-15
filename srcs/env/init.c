@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 13:33:30 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/11 20:18:08 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/15 19:38:25 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ void display_data(t_data *data)
 			i++;
 			printf("_______\n");
 		}
-		printf("<<<<>>>>>\n");
 		data->cmds = data->cmds->next;
 	}
 	data->cmds = tmp;

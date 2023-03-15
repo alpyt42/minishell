@@ -50,6 +50,8 @@ typedef struct s_data
 	int		quit;
 	int		exe;
 	int		n_cmd;
+	int		stdout_fd;
+	int		stdin_fd;
 	pid_t	p_ids;
 }			t_data;
 

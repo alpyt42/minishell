@@ -59,6 +59,7 @@ dinguerie de tuto qui explique tout : https://www.notion.so/Minishell-e856e9af37
 Utils Doc :
 https://discordapp.com/channels/1031300918840402021/1031307799260565504/1041362447770066964 page 901 (pipe)
 https://www.gnu.org/software/bash/manual/bash.pdf 
+tester : https://github.com/thallard/minishell_tester
 
 
 erreur parsing
@@ -66,4 +67,12 @@ erreur parsing
 ||
 <> mauvais code erreur
 
-tester : https://github.com/thallard/minishell_tester
+gerer ca :
+cuentolinux@X555L:~/minishell$ echo foo >>>> bar
+bash: syntax error near unexpected token `>>'
+cuentolinux@X555L:~/minishell$ >>
+bash: syntax error near unexpected token `newline'
+cuentolinux@X555L:~/minishell$ >>>
+bash: syntax error near unexpected token `>'
+cuentolinux@X555L:~/minishell$ >>>>>
+bash: syntax error near unexpected token `>>'
