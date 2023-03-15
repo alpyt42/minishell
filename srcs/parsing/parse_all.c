@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_all.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amontalb <amontalb@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 08:43:12 by amontalb          #+#    #+#             */
-/*   Updated: 2023/03/14 12:03:16 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/15 18:05:10 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,31 @@ static char **split_all(char **cmd, t_data *data)
     return (cmd);
 }
 
+
+int check_empty_node(char *cmd)
+{
+    int i;
+    int empty;
+
+    empty = 0;
+    i = -1;
+    if (ft_strchars_i(cmd, "|") != -1)
+    {
+        while (cmd[++i])
+        {
+            empty = 0;
+            while (cmd[i] != '|' && cmd[i])
+            {
+                if (cmd[i] != ' ' )
+                    empty ++;
+                i++;   
+            }
+            if (!empty)
+                return (1);
+        }
+    }
+    return (0);
+}
 
 
 
@@ -70,6 +95,12 @@ int check_pars(char *cmd, t_data *data)
     {
         ft_dprintf(1, "error arg\n");
         return (1);
+    }
+    if (check_empty_node(cmd))
+    {
+        ft_dprintf(1, "syntax error near unexpected token `|'\n");
+        return (1);
+
     }
     parsed = cmdlexing(cmd);
     parsed = split_all(parsed, data);
