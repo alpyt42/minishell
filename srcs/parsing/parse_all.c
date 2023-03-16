@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_all.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amontalb <amontalb@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 08:43:12 by amontalb          #+#    #+#             */
-/*   Updated: 2023/03/16 01:13:18 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/16 11:59:53 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ static int check_empty_node(char *cmd)
 			}
 			if (!empty)
 				return (1);
+			if (cmd[i] == '\0')
+				break;;
 		}
 	}
 	return (0);
