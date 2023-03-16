@@ -6,13 +6,11 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 16:06:32 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/16 18:28:57 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/16 19:00:06 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
-
-extern int	g_error;
 
 int	is_builtin(t_node *n)
 {
@@ -32,7 +30,7 @@ int	is_builtin(t_node *n)
 		return (-1);
 	while (built[++i])
 		if (ft_strncmp(built[i], *n->all_cmd, ft_strlen(*n->all_cmd)) == 0
-		&& ft_strlen(*n->all_cmd) == ft_strlen(built[i]))
+			&& ft_strlen(*n->all_cmd) == ft_strlen(built[i]))
 			return (i);
 	return (-1);
 }
@@ -92,7 +90,7 @@ int	built_export(t_data *data, t_node *n)
 	if (!cmds)
 		return (0);
 	if (cmds[0] && !cmds[1])
-		return(built_env(data, 1));
+		return (built_env(data, 1));
 	i = 0;
 	while (cmds[++i])
 	{
@@ -101,7 +99,7 @@ int	built_export(t_data *data, t_node *n)
 		tmp = mini_split(cmds[i], -1, 0, 0);
 		if (tmp[0] && ft_strchars_i(cmds[i], "=") != -1)
 		{
-			var_glob = ft_strjoin(tmp[0],"=");
+			var_glob = ft_strjoin(tmp[0], "=");
 			set_env_vars(data, var_glob, tmp[1]);
 			ft_free_arr(tmp);
 			free(var_glob);

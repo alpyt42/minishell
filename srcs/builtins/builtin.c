@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 17:40:09 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/16 18:04:49 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/16 18:58:59 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	built_exit(t_data *data, t_node *node)
 	{
 		ft_dprintf(2, "minishell: exit: %s", node->all_cmd[1]);
 		ft_dprintf(2, ": numeric argument required\n");
-		return(2);
+		return (2);
 	}
 	else if (node->all_cmd[2])
 	{
@@ -48,11 +48,11 @@ int	built_pwd(void)
 	if (!b_pwd)
 	{
 		ft_dprintf(2, "minishell : %s", strerror(errno));
-		return(errno);
+		return (errno);
 	}
 	ft_dprintf(2, "%s\n", b_pwd);
 	free(b_pwd);
-	return(0);
+	return (0);
 }
 
 int	built_echo(t_node *n)
@@ -66,10 +66,10 @@ int	built_echo(t_node *n)
 	str = n->all_cmd;
 	if (!str)
 		return (0);
-	while(str && str[++i])
+	while (str && str[++i])
 	{
 		if (str && str[0] && str[1] && !ft_strncmp(str[1], "-n", 2)
-		&& ft_strlen(str[1]) == ft_strlen("-n") && i == 1)
+			&& ft_strlen(str[1]) == ft_strlen("-n") && i == 1)
 			new_line = 0;
 		else
 		{
@@ -119,7 +119,6 @@ int	built_cd(t_data *data, t_node *n)
 
 	err = 0;
 	str[0] = n->all_cmd;
-	// dprintf(2, "built_cd  : n->all_cmd : %s", *n->all_cmd);
 	if (!n->all_cmd)
 		return (0);
 	val = ft_strjoin(search_dico("HOME", data), "");
@@ -131,14 +130,12 @@ int	built_cd(t_data *data, t_node *n)
 	str[1] = ft_append_tab(str[1], val);
 	free(val);
 	err = open_cd(str);
-	if (!g_error)
+	if (!g_error && data->n_cmd == 1)
 		set_env_vars(data, "OLDPWD=", str[1][1]);
 	val = getcwd(NULL, 0);
 	if (!val)
 		val = ft_strdup("");
 	set_env_vars(data, "PWD=", val);
-	// printf("PWD : %s\n", val);
-	free(val);
 	ft_free_arr(str[1]);
-	return (err);
+	return (free(val), err);
 }
