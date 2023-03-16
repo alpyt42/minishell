@@ -4,7 +4,7 @@ CC = gcc
 
 HEADER = ./includes/
 CFLAGS = -Wall -Wextra -Werror -g3 -I $(HEADER)
-CDEBUG = -fsanitize=address
+# CDEBUG = -fsanitize=address
 
 LIBFT = libft/libft.a
 		

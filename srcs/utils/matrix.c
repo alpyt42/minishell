@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 17:24:09 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/12 01:44:30 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/16 16:30:44 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	**ft_append_tab(char **tab, char *line)
 	if (!line)
 		return (tab);
 	len = len_tab(tab);
-	res = malloc(sizeof(char *) * (len + 2));
+	res = ft_calloc(sizeof(char *), (len + 2));
 	res[len + 1] = NULL;
 	if (!res)
 		return (tab);

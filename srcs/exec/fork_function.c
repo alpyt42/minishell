@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 10:58:56 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/15 18:18:01 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/16 17:19:31 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	*redir_dup(t_list *cmd, int fd[2])
 	return ("");
 }
 
-static void	get_fork(t_data *d, t_list *cmd, int fd[2])
+static void	*get_fork(t_data *d, t_list *cmd, int fd[2])
 {
 	pid_t	pdt;
 
@@ -79,18 +79,23 @@ static void	get_fork(t_data *d, t_list *cmd, int fd[2])
 	{
 		close(fd[0]);
 		close(fd[1]);
-		print_error(FORKERR, NULL, NULL, 1);
-		return ;
+		d->exe = 1;
+		return (print_error(FORKERR, NULL, NULL, 1));
 	}
 	else if (pdt == 0)
 	{
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
-		redir_dup(cmd, fd);
+		if (!redir_dup(cmd, fd))
+		{
+			d->exe = 1;
+			return (NULL);
+		}
 		close(fd[0]);
 		exec_cmd(d, cmd);
 		exit(s_error);
 	}
+	return ("");
 }
 
 void	*fork_fct(t_data *d, t_list *cmd, int fd[2])
@@ -105,7 +110,10 @@ void	*fork_fct(t_data *d, t_list *cmd, int fd[2])
 	if (n->all_cmd)
 		dir = opendir(*n->all_cmd);
 	if (is_builtin(n) >= 0 || (n->all_path && !access(n->all_path, X_OK)))
-		get_fork(d, cmd, fd);
+	{
+		if (!get_fork(d, cmd, fd))
+			return (NULL);
+	}
 	else if (is_builtin(n) < 0 && (dir ||
 		(n->all_path && !access(n->all_path, F_OK))))
 		s_error = 126;

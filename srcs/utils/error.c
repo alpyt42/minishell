@@ -97,11 +97,15 @@ void	ft_free_dico(void *content)
 
 void	*ft_free_mini(t_data *data)
 {
+	if (!data)
+		return (NULL);
 	if (data->cmds)
 		ft_lstclear(&data->cmds, ft_free_node);
 	if (data->dico)
 		ft_lstclear(&data->dico, ft_free_dico);
 	ft_free_arr(data->env);
+	data->exe = 0;
+	data->quit = 1;
 	return (NULL);
 }
 

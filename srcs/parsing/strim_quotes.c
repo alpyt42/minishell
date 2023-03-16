@@ -6,12 +6,11 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 14:57:31 by amontalb          #+#    #+#             */
-/*   Updated: 2023/03/12 01:30:07 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/16 17:43:37 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
-
 
 static int  malloc_len(char *s)
 {

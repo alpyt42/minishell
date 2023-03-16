@@ -6,13 +6,11 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 16:20:28 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/13 19:31:02 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/16 17:45:44 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
-
-extern int	s_error;
 
 static char	*get_cmd_path(char *cmd, char **env)
 {
@@ -44,7 +42,7 @@ static char	*get_path(t_data *p, char **cmd)
 	i = 0;
 	pos = pos_in_arr(p->env, "PATH", '=');
 	if (pos == -1)
-		return(NULL);
+		return (NULL);
 	path_env = ft_split(p->env[pos] + 5, ':');
 	if (!path_env)
 		return (NULL);
@@ -110,9 +108,12 @@ void	*exec(t_data *data, t_list *cmd)
 
 	find_cmd(data, cmd);
 	if (pipe(fd) == -1)
+	{
+		ft_free_mini(data);
 		return(print_error(PIPERR, NULL, NULL, errno));
+	}
 	if (!fork_fct(data, cmd, fd))
-		return(NULL);
+		return("");
 	close(fd[1]);
 	if (cmd->next && !((t_node *)cmd->next->content)->infile)
 		((t_node *)cmd->next->content)->infile = fd[0];
@@ -122,5 +123,5 @@ void	*exec(t_data *data, t_list *cmd)
 		close(((t_node *)cmd->content)->infile);
 	if (((t_node *)cmd->content)->outfile > 2)
 		close(((t_node *)cmd->content)->outfile);
-	return (NULL);
+	return ("");
 }
