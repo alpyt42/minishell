@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 13:43:24 by amontalb          #+#    #+#             */
-/*   Updated: 2023/03/12 23:18:57 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/15 22:35:25 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ t_list  *fill_nodes(char **cmds, t_data *data)
 
     begin = NULL;
     i = -1;
-    while(cmds[i] && cmds[++i])
+    while(cmds[i] && cmds[++i] && data->exe)
     {
         temp = ft_lstlast(begin);
         if ((cmds[i][0] == '|' && cmds[i + 1] && cmds[i + 1][0] == '|')

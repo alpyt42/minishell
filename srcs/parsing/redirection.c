@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:08:47 by amontalb          #+#    #+#             */
-/*   Updated: 2023/03/12 23:23:11 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/15 23:47:37 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 extern int s_error;
 
-int get_fd(int oldfd, char *path, int create, int append)
+int get_fd(int oldfd, char *path, int create, int append, t_data *d)
 {
 	int fd;
 
@@ -22,6 +22,8 @@ int get_fd(int oldfd, char *path, int create, int append)
 		close(oldfd);
 	if (!path)
 		return (-1);
+	if (path[0] && (path[0] == '|' || path[0] == '<' || path[0] == '>'))
+		return(symbol_errors(path, 2, &d->exe));
 	if (access(path, F_OK) == -1 && !create)
 		print_error(NDIR, "ERROR", path, 1);
 	else if (access(path, R_OK) == -1 && !create)
@@ -43,8 +45,8 @@ t_node *get_out1(t_node *node, char **cmds, int *i, t_data *data)
 {
 	(*i)++;
 	if (cmds[*i])
-		node->outfile = get_fd(node->outfile, cmds[*i], 1, 0);
-	if (!cmds[*i] || node->infile == -1)
+		node->outfile = get_fd(node->outfile, cmds[*i], 1, 0, data);
+	if (data->exe && (!cmds[*i] || node->infile == -1))
 	{
 		*i -= 1;
 		if (node->infile != -1)
@@ -60,7 +62,7 @@ t_node *get_out2(t_node *node, char **cmds, int *i, t_data *data)
 	(*i)++;
 	(*i)++;
 	if (cmds[*i])
-		node->outfile = get_fd(node->outfile, cmds[*i], 1, 1);
+		node->outfile = get_fd(node->outfile, cmds[*i], 1, 1, data);
 	if (!cmds[*i] || node->infile == -1)
 	{
 		*i -= 1;
@@ -76,7 +78,7 @@ t_node *get_in1(t_node *node, char **cmds, int *i, t_data *data)
 {
 	(*i)++;
 	if (cmds[*i])
-		node->infile = get_fd(node->infile, cmds[*i], 0, 0);
+		node->infile = get_fd(node->infile, cmds[*i], 0, 0, data);
 	else
 	{
 		node->infile = -1;

@@ -46,7 +46,19 @@ int	symbol_errors(char *error, int type, int *exit)
 {
 	s_error = type;
 	*exit = 0;
-	if (ft_strchr(error, '<'))
+	if (error && error[0] && error[1] 
+	&& error[0] == '>' && error[1] == '>')
+		ft_dprintf(2, "minishell: syntax error near unexpected token `%s'\n", ">>");
+	else if (error && error[0] && error[1] 
+	&& error[0] == '<' && error[1] == '<')
+		ft_dprintf(2, "minishell: syntax error near unexpected token `%s'\n", ">>");
+	else if (error && error[0] && error[1] 
+	&& error[0] == '|' && error[1] == '|')
+		ft_dprintf(2, "minishell: syntax error near unexpected token `%s'\n", "||");
+	else if (error && error[0] && error[1] 
+	&& error[0] == '<' && error[1] == '<')
+		ft_dprintf(2, "minishell: syntax error near unexpected token `%s'\n", ">>");
+	else if (ft_strchr(error, '<'))
 		ft_dprintf(2, "minishell: syntax error near unexpected token `%s'\n", "<");
 	else if (ft_strchr(error, '|'))
 		ft_dprintf(2, "minishell: syntax error near unexpected token `%s'\n", "|");
@@ -54,7 +66,7 @@ int	symbol_errors(char *error, int type, int *exit)
 		ft_dprintf(2, "minishell: syntax error near unexpected token `%s'\n", ">");
 	else
 		ft_dprintf(2, "minishell: syntax error near unexpected token `newline'\n");
-	return(0);
+	return(-1);
 }
 
 void	ft_free_node(void *content)
@@ -83,12 +95,13 @@ void	ft_free_dico(void *content)
 	ft_free_arr(dico);
 }
 
-void	ft_free_mini(t_data *data)
+void	*ft_free_mini(t_data *data)
 {
 	if (data->cmds)
 		ft_lstclear(&data->cmds, ft_free_node);
 	if (data->dico)
 		ft_lstclear(&data->dico, ft_free_dico);
 	ft_free_arr(data->env);
+	return (NULL);
 }
 

@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 01:43:39 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/12 20:16:42 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/15 22:31:58 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	*print_error(int type, char *cmd, char *arg, int error);
 int		symbol_errors(char *error, int type, int *exit);
 void	ft_free_dico(void *content);
 void	ft_free_node(void *content);
-void	ft_free_mini(t_data *data);
+void	*ft_free_mini(t_data *data);
 char	**ft_append_tab(char **in, char *newstr);
 int		len_tab(char **tab);
 int		ft_strchars_i(const char *s, char *set);
