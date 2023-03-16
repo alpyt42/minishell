@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 13:33:30 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/16 18:47:51 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/16 20:16:39 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 extern int	g_error;
 
-static void init_shlvl(t_data *data)
+static void	init_shlvl(t_data *data)
 {
-	char *shlvl;
+	char	*shlvl;
 
 	shlvl = NULL;
 	shlvl = find_in_arr(data->env, "SHLVL=");
@@ -32,11 +32,11 @@ static void init_shlvl(t_data *data)
 	}
 }
 
-static void init_vars(t_data *data)
+static void	init_vars(t_data *data)
 {
-	char *pwd;
-	char *underscore;
-	char *path;
+	char	*pwd;
+	char	*underscore;
+	char	*path;
 
 	pwd = getcwd(NULL, 0);
 	if (!pwd)
@@ -47,13 +47,13 @@ static void init_vars(t_data *data)
 	path = find_in_arr(data->env, "PATH=");
 	if (!path)
 		set_env_vars(data, "PATH=",
-					 "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin");
+			"/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin");
 	underscore = find_in_arr(data->env, "_=");
 	if (!underscore)
 		set_env_vars(data, "_=", data->argv[0]);
 }
 
-void init_data(t_data *data)
+void	init_data(t_data *data)
 {
 	g_error = 0;
 	get_pid(data);
@@ -66,17 +66,18 @@ void init_data(t_data *data)
 	init_dico(data);
 }
 
-void display_data(t_data *data)
+void	display_data(t_data *data)
 {
-	t_node *cmd;
-	void *tmp;
+	t_node	*cmd;
+	void	*tmp;
+	int		i;
 
 	tmp = data->cmds;
 	while (data->cmds)
 	{
 		cmd = data->cmds->content;
-		int i = 0;
-		while(cmd->all_cmd[i])
+		i = 0;
+		while (cmd->all_cmd[i])
 		{
 			printf("cmd[%d] %s\n", i, cmd->all_cmd[i]);
 			i++;

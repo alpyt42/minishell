@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:08:47 by amontalb          #+#    #+#             */
-/*   Updated: 2023/03/16 18:04:49 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/16 19:39:58 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,10 +89,12 @@ t_node *get_in1(t_node *node, char **cmds, int *i, t_data *data)
 
 t_node *get_in2(t_data *data, t_node *node, char **cmds, int *i)
 {
-
+	char	*warn;
+	
+	warn = "minishell: warning: here-document delimited by end-of-file";
 	(*i)++;
 	if (cmds[++(*i)])
-		node->infile = get_here_doc(cmds[*i], data);
+		node->infile = get_here_doc(cmds[*i], data, warn);
 	if (!cmds[*i] || node->infile == -1)
 	{
 		*i -= 1;

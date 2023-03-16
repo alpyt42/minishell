@@ -38,7 +38,7 @@ int	set_env_vars(t_data *data, char *glob_var, char *val)
 		{
 			free(data->env[i]);
 			data->env[i] = tmp;
-			return (1) ;
+			return (1);
 		}
 	}
 	data->env = ft_append_tab(data->env, tmp);
@@ -58,7 +58,7 @@ void	init_dico(t_data *data)
 	j = -1;
 	k = 0;
 	lenone = 0;
-	while(data->env[i])
+	while (data->env[i])
 	{
 		cmd = mini_split(data->env[i], j, k, lenone);
 		ft_lstadd_back(&data->dico, ft_lstnew(cmd));
@@ -66,7 +66,7 @@ void	init_dico(t_data *data)
 	}
 }
 
-char *search_dico(char *search, t_data *data)
+char	*search_dico(char *search, t_data *data)
 {
 	char	**cmd;
 	void	*tmp;
@@ -75,11 +75,11 @@ char *search_dico(char *search, t_data *data)
 	while (data->dico)
 	{
 		cmd = data->dico->content;
-		if (!ft_strncmp(cmd[0], search, ft_strlen(search))\
+		if (!ft_strncmp(cmd[0], search, ft_strlen(search))
 			&& ft_strlen(cmd[0]) == ft_strlen(search))
 		{
 			data->dico = tmp;
-			return(cmd[1]);
+			return (cmd[1]);
 		}
 		data->dico = data->dico->next;
 	}
