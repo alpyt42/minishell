@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 17:40:09 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/16 18:58:59 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/16 21:02:05 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,21 +62,22 @@ int	built_echo(t_node *n)
 	int		new_line;
 
 	new_line = 1;
-	i = 0;
+	i = 1;
 	str = n->all_cmd;
 	if (!str)
 		return (0);
-	while (str && str[++i])
+	while (str && str[i] && !ft_strncmp(str[i], "-n", 2)
+		&& ft_strlen(str[i]) == ft_strlen("-n"))
 	{
-		if (str && str[0] && str[1] && !ft_strncmp(str[1], "-n", 2)
-			&& ft_strlen(str[1]) == ft_strlen("-n") && i == 1)
-			new_line = 0;
-		else
-		{
-			ft_putstr_fd(str[i], 1);
-			if (str[i + 1])
-				ft_putchar_fd(' ', 1);
-		}
+		new_line = 0;
+		i++;
+	}
+	while (str && str[i])
+	{
+		ft_putstr_fd(str[i], 1);
+		if (str[i + 1])
+			ft_putchar_fd(' ', 1);
+		i++;
 	}
 	if (new_line)
 		ft_putchar_fd('\n', 1);
