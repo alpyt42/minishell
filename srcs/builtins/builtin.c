@@ -6,13 +6,13 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 17:40:09 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/13 16:28:51 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/16 18:04:49 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-extern int	s_error;
+extern int	g_error;
 
 int	built_exit(t_data *data, t_node *node)
 {
@@ -131,7 +131,7 @@ int	built_cd(t_data *data, t_node *n)
 	str[1] = ft_append_tab(str[1], val);
 	free(val);
 	err = open_cd(str);
-	if (!s_error)
+	if (!g_error)
 		set_env_vars(data, "OLDPWD=", str[1][1]);
 	val = getcwd(NULL, 0);
 	if (!val)

@@ -6,13 +6,13 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 17:08:00 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/12 21:00:54 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/16 18:04:49 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-extern int	s_error;
+extern int	g_error;
 
 static char *sub_vars(char *del, t_data *data, int *i)
 {
@@ -71,7 +71,7 @@ static char	*fill_here_doc(char *del, char *warn)
 
 	line = NULL;
 	readstr = NULL;
-	while (s_error != 130)
+	while (g_error != 130)
 	{
 		readstr = readline("> ");
 		if (!readstr)
@@ -100,7 +100,7 @@ int	get_here_doc(char *del, t_data *data)
 	char	*str;
 	int		q;
 
-	s_error = 0;
+	g_error = 0;
 	q = 0;
 	warning = "minishell: warning: here-document delimited by end-of-file";
 	// dprintf(1, "delimiter : %s\n", del);
@@ -115,7 +115,7 @@ int	get_here_doc(char *del, t_data *data)
 		write(fd[1], str, ft_strlen(str));
 	close(fd[1]);
 	free(str);
-	if (s_error == 130)
+	if (g_error == 130)
 	{
 		close(fd[0]);
 		return (-1);

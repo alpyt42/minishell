@@ -6,13 +6,13 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:08:47 by amontalb          #+#    #+#             */
-/*   Updated: 2023/03/15 23:47:37 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/16 18:04:49 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-extern int s_error;
+extern int g_error;
 
 int get_fd(int oldfd, char *path, int create, int append, t_data *d)
 {
@@ -52,7 +52,7 @@ t_node *get_out1(t_node *node, char **cmds, int *i, t_data *data)
 		if (node->infile != -1)
 			symbol_errors("", 2, &data->exe);
 		else
-			s_error = 1;
+			g_error = 1;
 	}
 	return (node);
 }
@@ -69,7 +69,7 @@ t_node *get_out2(t_node *node, char **cmds, int *i, t_data *data)
 		if (node->infile != -1)
 			symbol_errors("", 2, &data->exe);
 		else
-			s_error = 1;
+			g_error = 1;
 	}
 	return (node);
 }

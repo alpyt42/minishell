@@ -12,61 +12,60 @@
 
 #include "utils.h"
 
-extern int	s_error;
+extern int	g_error;
 
 void	*print_error(int type, char *cmd, char *arg, int error)
 {
-	s_error = error;
+	g_error = error;
 	if (type == QUOTE)
-		ft_dprintf(2, "minishell: error while looking for matching quote\n");
+		ft_dprintf(2, "mini: error while looking for matching quote\n");
 	else if (type == NDIR)
-		ft_dprintf(2, "minishell: %s: %s: No such file or directory\n", cmd, arg);
+		ft_dprintf(2, "mini: %s: %s: No such file or directory\n", cmd, arg);
 	else if (type == NPERM)
-		ft_dprintf(2, "minishell: %s: %s: permission denied\n", cmd, arg);
+		ft_dprintf(2, "mini: %s: %s: permission denied\n", cmd, arg);
 	else if (type == NCMD)
-		ft_dprintf(2, "minishell: %s: command not found\n", cmd);
+		ft_dprintf(2, "mini: %s: command not found\n", cmd);
 	else if (type == DUPERR)
-		ft_dprintf(2, "minishell: dup2 failed\n");
+		ft_dprintf(2, "mini: dup2 failed\n");
 	else if (type == FORKERR)
-		ft_dprintf(2, "minishell: fork failed\n");
+		ft_dprintf(2, "mini: fork failed\n");
 	else if (type == PIPERR)
-		ft_dprintf(2, "minishell: error creating pipe\n");
+		ft_dprintf(2, "mini: error creating pipe\n");
 	else if (type == SYMB)
-		ft_dprintf(2, "minishell: syntax error near unexpected token `%s'\n", arg);
+		ft_dprintf(2, "mini: syntax error near unexpected token `%s'\n", arg);
 	else if (type == MEM)
-		ft_dprintf(2, "minishell: no memory left on device\n");
+		ft_dprintf(2, "mini: no memory left on device\n");
 	else if (type == IS_DIR)
-		ft_dprintf(2, "minishell: %s: %s: Is a directory\n", cmd, arg);
+		ft_dprintf(2, "mini: %s: %s: Is a directory\n", cmd, arg);
 	else if (type == NOT_DIR)
-		ft_dprintf(2, "minishell: %s: %s: Not a directory\n", cmd, arg);
+		ft_dprintf(2, "mini: %s: %s: Not a directory\n", cmd, arg);
 	return (NULL);
 }
 
 int	symbol_errors(char *error, int type, int *exit)
 {
-	s_error = type;
+	g_error = type;
 	*exit = 0;
-	if (error && error[0] && error[1] 
-	&& error[0] == '>' && error[1] == '>')
-		ft_dprintf(2, "minishell: syntax error near unexpected token `%s'\n", ">>");
-	else if (error && error[0] && error[1] 
-	&& error[0] == '<' && error[1] == '<')
-		ft_dprintf(2, "minishell: syntax error near unexpected token `%s'\n", ">>");
-	else if (error && error[0] && error[1] 
-	&& error[0] == '|' && error[1] == '|')
-		ft_dprintf(2, "minishell: syntax error near unexpected token `%s'\n", "||");
-	else if (error && error[0] && error[1] 
-	&& error[0] == '<' && error[1] == '<')
-		ft_dprintf(2, "minishell: syntax error near unexpected token `%s'\n", ">>");
+	if (error && error[0] && error[1] && error[0] == '>' && error[1] == '>')
+		ft_dprintf(2, "mini: syntax error near unexpected token `%s'\n", ">>");
+	else if (error && error[0]
+		&& error[1] && error[0] == '<' && error[1] == '<')
+		ft_dprintf(2, "mini: syntax error near unexpected token `%s'\n", ">>");
+	else if (error && error[0]
+		&& error[1] && error[0] == '|' && error[1] == '|')
+		ft_dprintf(2, "mini: syntax error near unexpected token `%s'\n", "||");
+	else if (error && error[0] && error[1]
+		&& error[0] == '<' && error[1] == '<')
+		ft_dprintf(2, "mini: syntax error near unexpected token `%s'\n", ">>");
 	else if (ft_strchr(error, '<'))
-		ft_dprintf(2, "minishell: syntax error near unexpected token `%s'\n", "<");
+		ft_dprintf(2, "mini: syntax error near unexpected token `%s'\n", "<");
 	else if (ft_strchr(error, '|'))
-		ft_dprintf(2, "minishell: syntax error near unexpected token `%s'\n", "|");
+		ft_dprintf(2, "mini: syntax error near unexpected token `%s'\n", "|");
 	else if (ft_strchr(error, '>'))
-		ft_dprintf(2, "minishell: syntax error near unexpected token `%s'\n", ">");
+		ft_dprintf(2, "mini: syntax error near unexpected token `%s'\n", ">");
 	else
-		ft_dprintf(2, "minishell: syntax error near unexpected token `newline'\n");
-	return(-1);
+		ft_dprintf(2, "mini: syntax error near unexpected token `newline'\n");
+	return (-1);
 }
 
 void	ft_free_node(void *content)
@@ -75,7 +74,7 @@ void	ft_free_node(void *content)
 
 	n = content;
 	if (!n)
-	 return ;
+		return ;
 	if (n->all_cmd)
 		ft_free_arr(n->all_cmd);
 	if (n->all_path)
@@ -108,4 +107,3 @@ void	*ft_free_mini(t_data *data)
 	data->quit = 1;
 	return (NULL);
 }
-

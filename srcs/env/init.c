@@ -6,13 +6,13 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 13:33:30 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/15 19:38:25 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/16 18:47:51 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-extern int	s_error;
+extern int	g_error;
 
 static void init_shlvl(t_data *data)
 {
@@ -55,7 +55,8 @@ static void init_vars(t_data *data)
 
 void init_data(t_data *data)
 {
-	s_error = 0;
+	g_error = 0;
+	get_pid(data);
 	data->cmds = NULL;
 	data->dico = NULL;
 	data->quit = 0;

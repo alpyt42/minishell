@@ -6,13 +6,13 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:11:15 by amontalb          #+#    #+#             */
-/*   Updated: 2023/03/15 19:37:16 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/16 18:04:49 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-extern int s_error;
+extern int g_error;
 
 char *sub_path(char *cmd, t_data *data, int i)
 {
@@ -87,7 +87,7 @@ char *sub_var(char *cmd, t_data *data, int i)
 	}
 	if (!var && cmd[i + 1] && cmd[i + 1] == '?')
 	{
-		var = ft_itoa(s_error);
+		var = ft_itoa(g_error);
 		path = ft_strjoin(path, var);
 		path = ft_strjoin(path, &cmd[i + 2]);
 		free(var);

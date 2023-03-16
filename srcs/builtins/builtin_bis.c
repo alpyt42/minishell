@@ -6,13 +6,13 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 16:06:32 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/11 20:12:12 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/16 18:28:57 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-extern int	s_error;
+extern int	g_error;
 
 int	is_builtin(t_node *n)
 {
@@ -54,6 +54,7 @@ int	built_env(t_data *d, int tri)
 	{
 		tab = sort_arr(env);
 		display_arr(tab, "declare -x ");
+		ft_free_arr(tab);
 	}
 	return (0);
 }
@@ -126,7 +127,7 @@ int	built_unset(t_data *data, t_node *n)
 			return (error_built(cmds[i], "unset"));
 		pos = pos_in_arr(data->env, cmds[i], '=');
 		if (search_dico(cmds[i], data) && pos != -1)
-			data->env = ft_replace_in_matrix(data->env, NULL, pos);
+			data->env = ft_replace_in_matrix(data->env, NULL, pos, -1);
 	}
 	return (0);
 }

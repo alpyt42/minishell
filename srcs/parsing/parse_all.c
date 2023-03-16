@@ -6,13 +6,13 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 08:43:12 by amontalb          #+#    #+#             */
-/*   Updated: 2023/03/16 16:42:18 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/16 18:20:00 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-extern int s_error;
+extern int g_error;
 
 static char **split_all(char **cmd)
 {
@@ -25,7 +25,7 @@ static char **split_all(char **cmd)
 		cmdsplit = ft_cmdsplit(cmd[i], "<|>");
 		if (!cmdsplit)
 			return (cmd);
-		cmd = ft_replace_in_matrix(cmd, cmdsplit, i);
+		cmd = ft_replace_in_matrix(cmd, cmdsplit, i, -1);
 		// ft_free_matrix(cmdsplit);
 	}
 	return (cmd);
@@ -124,7 +124,7 @@ int	check_pars(char *cmd, t_data *data)
 	{
 		ft_dprintf(1, "ERROR ARG -> cmd1 | cmd2\n");
 		data->exe = 0;
-		s_error = 0;
+		g_error = 0;
 		return (1);
 	}
 	if (check_empty_node(cmd))

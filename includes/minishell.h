@@ -86,5 +86,6 @@ enum	e_error
 
 char	*get_prompt(t_data *data);
 void	signal_receive(int sig);
+void	get_pid(t_data *data);
 
 #endif

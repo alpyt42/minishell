@@ -14,7 +14,7 @@ ENV = env init get_here_doc
 EXEC = exec_cmd mini exec fork_function
 MAIN = main prompt signals
 PARSING = expand lexing parse_all cmdsplit strim_quotes fill_nodes redirection
-UTILS = matrix other_function error struct_test
+UTILS = matrix other_function error
 
 UNAME = $(shell uname -s)
 

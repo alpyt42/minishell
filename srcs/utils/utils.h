@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 01:43:39 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/15 22:31:58 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/16 18:19:03 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	*ft_free_mini(t_data *data);
 char	**ft_append_tab(char **in, char *newstr);
 int		len_tab(char **tab);
 int		ft_strchars_i(const char *s, char *set);
-char	**ft_replace_in_matrix(char **matrix, char **insert, int n);
+char	**ft_replace_in_matrix(char **matrix, char **insert, int n, int i);
 char	**mini_split(char *str, int i, int j, int lenone);
 int		pos_in_arr(char **arr, char *to_find, char set);
 char	**sort_arr(char **arr);

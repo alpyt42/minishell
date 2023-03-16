@@ -6,33 +6,33 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 10:58:56 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/16 17:19:31 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/16 18:06:48 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-extern int	s_error;
+extern int	g_error;
 
 int	exec_builtin(t_data *d, t_node *n)
 {
 	if (is_builtin(n) == -1)
 		return (0);
 	if (is_builtin(n) == 0)
-		s_error = built_cd(d, n);
+		g_error = built_cd(d, n);
 	else if (is_builtin(n) == 1)
-		s_error = built_export(d, n);
+		g_error = built_export(d, n);
 	else if (is_builtin(n) == 2)
-		s_error = built_exit(d, n);
+		g_error = built_exit(d, n);
 	else if (is_builtin(n) == 3)
-		s_error = built_unset(d, n);
+		g_error = built_unset(d, n);
 	else if (is_builtin(n) == 4)
-		s_error = built_echo(n);
+		g_error = built_echo(n);
 	else if (is_builtin(n) == 5)
-		s_error = built_env(d, 0);
+		g_error = built_env(d, 0);
 	else if (is_builtin(n) == 6)
-		s_error = built_pwd();
-	return (s_error);
+		g_error = built_pwd();
+	return (g_error);
 }
 
 static void	exec_cmd(t_data *d, t_list *cmd)
@@ -41,10 +41,10 @@ static void	exec_cmd(t_data *d, t_list *cmd)
 
 	n = cmd->content;
 	if (is_builtin(n) >= 0)
-		s_error = exec_builtin(d, n);
+		g_error = exec_builtin(d, n);
 	else if (is_builtin(n) < 0 && n->all_cmd && n->all_path)
 		if (execve(n->all_path, n->all_cmd, d->env) == -1)
-			s_error = errno;
+			g_error = errno;
 }
 
 void	*redir_dup(t_list *cmd, int fd[2])
@@ -55,13 +55,13 @@ void	*redir_dup(t_list *cmd, int fd[2])
 	if (n->infile != STDIN_FILENO)
 	{
 		if (dup2(n->infile, STDIN_FILENO) == -1)
-			return(print_error(DUPERR, NULL, NULL, errno));
+			return (print_error(DUPERR, NULL, NULL, errno));
 		close(n->infile);
 	}
 	if (n->outfile != STDOUT_FILENO)
 	{
 		if (dup2(n->outfile, STDOUT_FILENO) == -1)
-			return(print_error(DUPERR, NULL, NULL, errno));
+			return (print_error(DUPERR, NULL, NULL, errno));
 		close(n->outfile);
 	}
 	else if (cmd->next && dup2(fd[1], STDOUT_FILENO) == -1)
@@ -93,7 +93,7 @@ static void	*get_fork(t_data *d, t_list *cmd, int fd[2])
 		}
 		close(fd[0]);
 		exec_cmd(d, cmd);
-		exit(s_error);
+		exit(g_error);
 	}
 	return ("");
 }
@@ -109,17 +109,18 @@ void	*fork_fct(t_data *d, t_list *cmd, int fd[2])
 		return (NULL);
 	if (n->all_cmd)
 		dir = opendir(*n->all_cmd);
-	if (is_builtin(n) >= 0 || (n->all_path && !access(n->all_path, X_OK)))
+	if (is_builtin(n) >= 0
+		|| (n->all_path && !access(n->all_path, X_OK)))
 	{
 		if (!get_fork(d, cmd, fd))
 			return (NULL);
 	}
-	else if (is_builtin(n) < 0 && (dir ||
-		(n->all_path && !access(n->all_path, F_OK))))
-		s_error = 126;
+	else if (is_builtin(n) < 0
+		&& (dir || (n->all_path && !access(n->all_path, F_OK))))
+		g_error = 126;
 	else if (is_builtin(n) < 0 && n->all_cmd)
-		s_error = 127;
+		g_error = 127;
 	if (dir)
 		closedir(dir);
-	return("");
+	return ("");
 }

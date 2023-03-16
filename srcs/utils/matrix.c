@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 17:24:09 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/16 16:30:44 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/16 18:27:51 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,19 +51,17 @@ char	**ft_append_tab(char **tab, char *line)
 	return (res);
 }
 
-char **ft_replace_in_matrix(char **matrix, char **insert, int n)
+char	**ft_replace_in_matrix(char **matrix, char **insert, int n, int i)
 {
-	char **temp;
-	int	i;
-	int	j;
-	int	k;
+	char	**temp;
+	int		j;
+	int		k;
 
-	i = -1;
 	j = -1;
 	k = -1;
 	if (!matrix || n < 0 || n >= len_tab(matrix))
 		return (NULL);
-	temp = ft_calloc((len_tab(matrix) + len_tab(insert)), sizeof(char*));
+	temp = ft_calloc((len_tab(matrix) + len_tab(insert)), sizeof(char *));
 	if (!temp)
 		return (NULL);
 	while (temp && matrix[++i])
@@ -85,28 +83,27 @@ char	**sort_arr(char **arr)
 {
 	char	**res;
 	char	*tmp;
-	int		len;
 	int		i;
 	int		j;
 
 	i = -1;
-	len = ft_arrlen(arr);
-	if (!len)
-		return (NULL);
-	res = ft_calloc(sizeof(char *), len + 1);
-	if (!res)
+	if (!arr)
 		return (NULL);
 	res = ft_arrdup(arr);
-	while (++i < len - 1)
+	if (!res)
+		return (NULL);
+	while (arr[++i])
 	{
 		j = i;
-		while (++j < len)
+		while (arr[++j])
+		{
 			if (ft_strncmp(res[i], res[j], INT_MAX) > 0)
 			{
 				tmp = res[i];
 				res[i] = res[j];
 				res[j] = tmp;
 			}
+		}
 	}
 	return (res);
 }

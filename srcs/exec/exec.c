@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 16:20:28 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/16 17:45:44 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/16 18:02:39 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,11 +92,11 @@ static void	find_cmd(t_data *d, t_list *cmd)
 	if (dir && access(n->all_path, F_OK) == -1
 		&& is_builtin(n) < 0)
 		print_error(IS_DIR, "", tmp, 126);
-	else if (n && n->all_path && access(n->all_path, F_OK) == -1 
-			&& is_builtin(n) < 0)
+	else if (n && n->all_path
+		&& access(n->all_path, F_OK) == -1 && is_builtin(n) < 0)
 		print_error(NDIR, "", tmp, 1);
 	else if (n && n->all_path && access(n->all_path, X_OK) == -1
-			&& is_builtin(n) < 0)
+		&& is_builtin(n) < 0)
 		print_error(NPERM, "", *n->all_cmd, 126);
 	if (dir)
 		closedir(dir);
@@ -110,10 +110,10 @@ void	*exec(t_data *data, t_list *cmd)
 	if (pipe(fd) == -1)
 	{
 		ft_free_mini(data);
-		return(print_error(PIPERR, NULL, NULL, errno));
+		return (print_error(PIPERR, NULL, NULL, errno));
 	}
 	if (!fork_fct(data, cmd, fd))
-		return("");
+		return ("");
 	close(fd[1]);
 	if (cmd->next && !((t_node *)cmd->next->content)->infile)
 		((t_node *)cmd->next->content)->infile = fd[0];
