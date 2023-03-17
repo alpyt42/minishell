@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 16:20:28 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/16 18:02:39 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/17 11:10:39 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,8 @@ static void	find_cmd(t_data *d, t_list *cmd)
 		print_error(NPERM, "", *n->all_cmd, 126);
 	if (dir)
 		closedir(dir);
+	if (tmp)
+		free (tmp);
 }
 
 void	*exec(t_data *data, t_list *cmd)

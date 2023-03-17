@@ -6,7 +6,7 @@
 /*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:11:15 by amontalb          #+#    #+#             */
-/*   Updated: 2023/03/17 09:26:18 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/03/17 13:15:00 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,39 +31,35 @@ char	*sub_path(char *cmd, t_data *data, int i)
 	i++;
 	if (cmd[i])
 		path = ft_strjoin(path, &cmd[i]);
-	free(cmd);
 	return (path);
 }
 
 char	*expand_path(char *cmd, t_data *data)
 {
-	int	i;
-	int	simple_q;
-	int	double_q;
-	int	size_home;
+	int	tab[4];
 
-	i = 0;
-	simple_q = 0;
-	double_q = 0;
-	size_home = ft_strlen(search_dico("HOME", data));
-	while (cmd[i])
+	tab[0] = 0;
+	tab[1] = 0;
+	tab[2] = 0;
+	tab[3] = ft_strlen(search_dico("HOME", data));
+	while (cmd[tab[0]])
 	{
-		simple_q = (simple_q + (!double_q && cmd[i] == '\'')) % 2;
-		double_q = (double_q + (!simple_q && cmd[i] == '\"')) % 2;
-		if (!simple_q && !double_q && cmd[i] == '~'
-			&& (i == 0 || cmd[i - 1] != '$'))
+		tab[1] = (tab[1] + (!tab[2] && cmd[tab[0]] == '\'')) % 2;
+		tab[2] = (tab[2] + (!tab[1] && cmd[tab[0]] == '\"')) % 2;
+		if (!tab[1] && !tab[2] && cmd[tab[0]] == '~'
+			&& (tab[0] == 0 || cmd[tab[0] - 1] != '$'))
 		{
-			if ((cmd[i + 1] && cmd[i + 1] == '~')
-				|| (cmd[i - 1] && cmd[i - 1] == '~'))
-				i++;
+			if ((cmd[tab[0] + 1] && cmd[tab[0] + 1] == '~')
+				|| (cmd[tab[0] - 1] && cmd[tab[0] - 1] == '~'))
+				tab[0]++;
 			else
 			{
-				cmd = sub_path(cmd, data, i);
-				i += size_home;
+				cmd = sub_path(cmd, data, tab[0]);
+				tab[0] += tab[3];
 			}
 		}
 		else
-			i++;
+			tab[0]++;
 	}
 	return (cmd);
 }

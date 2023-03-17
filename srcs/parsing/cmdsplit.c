@@ -6,7 +6,7 @@
 /*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 15:52:13 by amontalb          #+#    #+#             */
-/*   Updated: 2023/03/17 09:29:29 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/03/17 12:49:29 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,32 +43,29 @@ static int	count_word(char *cmd, char *s)
 
 static char	**fill_array(char **cmdlex, char *cmd, char *s)
 {
-	int	simple_q;
-	int	double_q;
-	int	i;
-	int	j;
-	int	k;
+	int	tab[5];
 
-	i = 0;
-	k = 0;
-	simple_q = 0;
-	double_q = 0;
-	while (cmd[i])
+	tab[2] = 0;
+	tab[3] = 0;
+	tab[0] = 0;
+	tab[1] = 0;
+	while (cmd[tab[2]])
 	{
-		j = i;
-		if (!ft_strchr(s, cmd[i]))
+		tab[4] = tab[2];
+		if (!ft_strchr(s, cmd[tab[2]]))
 		{
-			while (cmd[i] && (!ft_strchr(s, cmd[i]) || double_q || simple_q))
+			while (cmd[tab[2]] && (!ft_strchr(s, cmd[tab[2]])
+					|| tab[1] || tab[0]))
 			{
-				simple_q = (simple_q + (!double_q && cmd[i] == '\'')) % 2 ;
-				double_q = (double_q + (!simple_q && cmd[i] == '\"')) % 2 ;
-				i++;
+				tab[0] = (tab[0] + (!tab[1] && cmd[tab[2]] == '\'')) % 2 ;
+				tab[1] = (tab[1] + (!tab[0] && cmd[tab[2]] == '\"')) % 2 ;
+				tab[2]++;
 			}
 		}
 		else
-			i++;
-		cmdlex[k] = ft_substr(cmd, j, i - j);
-		k++;
+			tab[2]++;
+		cmdlex[tab[3]] = ft_substr(cmd, tab[4], tab[2] - tab[4]);
+		tab[3]++;
 	}
 	return (cmdlex);
 }

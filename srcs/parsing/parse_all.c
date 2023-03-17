@@ -6,7 +6,7 @@
 /*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 08:43:12 by amontalb          #+#    #+#             */
-/*   Updated: 2023/03/17 09:32:07 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/03/17 10:12:17 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static char	**split_all(char **cmd)
 		if (!cmdsplit)
 			return (cmd);
 		cmd = ft_replace_in_matrix(cmd, cmdsplit, i, -1);
-		// ft_free_matrix(cmdsplit);
+		ft_free_arr(cmdsplit);
 	}
 	return (cmd);
 }
