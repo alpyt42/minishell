@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:45:23 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/16 18:33:30 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/17 09:27:47 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	display_arr(char **arr, char *info)
 	}
 }
 
-void	display_cmd(t_list *cmds)
+void	display_cmd(t_list *cmds, int fd)
 {
 	int	i;
 	int	j;
@@ -69,13 +69,13 @@ void	display_cmd(t_list *cmds)
 	{
 		i = -1;
 		while (((t_node *)cmds->content)->all_cmd[++i])
-			dprintf(1, "node n.%d cmds[%d] : %s\n", \
+			dprintf(fd, "node n.%d cmds[%d] : %s\n", \
 				j, i, ((t_node *)cmds->content)->all_cmd[i]);
-		dprintf(1, "node n.%d full_path : %s\n", \
+		dprintf(fd, "node n.%d full_path : %s\n", \
 			j, ((t_node *)cmds->content)->all_path);
-		dprintf(1, "node n.%d infile : %d\n", \
+		dprintf(fd, "node n.%d infile : %d\n", \
 			j, ((t_node *)cmds->content)->infile);
-		dprintf(1, "node n.%d outfile : %d\n", \
+		dprintf(fd, "node n.%d outfile : %d\n", \
 			j, ((t_node *)cmds->content)->outfile);
 		j++;
 		cmds = cmds->next;

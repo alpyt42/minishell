@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 17:03:39 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/16 18:51:05 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/17 09:33:36 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,14 @@ static void	*mini_no_pipe(t_data *d, t_node *n)
 	exec_builtin(d, n);
 	if (n->infile > 2)
 	{
-		if (dup2(d->stdin_fd, STDIN_FILENO))
+		if (dup2(d->stdin_fd, STDIN_FILENO) == -1)
 			return (print_error(DUPERR, NULL, NULL, errno));
 		close(n->infile);
 	}
 	close(d->stdin_fd);
 	if (n->outfile > 2)
 	{
-		if (dup2(d->stdout_fd, STDOUT_FILENO))
+		if (dup2(d->stdout_fd, STDOUT_FILENO) == -1)
 			return (print_error(DUPERR, NULL, NULL, errno));
 		close(n->outfile);
 	}
