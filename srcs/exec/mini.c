@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 17:03:39 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/17 09:33:36 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/17 10:00:26 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,16 @@ void	*mini_process(t_data *data, t_list *cmds)
 
 static void	get_error(t_data *d)
 {
+	t_node *n;
+
+	n = d->cmds->content;
 	if (!d->quit && g_error == 13)
 		g_error = 0;
 	else if (g_error > 255)
 		g_error = g_error / 255;
+	if (d && d->n_cmd == 1 && !g_error
+		&& n->all_cmd && n->all_cmd[0])
+		set_env_vars(d, "_=", n->all_cmd[0]);
 }
 
 int	launch_mini(t_data *data, char *cmd)
@@ -110,7 +116,7 @@ int	launch_mini(t_data *data, char *cmd)
 	data->n_cmd = ft_lstsize(data->cmds);
 	if (data->n_cmd > 0 && data->exe)
 		mini_process(data, data->cmds);
-	if (data->n_cmd >= 1 || !(data->n_cmd == 1
+	if (data->n_cmd >= 1 && !(data->n_cmd == 1
 			&& is_builtin(data->cmds->content)))
 		while (data->n_cmd-- > 0)
 			waitpid(-1, &g_error, 0);

@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 01:43:39 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/17 09:28:09 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/17 16:37:29 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,6 @@ int		pos_in_arr(char **arr, char *to_find, char set);
 char	**sort_arr(char **arr);
 void	display_cmd(t_list *cmds, int fd);
 void	display_arr(char **arr, char *info);
-t_list	*fill_struct_test(t_data *data);
+void	rm_space(char **str);
 
 #endif

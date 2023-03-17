@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 16:06:32 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/16 19:00:06 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/17 16:39:51 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,8 @@ int	built_export(t_data *data, t_node *n)
 		if (ft_strchars_i(cmds[i], "()-[]") != -1)
 			return (error_built(cmds[i], "export"));
 		tmp = mini_split(cmds[i], -1, 0, 0);
-		if (tmp[0] && ft_strchars_i(cmds[i], "=") != -1)
+		rm_space(tmp);
+		if (tmp && tmp[0] && ft_strchars_i(cmds[i], "=") != -1)
 		{
 			var_glob = ft_strjoin(tmp[0], "=");
 			set_env_vars(data, var_glob, tmp[1]);

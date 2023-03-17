@@ -6,33 +6,25 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 17:24:09 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/16 18:27:51 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/17 17:03:25 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
-int	len_tab(char **tab)
-{
-	int	i;
+extern int g_error;
 
-	i = 0;
-	while (tab && tab[i])
-		i++;
-	return (i);
-}
-
-char	**ft_append_tab(char **tab, char *line)
+char **ft_append_tab(char **tab, char *line)
 {
-	char	**res;
-	int		len;
-	int		i;
+	char **res;
+	int len;
+	int i;
 
 	i = -1;
 	res = NULL;
 	if (!line)
 		return (tab);
-	len = len_tab(tab);
+	len = ft_arrlen(tab);
 	res = ft_calloc(sizeof(char *), (len + 2));
 	res[len + 1] = NULL;
 	if (!res)
@@ -51,17 +43,17 @@ char	**ft_append_tab(char **tab, char *line)
 	return (res);
 }
 
-char	**ft_replace_in_matrix(char **matrix, char **insert, int n, int i)
+char **ft_replace_in_matrix(char **matrix, char **insert, int n, int i)
 {
-	char	**temp;
-	int		j;
-	int		k;
+	char **temp;
+	int j;
+	int k;
 
 	j = -1;
 	k = -1;
-	if (!matrix || n < 0 || n >= len_tab(matrix))
+	if (!matrix || n < 0 || n >= ft_arrlen(matrix))
 		return (NULL);
-	temp = ft_calloc((len_tab(matrix) + len_tab(insert)), sizeof(char *));
+	temp = ft_calloc((ft_arrlen(matrix) + ft_arrlen(insert)), sizeof(char *));
 	if (!temp)
 		return (NULL);
 	while (temp && matrix[++i])
@@ -79,12 +71,12 @@ char	**ft_replace_in_matrix(char **matrix, char **insert, int n, int i)
 	return (matrix);
 }
 
-char	**sort_arr(char **arr)
+char **sort_arr(char **arr)
 {
-	char	**res;
-	char	*tmp;
-	int		i;
-	int		j;
+	char **res;
+	char *tmp;
+	int i;
+	int j;
 
 	i = -1;
 	if (!arr)
@@ -106,4 +98,51 @@ char	**sort_arr(char **arr)
 		}
 	}
 	return (res);
+}
+
+void supprimer_espaces_en_trop(char *chaine, int i, int j, int n)
+{
+	int	k;
+
+	while (i < n)
+	{
+		if (chaine[i] == ' ')
+		{
+			j = i + 1;
+			while (j < n && chaine[j] == ' ')
+				j++;
+			if (j - i > 1)
+			{
+				k = j - 1;
+				while (++k < n)
+					chaine[k - (j - i - 1)] = chaine[k];
+				chaine[k - (j - i - 1)] = '\0';
+				n -= j - i - 1;
+			}
+			else
+				i++;
+		}
+		else
+			i++;
+	}
+	if (n > 0 && chaine[n - 1] == ' ')
+		chaine[n - 1] = '\0';
+}
+
+void rm_space(char **str)
+{
+	int len;
+
+	if (!str)
+		return;
+	len = ft_arrlen(str);
+	dprintf(2, "len : %d\n", len);
+	if (len > 2)
+	{
+		g_error = 1;
+		ft_dprintf(2, "mini: export: `%s': not a valid identifier", str[len - 1]);
+	}
+	if (len == 2)
+		supprimer_espaces_en_trop(str[1], 0, 0, ft_strlen(str[1]));
+	dprintf(2, "strrm : %s\n", str[1]);
 }
