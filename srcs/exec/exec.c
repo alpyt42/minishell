@@ -6,7 +6,7 @@
 /*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 16:20:28 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/17 11:10:39 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/03/17 13:47:38 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ static void	check_cmd(t_data *d, t_node *n)
 		n->all_path = ft_strdup(*n->all_cmd);
 		free(*n->all_cmd);
 		*n->all_cmd = ft_strdup(tmp[ft_arrlen(tmp) - 1]);
+		ft_free_arr(tmp);
 	}
 	else if (n && n->all_cmd && is_builtin(n) < 0)
 		n->all_path = get_path(d, n->all_cmd);
