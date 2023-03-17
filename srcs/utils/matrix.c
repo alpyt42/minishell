@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   matrix.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 17:24:09 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/16 18:27:51 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/17 16:26:02 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,4 +106,14 @@ char	**sort_arr(char **arr)
 		}
 	}
 	return (res);
+}
+
+char	*ft_str_free_join(char *left_str, char *buf)
+{
+	char	*join;
+
+	join = ft_strjoin(left_str, buf);
+	free(left_str);
+	free(buf);
+	return (join);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 01:43:39 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/17 09:28:09 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/17 16:18:58 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int		pos_in_arr(char **arr, char *to_find, char set);
 char	**sort_arr(char **arr);
 void	display_cmd(t_list *cmds, int fd);
 void	display_arr(char **arr, char *info);
+char	*ft_str_free_join(char *left_str, char *buf);
 t_list	*fill_struct_test(t_data *data);
 
 #endif
