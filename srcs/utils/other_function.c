@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   other_function.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:45:23 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/17 09:27:47 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/17 16:18:27 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ int	ft_strchars_i(const char *s, char *set)
 	int	i;
 
 	i = 0;
-	if (!s)
+	if (!s || !s[i])
 		return (-1);
-	while (s[i] != '\0')
+	while (s[i])
 	{
 		if (ft_strchr(set, s[i]))
 			return (i);

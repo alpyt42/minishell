@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 17:24:09 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/17 17:03:25 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/17 17:08:12 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ char **sort_arr(char **arr)
 	return (res);
 }
 
-void supprimer_espaces_en_trop(char *chaine, int i, int j, int n)
+static void mod_space(char *chaine, int i, int j, int n)
 {
 	int	k;
 
@@ -136,13 +136,21 @@ void rm_space(char **str)
 	if (!str)
 		return;
 	len = ft_arrlen(str);
-	dprintf(2, "len : %d\n", len);
 	if (len > 2)
 	{
 		g_error = 1;
 		ft_dprintf(2, "mini: export: `%s': not a valid identifier", str[len - 1]);
 	}
 	if (len == 2)
-		supprimer_espaces_en_trop(str[1], 0, 0, ft_strlen(str[1]));
-	dprintf(2, "strrm : %s\n", str[1]);
+		mod_space(str[1], 0, 0, ft_strlen(str[1]));
+}
+
+char	*ft_str_free_join(char *left_str, char *buf)
+{
+	char	*join;
+
+	join = ft_strjoin(left_str, buf);
+	free(left_str);
+	free(buf);
+	return (join);
 }

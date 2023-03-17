@@ -3,65 +3,64 @@
 /*                                                        :::      ::::::::   */
 /*   strim_quotes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 14:57:31 by amontalb          #+#    #+#             */
-/*   Updated: 2023/03/16 17:43:37 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/17 09:36:35 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-static int  malloc_len(char *s)
+static int	malloc_len(char *s)
 {
-    int size;
-    int i;
-    int simple_q;
-    int double_q;
+	int	size;
+	int	i;
+	int	simple_q;
+	int	double_q;
 
-    i = 0;
-    size = 0;
-    simple_q = 0;
-    double_q = 0;
-
-    while (s[i])
-    {
-        simple_q = (simple_q + (!double_q && s[i] == '\'')) % 2 ;
-        double_q = (double_q + (!simple_q && s[i] == '\"')) % 2 ;
-        if (((s[i]) == '\"' && !simple_q) || ((s[i]) == '\"' && !double_q))
-            size++;
-        i++;
-    }
-    if (simple_q || double_q)
-        return (-1);
-     return (size);
+	i = 0;
+	size = 0;
+	simple_q = 0;
+	double_q = 0;
+	while (s[i])
+	{
+		simple_q = (simple_q + (!double_q && s[i] == '\'')) % 2 ;
+		double_q = (double_q + (!simple_q && s[i] == '\"')) % 2 ;
+		if (((s[i]) == '\"' && !simple_q) || ((s[i]) == '\"' && !double_q))
+			size++;
+		i++;
+	}
+	if (simple_q || double_q)
+		return (-1);
+	return (size);
 }
 
-char *ft_strim_quotes(char *s)
+char	*ft_strim_quotes(char *s)
 {
-    int     simple_q;
-    int     double_q;
-    char    *trim;
-    int     i;
-    int     j;
+	int		simple_q;
+	int		double_q;
+	char	*trim;
+	int		i;
+	int		j;
 
-    i = 0;
-    j = -1;
-    simple_q = 0;
-    double_q = 0;
-    if (!s || malloc_len(s) == -1)
-        return (NULL);
-    trim = ft_calloc((ft_strlen(s) - malloc_len(s) + 1), sizeof(char));
-    if (!trim)
-        return (NULL);
-    while (s[i])
-    {
-        simple_q = (simple_q + (!double_q && s[i] == '\'')) % 2 ;
-        double_q = (double_q + (!simple_q && s[i] == '\"')) % 2 ;
-        if ((s[i] != '\"' || simple_q) && (s[i] != '\'' || double_q))
-            trim[++j] = s[i];
-        i++;
-    }
-    trim[++j] = '\0';
-    return(trim);
+	i = 0;
+	j = -1;
+	simple_q = 0;
+	double_q = 0;
+	if (!s || malloc_len(s) == -1)
+		return (NULL);
+	trim = ft_calloc((ft_strlen(s) - malloc_len(s) + 1), sizeof(char));
+	if (!trim)
+		return (NULL);
+	while (s[i])
+	{
+		simple_q = (simple_q + (!double_q && s[i] == '\'')) % 2 ;
+		double_q = (double_q + (!simple_q && s[i] == '\"')) % 2 ;
+		if ((s[i] != '\"' || simple_q) && (s[i] != '\'' || double_q))
+			trim[++j] = s[i];
+		i++;
+	}
+	trim[++j] = '\0';
+	return (trim);
 }

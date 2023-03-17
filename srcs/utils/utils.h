@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 01:43:39 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/17 16:37:29 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/17 17:06:14 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,6 @@ char	**sort_arr(char **arr);
 void	display_cmd(t_list *cmds, int fd);
 void	display_arr(char **arr, char *info);
 void	rm_space(char **str);
+char	*ft_str_free_join(char *left_str, char *buf);
 
 #endif

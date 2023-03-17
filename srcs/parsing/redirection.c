@@ -3,27 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:08:47 by amontalb          #+#    #+#             */
-/*   Updated: 2023/03/16 19:39:58 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/17 09:33:02 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-extern int g_error;
+extern int	g_error;
 
-int get_fd(int oldfd, char *path, int create, int append, t_data *d)
+int	get_fd(int oldfd, char *path, int create, int append, t_data *d)
 {
-	int fd;
+	int	fd;
 
 	if (oldfd > 2)
 		close(oldfd);
 	if (!path)
 		return (-1);
 	if (path[0] && (path[0] == '|' || path[0] == '<' || path[0] == '>'))
-		return(symbol_errors(path, 2, &d->exe));
+		return (symbol_errors(path, 2, &d->exe));
 	if (access(path, F_OK) == -1 && !create)
 		print_error(NDIR, "ERROR", path, 1);
 	else if (access(path, R_OK) == -1 && !create)
@@ -41,7 +41,7 @@ int get_fd(int oldfd, char *path, int create, int append, t_data *d)
 	return (fd);
 }
 
-t_node *get_out1(t_node *node, char **cmds, int *i, t_data *data)
+t_node	*get_out1(t_node *node, char **cmds, int *i, t_data *data)
 {
 	(*i)++;
 	if (cmds[*i])
@@ -57,7 +57,7 @@ t_node *get_out1(t_node *node, char **cmds, int *i, t_data *data)
 	return (node);
 }
 
-t_node *get_out2(t_node *node, char **cmds, int *i, t_data *data)
+t_node	*get_out2(t_node *node, char **cmds, int *i, t_data *data)
 {
 	(*i)++;
 	(*i)++;
@@ -74,7 +74,7 @@ t_node *get_out2(t_node *node, char **cmds, int *i, t_data *data)
 	return (node);
 }
 
-t_node *get_in1(t_node *node, char **cmds, int *i, t_data *data)
+t_node	*get_in1(t_node *node, char **cmds, int *i, t_data *data)
 {
 	(*i)++;
 	if (cmds[*i])
@@ -87,10 +87,10 @@ t_node *get_in1(t_node *node, char **cmds, int *i, t_data *data)
 	return (node);
 }
 
-t_node *get_in2(t_data *data, t_node *node, char **cmds, int *i)
+t_node	*get_in2(t_data *data, t_node *node, char **cmds, int *i)
 {
 	char	*warn;
-	
+
 	warn = "minishell: warning: here-document delimited by end-of-file";
 	(*i)++;
 	if (cmds[++(*i)])
