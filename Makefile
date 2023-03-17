@@ -3,6 +3,13 @@ NAME = minishell
 CC = gcc
 
 HEADER = ./includes/
+HEADS = ./srcs/builtins/builtins.h \
+		./srcs/env/env.h \
+		./srcs/parsing/parsing.h \
+		./srcs/utils/utils.h \
+		./includes/minishell.h \
+		
+		
 CFLAGS = -Wall -Wextra -Werror -g3 -I $(HEADER)
 # CDEBUG = -fsanitize=address
 
@@ -34,12 +41,12 @@ OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
 
-$(NAME): lib $(OBJ) $(HEADER)
+$(NAME): lib $(OBJ)
 	@echo "\n\033[0;32mCompiling minishell...\033[0m"
 	@$(CC) -L /usr/local/opt/readline/lib -I /usr/local/opt/readline/include -L ~/.brew/opt/readline/lib -I ~/.brew/opt/readline/include $(CFLAGS) $(CDEBUG) $(OBJ) $(LIBFT) -lreadline -o $@
 	@echo "\nMinishell is up to date !"
 
-%.o: %.c
+%.o: %.c $(LIBFT) $(HEADS)
 	$(CC) -I ~/.brew/opt/readline/include -I /usr/local/opt/readline/include $(CFLAGS) $(CDEBUG) -c $< -o $@
 
 lib :
