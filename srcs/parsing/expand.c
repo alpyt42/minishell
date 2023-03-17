@@ -6,7 +6,7 @@
 /*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:11:15 by amontalb          #+#    #+#             */
-/*   Updated: 2023/03/17 13:15:00 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/03/17 15:19:42 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,22 +34,16 @@ char	*sub_path(char *cmd, t_data *data, int i)
 	return (path);
 }
 
-char	*expand_path(char *cmd, t_data *data)
+char	*expand_path(char *cmd, t_data *data, int *tab)
 {
-	int	tab[4];
-
-	tab[0] = 0;
-	tab[1] = 0;
-	tab[2] = 0;
-	tab[3] = ft_strlen(search_dico("HOME", data));
 	while (cmd[tab[0]])
 	{
 		tab[1] = (tab[1] + (!tab[2] && cmd[tab[0]] == '\'')) % 2;
 		tab[2] = (tab[2] + (!tab[1] && cmd[tab[0]] == '\"')) % 2;
 		if (!tab[1] && !tab[2] && cmd[tab[0]] == '~'
-			&& (tab[0] == 0 || cmd[tab[0] - 1] != '$'))
+			&& (tab[0] == 0 || !cmd[tab[0] - 1]))
 		{
-			if ((cmd[tab[0] + 1] && cmd[tab[0] + 1] == '~')
+			if ((cmd[tab[0] + 1] && cmd[tab[0] + 1] != ' ')
 				|| (cmd[tab[0] - 1] && cmd[tab[0] - 1] == '~'))
 				tab[0]++;
 			else
@@ -135,7 +129,13 @@ char	*expand_vars(char *cmd, t_data *data)
 
 char	*expand_all2(char *cmd, t_data *data)
 {
+	int	tab[4];
+
+	tab[0] = 0;
+	tab[1] = 0;
+	tab[2] = 0;
+	tab[3] = ft_strlen(search_dico("HOME", data));
 	cmd = expand_vars(cmd, data);
-	cmd = expand_path(cmd, data);
+	cmd = expand_path(cmd, data, tab);
 	return (cmd);
 }
