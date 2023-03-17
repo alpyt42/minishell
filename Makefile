@@ -39,9 +39,9 @@ SRC =	$(addsuffix .c, $(addprefix srcs/main/, $(MAIN))) \
 
 OBJ = $(SRC:.c=.o)
 
-all: $(NAME)
+all: lib $(NAME)
 
-$(NAME): lib $(OBJ)
+$(NAME): $(OBJ)
 	@echo "\n\033[0;32mCompiling minishell...\033[0m"
 	@$(CC) -L /usr/local/opt/readline/lib -I /usr/local/opt/readline/include -L ~/.brew/opt/readline/lib -I ~/.brew/opt/readline/include $(CFLAGS) $(CDEBUG) $(OBJ) $(LIBFT) -lreadline -o $@
 	@echo "\nMinishell is up to date !"
