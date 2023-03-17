@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 17:24:09 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/17 17:08:12 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/17 17:19:31 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,23 +100,23 @@ char **sort_arr(char **arr)
 	return (res);
 }
 
-static void mod_space(char *chaine, int i, int j, int n)
+static void mod_space(char *str, int i, int j, int n)
 {
 	int	k;
 
 	while (i < n)
 	{
-		if (chaine[i] == ' ')
+		if (str[i] == ' ')
 		{
 			j = i + 1;
-			while (j < n && chaine[j] == ' ')
+			while (j < n && str[j] == ' ')
 				j++;
 			if (j - i > 1)
 			{
 				k = j - 1;
 				while (++k < n)
-					chaine[k - (j - i - 1)] = chaine[k];
-				chaine[k - (j - i - 1)] = '\0';
+					str[k - (j - i - 1)] = str[k];
+				str[k - (j - i - 1)] = '\0';
 				n -= j - i - 1;
 			}
 			else
@@ -125,8 +125,8 @@ static void mod_space(char *chaine, int i, int j, int n)
 		else
 			i++;
 	}
-	if (n > 0 && chaine[n - 1] == ' ')
-		chaine[n - 1] = '\0';
+	if (n > 0 && str[n - 1] == ' ')
+		str[n - 1] = '\0';
 }
 
 void rm_space(char **str)
