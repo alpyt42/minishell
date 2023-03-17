@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   parse_all.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 08:43:12 by amontalb          #+#    #+#             */
-/*   Updated: 2023/03/16 18:20:00 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/17 09:32:07 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-extern int g_error;
+extern int	g_error;
 
-static char **split_all(char **cmd)
+static char	**split_all(char **cmd)
 {
-	char **cmdsplit;
-	int i;
+	char	**cmdsplit;
+	int		i;
 
 	i = -1;
 	while (cmd[++i])
@@ -31,10 +31,10 @@ static char **split_all(char **cmd)
 	return (cmd);
 }
 
-static int check_empty_node(char *cmd)
+static int	check_empty_node(char *cmd)
 {
-	int i;
-	int empty;
+	int	i;
+	int	empty;
 
 	empty = 0;
 	i = -1;
@@ -52,7 +52,7 @@ static int check_empty_node(char *cmd)
 			if (!empty)
 				return (1);
 			if (cmd[i] == '\0')
-				break;
+				break ;
 		}
 	}
 	return (0);
@@ -74,7 +74,8 @@ static int	check_chev(char **cmd, t_data *d)
 		ch[0] = '\0';
 		if (cmd && cmd[i] && cmd[j] && (cmd[i][0] == '>' || cmd[i][0] == '<'))
 			ch[0] = cmd[i][0];
-		while (ch[0] && cmd[j] && cmd[j][0] && (cmd[j][0] == '>' || cmd[j][0] == '<'))
+		while (ch[0] && cmd[j] && cmd[j][0]
+			&& (cmd[j][0] == '>' || cmd[j][0] == '<'))
 		{
 			if ((ch[0] != cmd[j][0] && cmd[j][0] == '>')
 				|| (ch[0] != cmd[j][0] && cmd[j][0] == '<'))
@@ -90,7 +91,7 @@ static int	check_chev(char **cmd, t_data *d)
 	return (0);
 }
 
-static int check_error(char *cmd)
+static int	check_error(char *cmd)
 {
 	int	i;
 	int	simple_q;
@@ -103,10 +104,10 @@ static int check_error(char *cmd)
 	{
 		simple_q = (simple_q + (!double_q && cmd[i] == '\'')) % 2;
 		double_q = (double_q + (!simple_q && cmd[i] == '\"')) % 2;
-		if (!simple_q && !double_q && (cmd[i] == ';' || cmd[i] == '\\' 
-			|| (cmd[i] == '|' && cmd[i + 1] && cmd[i + 1] == '|') 
-			|| (cmd[i] == '&' && cmd[i + 1] && cmd[i + 1] == '&') 
-			|| (cmd[i] == '|' && !cmd[i + 1])))
+		if (!simple_q && !double_q && (cmd[i] == ';' || cmd[i] == '\\'
+				|| (cmd[i] == '|' && cmd[i + 1] && cmd[i + 1] == '|')
+				|| (cmd[i] == '&' && cmd[i + 1] && cmd[i + 1] == '&')
+				|| (cmd[i] == '|' && !cmd[i + 1])))
 			return (1);
 		i++;
 	}

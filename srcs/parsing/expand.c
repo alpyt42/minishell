@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:11:15 by amontalb          #+#    #+#             */
-/*   Updated: 2023/03/16 18:04:49 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/17 09:26:18 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-extern int g_error;
+extern int	g_error;
 
-char *sub_path(char *cmd, t_data *data, int i)
+char	*sub_path(char *cmd, t_data *data, int i)
 {
-	char *before;
-	char *path;
+	char	*before;
+	char	*path;
 
 	before = NULL;
 	if (i != 0)
@@ -35,12 +35,12 @@ char *sub_path(char *cmd, t_data *data, int i)
 	return (path);
 }
 
-char *expand_path(char *cmd, t_data *data)
+char	*expand_path(char *cmd, t_data *data)
 {
-	int i;
-	int simple_q;
-	int double_q;
-	int size_home;
+	int	i;
+	int	simple_q;
+	int	double_q;
+	int	size_home;
 
 	i = 0;
 	simple_q = 0;
@@ -50,9 +50,11 @@ char *expand_path(char *cmd, t_data *data)
 	{
 		simple_q = (simple_q + (!double_q && cmd[i] == '\'')) % 2;
 		double_q = (double_q + (!simple_q && cmd[i] == '\"')) % 2;
-		if (!simple_q && !double_q && cmd[i] == '~' && (i == 0 || cmd[i - 1] != '$'))
+		if (!simple_q && !double_q && cmd[i] == '~'
+			&& (i == 0 || cmd[i - 1] != '$'))
 		{
-			if ((cmd[i + 1] && cmd[i + 1] == '~') || (cmd[i - 1] && cmd[i - 1] == '~'))
+			if ((cmd[i + 1] && cmd[i + 1] == '~')
+				|| (cmd[i - 1] && cmd[i - 1] == '~'))
 				i++;
 			else
 			{
@@ -66,14 +68,15 @@ char *expand_path(char *cmd, t_data *data)
 	return (cmd);
 }
 
-char *sub_var(char *cmd, t_data *data, int i)
+char	*sub_var(char *cmd, t_data *data, int i)
 {
-	char *before;
-	char *path;
-	char *var;
+	char	*before;
+	char	*path;
+	char	*var;
 
 	before = ft_substr(cmd, 0, i);
-	var = search_dico(ft_substr(cmd, i + 1, ft_strchars_i(&cmd[i + 1], "|$?~%^{}: \"\'")), data);
+	var = search_dico(ft_substr(cmd, i + 1,
+				ft_strchars_i(&cmd[i + 1], "|$?~%^{}: \"\'")), data);
 	if (before)
 		path = ft_strdup(before);
 	if (!var && cmd[i + 1] && cmd[i + 1] == '$')
@@ -97,16 +100,17 @@ char *sub_var(char *cmd, t_data *data, int i)
 	else
 		path = ft_strjoin(before, var);
 	if (ft_strchars_i(&cmd[i + 1], "|$?~%^${}: \"") != -1)
-		path = ft_strjoin(path, &cmd[i + ft_strchars_i(&cmd[i + 1], "|$?~%^${}: \"")]);
+		path = ft_strjoin(path, &cmd[i
+				+ ft_strchars_i(&cmd[i + 1], "|$?~%^${}: \"")]);
 	return (path);
 }
 
-char *expand_vars(char *cmd, t_data *data)
+char	*expand_vars(char *cmd, t_data *data)
 {
-	int simple_q;
-	int double_q;
-	int i;
-	int k;
+	int	simple_q;
+	int	double_q;
+	int	i;
+	int	k;
 
 	k = 0;
 	i = 0;
@@ -116,7 +120,10 @@ char *expand_vars(char *cmd, t_data *data)
 	{
 		simple_q = (simple_q + (!double_q && cmd[i] == '\'')) % 2;
 		double_q = (double_q + (!simple_q && cmd[i] == '\"')) % 2;
-		if (!simple_q && cmd[i] == '$' && cmd[i + 1] && ((ft_strchars_i(&cmd[i + 1], "|~$%^{}: \"") && double_q) || (ft_strchars_i(&cmd[i + 1], "~$%^{}: ") && !double_q) || (cmd[i + 1] == '$')))
+		if (!simple_q && cmd[i] == '$' && cmd[i + 1]
+			&& ((ft_strchars_i(&cmd[i + 1], "|~$%^{}: \"") && double_q)
+				|| (ft_strchars_i(&cmd[i + 1], "~$%^{}: ") && !double_q)
+				|| (cmd[i + 1] == '$')))
 		{
 			cmd = sub_var(cmd, data, i);
 			i = i * k - (1 * k) + ft_strchars_i(&cmd[i], "|?~%$^{}: \"");
@@ -130,9 +137,8 @@ char *expand_vars(char *cmd, t_data *data)
 	return (cmd);
 }
 
-char *expand_all2(char *cmd, t_data *data)
+char	*expand_all2(char *cmd, t_data *data)
 {
-
 	cmd = expand_vars(cmd, data);
 	cmd = expand_path(cmd, data);
 	return (cmd);
