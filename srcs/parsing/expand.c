@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amontalb <amontalb@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:11:15 by amontalb          #+#    #+#             */
-/*   Updated: 2023/03/17 16:34:37 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/03/19 13:32:05 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,11 @@ char	*sub_path(char *cmd, t_data *data, int i)
 		path = ft_strdup(search_dico("HOME", data));
 	i++;
 	if (cmd[i])
-		path = ft_strjoin(path, &cmd[i]);
+	{
+		before = strdup(path);
+		path = ft_strjoin(before, &cmd[i]);
+		free(before);
+	}
 	return (path);
 }
 
@@ -60,31 +64,36 @@ char	*expand_path(char *cmd, t_data *data, int *tab)
 
 char	*sub_var(char *cmd, t_data *data, int i)
 {
+	char	*before;
 	char	*path;
 	char	*var;
 
-	path = ft_substr(cmd, 0, i);
+	before = ft_substr(cmd, 0, i);
 	var = search_dico(ft_substr(cmd, i + 1,
 				ft_strchars_i(&cmd[i + 1], "|$?~%^{}: \"\'")), data);
 	if (!var && cmd[i + 1] && cmd[i + 1] == '$')
 	{
 		var = ft_itoa(data->p_ids);
-		path = ft_strjoin(path, var);
-		path = ft_strjoin(path, &cmd[i + 2]);
+		// path = ft_strjoin(before, var);
+		path = ft_strjoin(before, &cmd[i + 2]);
+		free(before);
 		free(var);
 		return (path);
 	}
-	if (!var && cmd[i + 1] && cmd[i + 1] == '?')
+	else if (!var && cmd[i + 1] && cmd[i + 1] == '?')
 	{
 		var = ft_itoa(g_error);
-		path = ft_strjoin(path, var);
-		path = ft_strjoin(path, &cmd[i + 2]);
+		// path = ft_strjoin(before, var);
+		path = ft_strjoin(before, &cmd[i + 2]);
+		free(before);
 		free(var);
 		return (path);
 	}
 	else
 	{
-		path = ft_str_free_join(path, var);
+		path = ft_strjoin(before, var);
+		free(before);
+		
 	}
 	if (ft_strchars_i(&cmd[i + 1], "|$?~%^${}: \"") != -1)
 		path = ft_strjoin(path, &cmd[i
@@ -94,32 +103,30 @@ char	*sub_var(char *cmd, t_data *data, int i)
 
 char	*expand_vars(char *cmd, t_data *data)
 {
-	int	simple_q;
-	int	double_q;
-	int	i;
-	int	k;
+	int	tab[4];
 
-	k = 0;
-	i = 0;
-	simple_q = 0;
-	double_q = 0;
-	while (cmd[i])
+	tab[3] = 0;
+	tab[2] = 0;
+	tab[0] = 0;
+	tab[1] = 0;
+	while (cmd[tab[2]])
 	{
-		simple_q = (simple_q + (!double_q && cmd[i] == '\'')) % 2;
-		double_q = (double_q + (!simple_q && cmd[i] == '\"')) % 2;
-		if (!simple_q && cmd[i] == '$' && cmd[i + 1]
-			&& ((ft_strchars_i(&cmd[i + 1], "|~$%^{}: \"") && double_q)
-				|| (ft_strchars_i(&cmd[i + 1], "~$%^{}: ") && !double_q)
-				|| (cmd[i + 1] == '$')))
+		tab[0] = (tab[0] + (!tab[1] && cmd[tab[2]] == '\'')) % 2;
+		tab[1] = (tab[1] + (!tab[0] && cmd[tab[2]] == '\"')) % 2;
+		if (!tab[0] && cmd[tab[2]] == '$' && cmd[tab[2] + 1]
+			&& ((ft_strchars_i(&cmd[tab[2] + 1], "|~$%^{}: \"") && tab[1])
+				|| (ft_strchars_i(&cmd[tab[2] + 1], "~$%^{}: ") && !tab[1])
+				|| (cmd[tab[2] + 1] == '$')))
 		{
-			cmd = sub_var(cmd, data, i);
-			i = i * k - (1 * k) + ft_strchars_i(&cmd[i], "|?~%$^{}: \"");
-			if (ft_strchars_i(&cmd[i], "|?~%$^{}: \"") && i < 0)
-				i++;
-			k = 1;
+			cmd = sub_var(cmd, data, tab[2]);
+			tab[2] = tab[2] * tab[3] - (1 * tab[3])
+				+ ft_strchars_i(&cmd[tab[2]], "|?~%$^{}: \"");
+			if (ft_strchars_i(&cmd[tab[2]], "|?~%$^{}: \"") && tab[2] < 0)
+				tab[2]++;
+			tab[3] = 1;
 		}
 		else
-			i++;
+			tab[2]++;
 	}
 	return (cmd);
 }
