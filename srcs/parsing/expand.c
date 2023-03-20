@@ -6,7 +6,7 @@
 /*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:11:15 by amontalb          #+#    #+#             */
-/*   Updated: 2023/03/20 09:35:49 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/03/20 12:27:20 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*sub_path(char *cmd, t_data *data, int i)
 
 char	*expand_path(char *cmd, t_data *data, int *tab)
 {
-	while (cmd[tab[0]])
+	while (cmd && cmd[tab[0]])
 	{
 		tab[1] = (tab[1] + (!tab[2] && cmd[tab[0]] == '\'')) % 2;
 		tab[2] = (tab[2] + (!tab[1] && cmd[tab[0]] == '\"')) % 2;
@@ -76,8 +76,9 @@ char	*sub_var(char *cmd, t_data *data, int i)
 	if (!var && cmd[i + 1] && cmd[i + 1] == '$')
 	{
 		var = ft_itoa(data->p_ids);
-		// path = ft_strjoin(before, var);
-		path = ft_strjoin(before, &cmd[i + 2]);
+		temp = ft_strjoin(before, var);
+		path = ft_strjoin(temp, &cmd[i + 2]);
+		free (temp);
 		free(before);
 		free(var);
 		return (path);
@@ -85,14 +86,17 @@ char	*sub_var(char *cmd, t_data *data, int i)
 	else if (!var && cmd[i + 1] && cmd[i + 1] == '?')
 	{
 		var = ft_itoa(g_error);
-		// path = ft_strjoin(before, var);
-		path = ft_strjoin(before, &cmd[i + 2]);
+		temp = ft_strjoin(before, var);
+		path = ft_strjoin(temp, &cmd[i + 2]);
+		free (temp);
 		free(before);
 		free(var);
 		return (path);
 	}
 	else
 	{
+		// printf("<<%s>>\n", before);
+		// printf("<<%s>>\n", var);
 		path = ft_strjoin(before, var);
 		free(before);
 	}
@@ -115,7 +119,7 @@ char	*expand_vars(char *cmd, t_data *data)
 	tab[2] = 0;
 	tab[0] = 0;
 	tab[1] = 0;
-	while (cmd[tab[2]])
+	while (cmd && cmd[tab[2]])
 	{
 		tab[0] = (tab[0] + (!tab[1] && cmd[tab[2]] == '\'')) % 2;
 		tab[1] = (tab[1] + (!tab[0] && cmd[tab[2]] == '\"')) % 2;
@@ -127,7 +131,6 @@ char	*expand_vars(char *cmd, t_data *data)
 			cmd = sub_var(cmd, data, tab[2]);
 			tab[2] = tab[2] * tab[3] - (1 * tab[3])
 				+ ft_strchars_i(&cmd[tab[2]], "|?~%$^{}: \"");
-			printf("%d\n", tab[2]);
 			if (ft_strchars_i(&cmd[tab[2] + 1], "|?~%$^{}: \"") && tab[2] < 0)
 				tab[2]++;
 			tab[3] = 1;
@@ -140,13 +143,16 @@ char	*expand_vars(char *cmd, t_data *data)
 
 char	*expand_all2(char *cmd, t_data *data)
 {
-	int	tab[4];
+	int		tab[4];
+	// char	*temp;
 
 	tab[0] = 0;
 	tab[1] = 0;
 	tab[2] = 0;
 	tab[3] = ft_strlen(search_dico("HOME", data));
 	cmd = expand_vars(cmd, data);
+	// printf("%p\n", cmd);
 	cmd = expand_path(cmd, data, tab);
+	
 	return (cmd);
 }
