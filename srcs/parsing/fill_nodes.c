@@ -6,7 +6,7 @@
 /*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 13:43:24 by amontalb          #+#    #+#             */
-/*   Updated: 2023/03/20 11:22:38 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/03/20 15:36:51 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ static char	**fill_nodes3(t_node *node, char *cmd, t_data *data)
 	temp = expand_all2(cmd, data);
 	temp2 = ft_strim_quotes(temp);
 	all_cmd = ft_append_tab(node->all_cmd, temp2);
+	if (temp)
+		free(temp);
 	if (temp2)
 		free (temp2);
 	return (all_cmd);
