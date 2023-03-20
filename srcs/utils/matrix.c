@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   matrix.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 17:24:09 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/17 17:19:31 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/20 09:06:21 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
-extern int g_error;
+extern int	g_error;
 
-char **ft_append_tab(char **tab, char *line)
+char	**ft_append_tab(char **tab, char *line)
 {
-	char **res;
-	int len;
-	int i;
+	char	**res;
+	int		len;
+	int		i;
 
 	i = -1;
 	res = NULL;
@@ -43,11 +43,11 @@ char **ft_append_tab(char **tab, char *line)
 	return (res);
 }
 
-char **ft_replace_in_matrix(char **matrix, char **insert, int n, int i)
+char	**ft_replace_in_matrix(char **matrix, char **insert, int n, int i)
 {
-	char **temp;
-	int j;
-	int k;
+	char	**temp;
+	int		j;
+	int		k;
 
 	j = -1;
 	k = -1;
@@ -71,12 +71,12 @@ char **ft_replace_in_matrix(char **matrix, char **insert, int n, int i)
 	return (matrix);
 }
 
-char **sort_arr(char **arr)
+char	**sort_arr(char **arr)
 {
-	char **res;
-	char *tmp;
-	int i;
-	int j;
+	char	**res;
+	char	*tmp;
+	int		i;
+	int		j;
 
 	i = -1;
 	if (!arr)
@@ -100,7 +100,7 @@ char **sort_arr(char **arr)
 	return (res);
 }
 
-static void mod_space(char *str, int i, int j, int n)
+static void	mod_space(char *str, int i, int j, int n)
 {
 	int	k;
 
@@ -129,17 +129,18 @@ static void mod_space(char *str, int i, int j, int n)
 		str[n - 1] = '\0';
 }
 
-void rm_space(char **str)
+void	rm_space(char **str)
 {
-	int len;
+	int	len;
 
 	if (!str)
-		return;
+		return ;
 	len = ft_arrlen(str);
 	if (len > 2)
 	{
 		g_error = 1;
-		ft_dprintf(2, "mini: export: `%s': not a valid identifier", str[len - 1]);
+		ft_dprintf(2, "mini: export: `%s': not a valid identifier",
+			str[len - 1]);
 	}
 	if (len == 2)
 		mod_space(str[1], 0, 0, ft_strlen(str[1]));

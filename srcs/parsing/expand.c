@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amontalb <amontalb@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:11:15 by amontalb          #+#    #+#             */
-/*   Updated: 2023/03/19 13:32:05 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/03/20 09:35:49 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,12 @@ char	*sub_var(char *cmd, t_data *data, int i)
 	char	*before;
 	char	*path;
 	char	*var;
+	char	*temp;
 
+	temp = ft_substr(cmd, i + 1, ft_strchars_i(&cmd[i + 1], "|$?~%^{}: \"\'"));
 	before = ft_substr(cmd, 0, i);
-	var = search_dico(ft_substr(cmd, i + 1,
-				ft_strchars_i(&cmd[i + 1], "|$?~%^{}: \"\'")), data);
+	var = search_dico(temp, data);
+	free(temp);
 	if (!var && cmd[i + 1] && cmd[i + 1] == '$')
 	{
 		var = ft_itoa(data->p_ids);
@@ -93,11 +95,15 @@ char	*sub_var(char *cmd, t_data *data, int i)
 	{
 		path = ft_strjoin(before, var);
 		free(before);
-		
 	}
 	if (ft_strchars_i(&cmd[i + 1], "|$?~%^${}: \"") != -1)
-		path = ft_strjoin(path, &cmd[i
+	{
+		temp = ft_strdup(path);
+		free (path);
+		path = ft_strjoin(temp, &cmd[i
 				+ 1 + ft_strchars_i(&cmd[i + 1], "|$?~%^${}: \"")]);
+		free(temp);
+	}
 	return (path);
 }
 
@@ -113,7 +119,7 @@ char	*expand_vars(char *cmd, t_data *data)
 	{
 		tab[0] = (tab[0] + (!tab[1] && cmd[tab[2]] == '\'')) % 2;
 		tab[1] = (tab[1] + (!tab[0] && cmd[tab[2]] == '\"')) % 2;
-		if (!tab[0] && cmd[tab[2]] == '$' && cmd[tab[2] + 1]
+		if (!tab[0] && cmd[tab[2] + 1] && cmd[tab[2]] == '$' && cmd[tab[2] + 1]
 			&& ((ft_strchars_i(&cmd[tab[2] + 1], "|~$%^{}: \"") && tab[1])
 				|| (ft_strchars_i(&cmd[tab[2] + 1], "~$%^{}: ") && !tab[1])
 				|| (cmd[tab[2] + 1] == '$')))
@@ -121,7 +127,8 @@ char	*expand_vars(char *cmd, t_data *data)
 			cmd = sub_var(cmd, data, tab[2]);
 			tab[2] = tab[2] * tab[3] - (1 * tab[3])
 				+ ft_strchars_i(&cmd[tab[2]], "|?~%$^{}: \"");
-			if (ft_strchars_i(&cmd[tab[2]], "|?~%$^{}: \"") && tab[2] < 0)
+			printf("%d\n", tab[2]);
+			if (ft_strchars_i(&cmd[tab[2] + 1], "|?~%$^{}: \"") && tab[2] < 0)
 				tab[2]++;
 			tab[3] = 1;
 		}
