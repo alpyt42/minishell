@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cmdsplit.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 15:52:13 by amontalb          #+#    #+#             */
-/*   Updated: 2023/03/17 12:49:29 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/03/20 17:49:15 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "minishell.h"
 
 static int	count_word(char *cmd, char *s)
 {

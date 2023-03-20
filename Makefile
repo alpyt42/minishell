@@ -1,20 +1,38 @@
-NAME = minishell
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/03/08 19:17:58 by wangthea          #+#    #+#              #
+#    Updated: 2023/03/20 18:25:58 by ale-cont         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-CC = gcc
+#--variables-------------------------------------------------------------------#
 
-HEADER = ./includes/
-HEADS = ./srcs/builtins/builtins.h \
-		./srcs/env/env.h \
-		./srcs/parsing/parsing.h \
-		./srcs/utils/utils.h \
-		./includes/minishell.h \
-		
-		
-CFLAGS = -Wall -Wextra -Werror -g3 -I $(HEADER)
-CDEBUG = #-fsanitize=address
+NAME		=	minishell
+DEBUG		=	no
 
-LIBFT = libft/libft.a
-		
+#--includes & libraries--------------------------------------------------------#
+
+INC_DIR		=	includes/
+HEADERS		= 	includes/minishell.h
+LIBFT_DIR	=	libft/
+
+#--sources & objects-----------------------------------------------------------#
+
+SRC_DIR		=	srcs/
+OBJ_DIR		=	.objects
+
+#--flags-----------------------------------------------------------------------#
+
+CFLAGS		=	-Wall -Wextra -Werror -I $(LIBFT_DIR) -I $(INC_DIR)
+DFLAGS		=	-g3 -fsanitize=address
+READFLAGS 	= 	-L /usr/local/opt/readline/lib -I /usr/local/opt/readline/include -L ~/.brew/opt/readline/lib -I ~/.brew/opt/readline/include
+
+#--Sources-----------------------------------------------------------------------#
 
 BUILTINS = builtin builtin_bis
 ENV = env init get_here_doc
@@ -23,53 +41,82 @@ MAIN = main prompt signals
 PARSING = expand lexing parse_all cmdsplit strim_quotes fill_nodes redirection
 UTILS = matrix other_function error
 
-UNAME = $(shell uname -s)
+SOURCES =	$(addsuffix .c, $(addprefix srcs/main/, $(MAIN)))			\
+			$(addsuffix .c, $(addprefix srcs/builtins/, $(BUILTINS))) 	\
+			$(addsuffix .c, $(addprefix srcs/env/, $(ENV))) 			\
+			$(addsuffix .c, $(addprefix srcs/exec/, $(EXEC))) 			\
+			$(addsuffix .c, $(addprefix srcs/parsing/, $(PARSING))) 	\
+			$(addsuffix .c, $(addprefix srcs/utils/, $(UTILS)))
 
-ifeq ($(UNAME), Linux)
-	#Properties for Linux
-	LEAKS = valgrind --leak-check=full --track-fds=yes --trace-children=yes -s -q 
+#--debug & define flags--------------------------------------------------------#
+
+ifeq ($(DEBUG), yes)
+CFLAGS 		+=	$(DFLAGS)
 endif
 
-SRC =	$(addsuffix .c, $(addprefix srcs/main/, $(MAIN))) \
-		$(addsuffix .c, $(addprefix srcs/builtins/, $(BUILTINS))) \
-		$(addsuffix .c, $(addprefix srcs/env/, $(ENV))) \
-		$(addsuffix .c, $(addprefix srcs/exec/, $(EXEC))) \
-		$(addsuffix .c, $(addprefix srcs/parsing/, $(PARSING))) \
-		$(addsuffix .c, $(addprefix srcs/utils/, $(UTILS)))
+#--libs------------------------------------------------------------------------#
 
-OBJ = $(SRC:.c=.o)
+LIBFT	=	$(LIBFT_DIR)/libft.a
 
-all: lib $(NAME)
+#--objects---------------------------------------------------------------------#
 
-$(NAME): $(OBJ)
+OBJECTS	=	$(addprefix $(OBJ_DIR)/, $(SOURCES:.c=.o))
+
+#--global rules----------------------------------------------------------------#
+
+.DEFAULT_GOAL = all
+
+#--compilation rules-----------------------------------------------------------#
+
+all:
+	$(MAKE) lib 
+	$(MAKE) $(NAME)
+
+$(NAME): $(OBJECTS)
 	@echo "\n\033[0;32mCompiling minishell...\033[0m"
-	@$(CC) -L /usr/local/opt/readline/lib -I /usr/local/opt/readline/include -L ~/.brew/opt/readline/lib -I ~/.brew/opt/readline/include $(CFLAGS) $(CDEBUG) $(OBJ) $(LIBFT) -lreadline -o $@
-	@echo "\nMinishell is up to date !"
+	$(CC) $^ $(CFLAGS) $(READFLAGS) $(LIBFT) -lreadline -o $@
+	@echo "\n\033[0;32mMinishell is up to date !\033[0m"
 
-%.o: %.c $(LIBFT) $(HEADS)
-	$(CC) -I ~/.brew/opt/readline/include -I /usr/local/opt/readline/include $(CFLAGS) $(CDEBUG) -c $< -o $@
+$(OBJ_DIR)/%.o: %.c $(HEADERS) $(LIBFT)
+	@ mkdir -p $(dir $@)
+	$(CC) $(READFLAGS) $(CFLAGS) -c $< -o $@
 
-lib :
-	$(MAKE) -C ./libft
+#--libs, debugs & bonus--------------------------------------------------------#
+
+lib:
+	$(MAKE) -C $(LIBFT_DIR)
+
+debug:
+	$(MAKE) re DEBUG=yes
+
+#--re, clean & fclean----------------------------------------------------------#
+
+re:
+	$(MAKE) fclean
+	$(MAKE) all
 
 clean:
 	@echo "\033[0;31mCleaning libft..."
-	@make clean -C libft/
+	$(MAKE) -C $(LIBFT_DIR) clean
 	@echo "\nRemoving binaries..."
-	@rm -f $(OBJ)
-	@rm -f includes/$(HEADER).gch
+	@$(RM) -rf $(OBJECTS)
 	@echo "\033[0m"
 
 fclean:
-	@echo "\033[0;31mCleaning libft..."
-	@make fclean -C libft/
 	@echo "\nDeleting objects..."
-	@rm -f $(OBJ)
+	@$(MAKE) clean
+	@echo "\033[0;31mCleaning libft..."
+	@$(MAKE) -C $(LIBFT_DIR) fclean
 	@echo "\nDeleting executable..."
-	@rm -f $(NAME)
-	@rm -f includes/$(HEADER).gch
+	@$(RM) $(NAME)
 	@echo "\033[0m"
 
-re: fclean all
+#--norminette------------------------------------------------------------------#
 
-.PHONY: all clean fclean re lib
+norm:
+	norminette $(INC_DIR) $(LIBFT_DIR) $(SRC_DIR)
+
+#--PHONY-----------------------------------------------------------------------#
+
+.PHONY: all libs debug re clean fclean norm
+ 
