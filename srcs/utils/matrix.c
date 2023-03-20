@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 17:24:09 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/20 17:49:47 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/20 18:50:16 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,14 +144,4 @@ void	rm_space(char **str)
 	}
 	if (len == 2)
 		mod_space(str[1], 0, 0, ft_strlen(str[1]));
-}
-
-char	*ft_str_free_join(char *left_str, char *buf)
-{
-	char	*join;
-
-	join = ft_strjoin(left_str, buf);
-	free(left_str);
-	free(buf);
-	return (join);
 }

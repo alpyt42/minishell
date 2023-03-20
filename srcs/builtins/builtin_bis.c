@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 16:06:32 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/20 17:48:22 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/20 18:58:33 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,19 +79,17 @@ static int	error_built(char *cmd, char *fct)
 	return (2);
 }
 
-int	built_export(t_data *data, t_node *n)
+int	built_export(t_data *data, t_node *n, int i)
 {
 	char	**cmds;
 	char	**tmp;
 	char	*var_glob;
-	int		i;
 
 	cmds = n->all_cmd;
 	if (!cmds)
 		return (0);
 	if (cmds[0] && !cmds[1])
 		return (built_env(data, 1));
-	i = 0;
 	while (cmds[++i])
 	{
 		if (ft_strchars_i(cmds[i], "()-[]") != -1)

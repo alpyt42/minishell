@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 08:43:12 by amontalb          #+#    #+#             */
-/*   Updated: 2023/03/20 17:49:31 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/20 18:56:03 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,39 +58,6 @@ static int	check_empty_node(char *cmd)
 	return (0);
 }
 
-static int	check_chev(char **cmd, t_data *d)
-{
-	int		count;
-	char	ch[2];
-	int		i;
-	int		j;
-
-	i = -1;
-	ch[1] = '\0';
-	while (cmd[++i])
-	{
-		count = 1;
-		j = i + 1;
-		ch[0] = '\0';
-		if (cmd && cmd[i] && cmd[j] && (cmd[i][0] == '>' || cmd[i][0] == '<'))
-			ch[0] = cmd[i][0];
-		while (ch[0] && cmd[j] && cmd[j][0]
-			&& (cmd[j][0] == '>' || cmd[j][0] == '<'))
-		{
-			if ((ch[0] != cmd[j][0] && cmd[j][0] == '>')
-				|| (ch[0] != cmd[j][0] && cmd[j][0] == '<'))
-				return (symbol_errors(cmd[j], 2, &d->exe));
-			count++;
-			j++;
-		}
-		if (ch[0] && (count > 2 && cmd[i + 1] && cmd[i + 2]))
-			return (symbol_errors(ch, 2, &d->exe));
-		else if ((!cmd[j] && cmd[j - 1][0] == ch[0]))
-			return (symbol_errors("", 2, &d->exe));
-	}
-	return (0);
-}
-
 static int	check_error(char *cmd)
 {
 	int	i;
@@ -135,7 +102,7 @@ int	check_pars(char *cmd, t_data *data)
 	}
 	parsed = cmdlexing(cmd);
 	parsed = split_all(parsed);
-	if (check_chev(parsed, data))
+	if (check_chev(parsed, data, -1, -1))
 		return (ft_free_arr(parsed), 0);
 	data->cmds = fill_nodes(parsed, data);
 	return (0);

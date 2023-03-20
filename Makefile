@@ -6,7 +6,7 @@
 #    By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/08 19:17:58 by wangthea          #+#    #+#              #
-#    Updated: 2023/03/20 18:25:58 by ale-cont         ###   ########.fr        #
+#    Updated: 2023/03/20 18:51:13 by ale-cont         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ ENV = env init get_here_doc
 EXEC = exec_cmd mini exec fork_function
 MAIN = main prompt signals
 PARSING = expand lexing parse_all cmdsplit strim_quotes fill_nodes redirection
-UTILS = matrix other_function error
+UTILS = matrix other_function error other_function_bis
 
 SOURCES =	$(addsuffix .c, $(addprefix srcs/main/, $(MAIN)))			\
 			$(addsuffix .c, $(addprefix srcs/builtins/, $(BUILTINS))) 	\
@@ -111,12 +111,7 @@ fclean:
 	@$(RM) $(NAME)
 	@echo "\033[0m"
 
-#--norminette------------------------------------------------------------------#
-
-norm:
-	norminette $(INC_DIR) $(LIBFT_DIR) $(SRC_DIR)
-
 #--PHONY-----------------------------------------------------------------------#
 
-.PHONY: all libs debug re clean fclean norm
+.PHONY: all libs debug re clean fclean
  

@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:11:15 by amontalb          #+#    #+#             */
-/*   Updated: 2023/03/20 17:49:20 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/20 18:41:09 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ char	*expand_path(char *temp, t_data *data, int *tab)
 // {
 // 	char	*var;
 // 	char	*temp;
-	
 // }
 
 char	*sub_var(char *cmd, t_data *data, int i)

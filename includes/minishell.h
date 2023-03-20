@@ -88,7 +88,7 @@ enum	e_error
 
 int		is_builtin(t_node *n);
 int		built_exit(t_data *data, t_node *n);
-int		built_export(t_data *data, t_node *n);
+int		built_export(t_data *data, t_node *n, int i);
 int		built_pwd(void);
 int		built_echo(t_node *n);
 int		built_cd(t_data *data, t_node *n);
@@ -155,6 +155,7 @@ void	display_cmd(t_list *cmds, int fd);
 void	display_arr(char **arr, char *info);
 void	rm_space(char **str);
 char	*ft_str_free_join(char *left_str, char *buf);
+int		check_chev(char **cmd, t_data *d, int i, int j);
 
 
 #endif
