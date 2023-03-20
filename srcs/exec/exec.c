@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 16:20:28 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/17 13:47:38 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/03/20 15:58:05 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,8 @@ static void	find_cmd(t_data *d, t_list *cmd)
 	tmp = ft_strdup(n->all_cmd[0]);
 	if (n && n->all_cmd)
 		dir = opendir(tmp);
-	check_cmd(d, n);
+	if (!dir)
+		check_cmd(d, n);
 	if (dir && access(n->all_path, F_OK) == -1
 		&& is_builtin(n) < 0)
 		print_error(IS_DIR, "", tmp, 126);

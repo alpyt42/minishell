@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 17:03:39 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/17 10:00:26 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/20 16:32:06 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ int	launch_mini(t_data *data, char *cmd)
 	if (data->n_cmd > 0 && data->exe)
 		mini_process(data, data->cmds);
 	if (data->n_cmd >= 1 && !(data->n_cmd == 1
-			&& is_builtin(data->cmds->content)))
+		&& is_builtin(data->cmds->content) >= 0))
 		while (data->n_cmd-- > 0)
 			waitpid(-1, &g_error, 0);
 	get_error(data);
