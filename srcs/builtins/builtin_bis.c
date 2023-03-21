@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 16:06:32 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/20 18:58:33 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/21 17:10:27 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,9 @@ static int	error_built(char *cmd, char *fct)
 	return (2);
 }
 
-int	built_export(t_data *data, t_node *n, int i)
+int	built_export(t_data *data, t_node *n, int i, char **tmp)
 {
 	char	**cmds;
-	char	**tmp;
 	char	*var_glob;
 
 	cmds = n->all_cmd;
@@ -98,6 +97,8 @@ int	built_export(t_data *data, t_node *n, int i)
 		rm_space(tmp);
 		if (tmp && tmp[0] && ft_strchars_i(cmds[i], "=") != -1)
 		{
+			if (search_dico(tmp[0], data) && !ft_strlen(tmp[1]))
+				return (ft_free_arr(tmp), 0);
 			var_glob = ft_strjoin(tmp[0], "=");
 			set_env_vars(data, var_glob, tmp[1]);
 			ft_free_arr(tmp);

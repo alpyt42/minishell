@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 17:24:09 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/21 14:26:25 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/21 16:57:57 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,29 +104,21 @@ static void	mod_space(char *str, int i, int j, int n)
 {
 	int	k;
 
-	while (i < n)
+	k = 0;
+	while (i < n && (str[i] == ' ' || str[i] == '\t'))
+		i++;
+	j = n - 1;
+	while (j >= i && (str[j] == ' ' || str[j] == '\t'))
+		j--;
+	str[j + 1] = '\0';
+	while (i <= j)
 	{
-		if (str[i] == ' ')
-		{
-			j = i + 1;
-			while (j < n && str[j] == ' ')
-				j++;
-			if (j - i > 1)
-			{
-				k = j - 1;
-				while (++k < n)
-					str[k - (j - i - 1)] = str[k];
-				str[k - (j - i - 1)] = '\0';
-				n -= j - i - 1;
-			}
-			else
-				i++;
-		}
-		else
-			i++;
+		if (str[i] != '\t' && !(str[i] == ' '
+				&& (i == 0 || str[i - 1] == '\t' || str[i - 1] == ' ')))
+			str[k++] = str[i];
+		i++;
 	}
-	if (n > 0 && str[n - 1] == ' ')
-		str[n - 1] = '\0';
+	str[k] = '\0';
 }
 
 void	rm_space(char **str)
