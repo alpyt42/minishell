@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 17:24:09 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/21 13:11:23 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/21 14:26:25 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	**ft_append_tab(char **tab, char *line)
 		{
 			ft_free_arr(tab);
 			ft_free_arr(res);
-			return(NULL);
+			return (NULL);
 		}
 	}
 	res[i] = ft_strdup(line);

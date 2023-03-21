@@ -13,7 +13,7 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-/*----------------------------------------------------------------------------*/
+/*---------------------------------------*/
 
 # include "../libft/libft.h"
 # include <fcntl.h>
@@ -33,7 +33,7 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 
-/*-------COLORS----------------------------------------------------------------*/
+/*-------COLORS---------------------------*/
 
 # define DEFAULT "\001\033[0;39m\002"
 # define GRAY "\001\033[1;90m\002"
@@ -45,7 +45,7 @@
 # define CYAN "\001\033[1;96m\002"
 # define WHITE "\001\033[0;97m\002"
 
-/*-------STRUCT----------------------------------------------------------------*/
+/*-------STRUCT---------------------------*/
 
 typedef struct s_data
 {
@@ -84,7 +84,7 @@ enum	e_error
 	NOT_DIR = 13
 };
 
-/*--builtins---------------------------------------------------------------------*/
+/*--builtins---------------------------*/
 
 int		is_builtin(t_node *n);
 int		built_exit(t_data *data, t_node *n);
@@ -95,7 +95,7 @@ int		built_cd(t_data *data, t_node *n);
 int		built_unset(t_data *data, t_node *n);
 int		built_env(t_data *d, int tri);
 
-/*--env--------------------------------------------------------------------------*/
+/*--env--------------------------------*/
 
 void	init_dico(t_data *data);
 char	*search_dico(char *search, t_data *data);
@@ -105,7 +105,7 @@ void	display_data(t_data *data);
 void	init_data(t_data *data);
 int		get_here_doc(char *del, t_data *data, char *warn);
 
-/*--exec-------------------------------------------------------------------------*/
+/*--exec-------------------------------*/
 
 void	exec_cmd_path(char ***res, char *path, char *cmd, char **env);
 int		errors(char *strerr, char *error, int n);
@@ -116,13 +116,13 @@ int		exec_builtin(t_data *d, t_node *n);
 int		launch_mini(t_data *data, char *cmd);
 void	*redir_dup(t_list *cmd, int fd[2]);
 
-/*--main-------------------------------------------------------------------------*/
+/*--main-------------------------------*/
 
 char	*get_prompt(t_data *data);
 void	signal_receive(int sig);
 void	get_pid(t_data *data);
 
-/*--parsing----------------------------------------------------------------------*/
+/*--parsing----------------------------*/
 
 char	**ft_cmdsplit(char *cmd, char *s);
 char	**cmdlexing(char *cmd);
@@ -137,7 +137,7 @@ t_node	*get_out2(t_node *node, char **cmds, int *i, t_data *data);
 t_node	*get_in1(t_node *node, char **cmds, int *i, t_data *data);
 t_node	*get_in2(t_data *data, t_node *node, char **cmds, int *i);
 
-/*--utils------------------------------------------------------------------------*/
+/*--utils------------------------------*/
 
 void	*print_error(int type, char *cmd, char *arg, int error);
 int		symbol_errors(char *error, int type, int *exit);
@@ -156,6 +156,5 @@ void	display_arr(char **arr, char *info);
 void	rm_space(char **str);
 char	*ft_str_free_join(char *left_str, char *buf);
 int		check_chev(char **cmd, t_data *d, int i, int j);
-
 
 #endif

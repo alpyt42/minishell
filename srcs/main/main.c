@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:32:53 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/21 13:36:55 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/21 14:28:19 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ int	main(int argc, char **argv, char **env)
 	init_data(&data);
 	if (argc >= 2 || !argc)
 		return (special_mini(argc, &data));
-	ft_dprintf(1, "\033[1;90mMINI.SHELL  |  ale-cont \\ amontalb\033[0;39m\n");
 	while (argc && argv)
 	{
 		data.exe = 1;
@@ -77,6 +76,8 @@ int	main(int argc, char **argv, char **env)
 		free(prompt);
 		if (!launch_mini(&data, cmd) || data.quit)
 			break ;
+		free(cmd);
 	}
+	free(cmd);
 	return (rl_clear_history(), g_error);
 }
