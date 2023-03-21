@@ -6,7 +6,7 @@
 /*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 17:24:09 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/20 09:06:21 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/03/21 09:59:39 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,14 +144,4 @@ void	rm_space(char **str)
 	}
 	if (len == 2)
 		mod_space(str[1], 0, 0, ft_strlen(str[1]));
-}
-
-char	*ft_str_free_join(char *left_str, char *buf)
-{
-	char	*join;
-
-	join = ft_strjoin(left_str, buf);
-	free(left_str);
-	free(buf);
-	return (join);
 }

@@ -6,7 +6,7 @@
 /*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:11:15 by amontalb          #+#    #+#             */
-/*   Updated: 2023/03/20 16:59:28 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/03/21 09:51:52 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,25 @@ char	*expand_path(char *temp, t_data *data, int *tab)
 	return (cmd);
 }
 
-char	*sub_var2(cmd, before, i)
+char	*sub_var2(char *cmd, char *before, int i, t_data *data)
 {
 	char	*var;
 	char	*temp;
-	
+	char	*path;
+
+	if (cmd[i + 1] == '$')
+		var = ft_itoa(data->p_ids);
+	else
+		var = ft_itoa(g_error);
+	temp = ft_strjoin(before, var);
+	path = ft_strjoin(temp, &cmd[i + 2]);
+	free (temp);
+	free(before);
+	free(var);
+	free(cmd);
+	return (path);
 }
+
 char	*sub_var(char *cmd, t_data *data, int i)
 {
 	char	*before;
@@ -83,19 +96,7 @@ char	*sub_var(char *cmd, t_data *data, int i)
 	var = search_dico(temp, data);
 	free(temp);
 	if (!var && cmd[i + 1] && (cmd[i + 1] == '$' || cmd[i + 1] == '?'))
-	{
-		if (cmd[i + 1] == '$')
-			var = ft_itoa(data->p_ids);
-		else
-			var = ft_itoa(g_error);
-		temp = ft_strjoin(before, var);
-		path = ft_strjoin(before, &cmd[i + 2]);
-		free (temp);
-		free(before);
-		free(var);
-		free(cmd);
-		return (path);
-	}
+		return (sub_var2(cmd, before, i, data));
 	else
 		path = ft_strjoin(before, var);
 	free(before);
