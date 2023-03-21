@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 17:40:09 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/20 17:48:28 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/21 15:21:50 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,18 +87,16 @@ int	built_echo(t_node *n)
 static int	open_cd(char **str[2])
 {
 	DIR	*dir;
-	int	err;
 
 	dir = NULL;
-	err = 0;
 	if (!str[0][1] && str[1][0] && !str[1][0][0])
 	{
-		err = 1;
+		g_error = 1;
 		ft_dprintf(2, "minishell : HOME not set\n");
 	}
 	if (str[1][0] && !str[0][1])
 		if (chdir(str[1][0]) == -1)
-			err = 1;
+			g_error = 1;
 	if (str[0][1])
 		dir = opendir(str[0][1]);
 	if (str[0][1] && dir && access(str[0][1], F_OK) != -1)
@@ -109,16 +107,14 @@ static int	open_cd(char **str[2])
 		print_error(NOT_DIR, "cd", str[0][1], 1);
 	if (str[0][1] && dir)
 		closedir(dir);
-	return (err);
+	return (g_error);
 }
 
 int	built_cd(t_data *data, t_node *n)
 {
 	char	**str[2];
 	char	*val;
-	int		err;
 
-	err = 0;
 	str[0] = n->all_cmd;
 	if (!n->all_cmd)
 		return (0);
@@ -130,7 +126,7 @@ int	built_cd(t_data *data, t_node *n)
 		val = ft_strdup("");
 	str[1] = ft_append_tab(str[1], val);
 	free(val);
-	err = open_cd(str);
+	g_error = open_cd(str);
 	if (!g_error && data->n_cmd == 1)
 		set_env_vars(data, "OLDPWD=", str[1][1]);
 	val = getcwd(NULL, 0);
@@ -138,5 +134,5 @@ int	built_cd(t_data *data, t_node *n)
 		val = ft_strdup("");
 	set_env_vars(data, "PWD=", val);
 	ft_free_arr(str[1]);
-	return (free(val), err);
+	return (free(val), g_error);
 }

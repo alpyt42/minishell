@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 13:33:30 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/21 14:29:31 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/21 14:49:01 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,26 +67,4 @@ void	init_data(t_data *data)
 	data->env = ft_arrdup(data->env);
 	init_vars(data);
 	init_dico(data);
-}
-
-void	display_data(t_data *data)
-{
-	t_node	*cmd;
-	void	*tmp;
-	int		i;
-
-	tmp = data->cmds;
-	while (data->cmds)
-	{
-		cmd = data->cmds->content;
-		i = 0;
-		while (cmd->all_cmd[i])
-		{
-			printf("cmd[%d] %s\n", i, cmd->all_cmd[i]);
-			i++;
-			printf("_______\n");
-		}
-		data->cmds = data->cmds->next;
-	}
-	data->cmds = tmp;
 }

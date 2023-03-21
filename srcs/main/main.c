@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:32:53 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/21 14:28:19 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/21 15:16:07 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,28 +30,29 @@ void	get_pid(t_data *data)
 	data->p_ids = pid - 1;
 }
 
-static int	special_mini(int argc, t_data *data)
-{
-	char	*prompt;
+// static int	special_mini(int argc, t_data *data)
+// {
+// 	char	*prompt;
 
-	if (!argc)
-		return (0);
-	data->exe = 1;
-	signal(SIGINT, signal_receive);
-	signal(SIGQUIT, SIG_IGN);
-	prompt = get_prompt(data);
-	if (argc >= 2 && data->argv && data->argv[1][0] == '-'
-		&& data->argv[1][1] == 'c' && data->argv[2])
-		launch_mini(data, data->argv[2]);
-	else if (argc >= 2)
-	{
-		ft_dprintf(2, ": No such file or directory\n");
-		return (127);
-	}
-	free(prompt);
-	rl_clear_history();
-	return (g_error);
-}
+// 	if (!argc)
+// 		return (0);
+// 	data->exe = 1;
+// 	signal(SIGINT, signal_receive);
+// 	signal(SIGQUIT, SIG_IGN);
+// 	prompt = get_prompt(data);
+// 	if (argc >= 2 && data->argv && data->argv[1][0] == '-'
+// 		&& data->argv[1][1] == 'c' && data->argv[2])
+// 		launch_mini(data, data->argv[2]);
+// 	else if (argc >= 2)
+// 	{
+// 		ft_dprintf(2, ": No such file or directory\n");
+// 		g_error = 127;
+// 	}
+// 	free(prompt);
+// 	ft_free_mini(data);
+// 	rl_clear_history();
+// 	return (g_error);
+// }
 
 int	main(int argc, char **argv, char **env)
 {
@@ -62,8 +63,8 @@ int	main(int argc, char **argv, char **env)
 	data.env = env;
 	data.argv = argv;
 	init_data(&data);
-	if (argc >= 2 || !argc)
-		return (special_mini(argc, &data));
+	// if (argc >= 2 || !argc)
+	// 	return (special_mini(argc, &data));
 	while (argc && argv)
 	{
 		data.exe = 1;
