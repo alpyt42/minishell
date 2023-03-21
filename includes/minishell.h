@@ -131,6 +131,7 @@ char	**expand_all(char **cmd, t_data *data);
 char	*expand_all2(char *cmd, t_data *data);
 int		launch_mini(t_data *data, char *cmd);
 char	*ft_strim_quotes(char *s);
+char	*sub_path(char *cmd, t_data *data, int i);
 t_list	*fill_nodes(char **cmds, t_data *data);
 t_node	*get_out1(t_node *node, char **cmds, int *i, t_data *data);
 t_node	*get_out2(t_node *node, char **cmds, int *i, t_data *data);

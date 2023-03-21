@@ -6,38 +6,13 @@
 /*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:11:15 by amontalb          #+#    #+#             */
-/*   Updated: 2023/03/21 10:10:27 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/03/21 14:34:03 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 extern int	g_error;
-
-char	*sub_path(char *cmd, t_data *data, int i)
-{
-	char	*before;
-	char	*path;
-
-	before = NULL;
-	if (i != 0)
-	{
-		before = ft_substr(cmd, 0, i);
-		path = ft_strjoin(before, search_dico("HOME", data));
-		free(before);
-	}
-	else
-		path = ft_strdup(search_dico("HOME", data));
-	i++;
-	if (cmd[i])
-	{
-		before = strdup(path);
-		path = ft_strjoin(before, &cmd[i]);
-		free(before);
-	}
-	free (cmd);
-	return (path);
-}
 
 char	*expand_path(char *temp, t_data *data, int *tab)
 {
