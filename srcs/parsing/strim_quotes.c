@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   strim_quotes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 14:57:31 by amontalb          #+#    #+#             */
-/*   Updated: 2023/03/17 09:36:35 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/03/20 17:49:38 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "minishell.h"
 
 static int	malloc_len(char *s)
 {

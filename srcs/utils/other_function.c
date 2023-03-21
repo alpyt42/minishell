@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   other_function.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:45:23 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/20 09:19:34 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/03/20 19:00:22 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "minishell.h"
 
 int	ft_strchars_i(const char *s, char *set)
 {
@@ -52,34 +52,7 @@ void	display_arr(char **arr, char *info)
 	if (!arr)
 		return ;
 	while (arr[++i])
-	{
-		printf("%s", info);
-		printf("%s\n", arr[i]);
-	}
-}
-
-void	display_cmd(t_list *cmds, int fd)
-{
-	int	i;
-	int	j;
-
-	j = 0;
-	i = 0;
-	while (cmds)
-	{
-		i = -1;
-		while (((t_node *)cmds->content)->all_cmd[++i])
-			dprintf(fd, "node n.%d cmds[%d] : %s\n", \
-				j, i, ((t_node *)cmds->content)->all_cmd[i]);
-		dprintf(fd, "node n.%d full_path : %s\n", \
-			j, ((t_node *)cmds->content)->all_path);
-		dprintf(fd, "node n.%d infile : %d\n", \
-			j, ((t_node *)cmds->content)->infile);
-		dprintf(fd, "node n.%d outfile : %d\n", \
-			j, ((t_node *)cmds->content)->outfile);
-		j++;
-		cmds = cmds->next;
-	}
+		ft_dprintf(1, "%s%s\n", info, arr[i]);
 }
 
 char	**mini_split(char *str, int i, int j, int lenone)

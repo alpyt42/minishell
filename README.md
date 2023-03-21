@@ -68,7 +68,7 @@ erreur parsing
 <> mauvais code erreur
 
 gerer ca :
----------------------------------------------------------------
+
 cuentolinux@X555L:~/minishell$ echo foo >>>> bar
 bash: syntax error near unexpected token `>>'
 cuentolinux@X555L:~/minishell$ >>
@@ -79,7 +79,7 @@ cuentolinux@X555L:~/minishell$ >>>>>
 bash: syntax error near unexpected token `>>'
 cuentolinux@X555L:~/minishell$ echo $?
 2
----------------------------------------------------------------
+
 cuentolinux@X555L:~/minishell$ echo > | ls
 bash: syntax error near unexpected token `|'
 cuentolinux@X555L:~/minishell$ echo >> | ls
@@ -90,4 +90,4 @@ cuentolinux@X555L:~/minishell$ echo >>>> | ls
 bash: syntax error near unexpected token `>>'
 cuentolinux@X555L:~/minishell$ echo $?
 2
----------------------------------------------------------------
+

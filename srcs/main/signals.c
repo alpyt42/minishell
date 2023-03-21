@@ -6,11 +6,11 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:12:05 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/16 18:04:49 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/20 17:49:12 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 int	g_error;
 

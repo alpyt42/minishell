@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 14:27:48 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/01/25 16:40:32 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/20 18:39:41 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ static int	display_opt(char c, va_list *ap, int fd)
 	if (c == 'p')
 	{
 		i += ft_putstr("0x", fd);
-		i += ft_putnbr_uns(va_arg(*ap, unsigned long int), "0123456789abcdef", fd);
+		i += ft_putnbr_uns(va_arg(*ap, unsigned long int), \
+			"0123456789abcdef", fd);
 	}
 	if (c == 'd' || c == 'i')
 		i = ft_putnbr_int(va_arg(*ap, int), "0123456789", fd);

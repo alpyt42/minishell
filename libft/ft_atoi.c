@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 21:18:11 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/16 22:46:27 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/20 18:40:17 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,16 +48,16 @@ static int	after_space(char *str)
 	if (!str)
 		return (0);
 	if (str[0] && str[0] == ' ')
-			while (str[i++])
-				if (str[i] && str[i] != ' ')
-					return (1);
+		while (str[i++])
+			if (str[i] && str[i] != ' ')
+				return (1);
 	return (0);
 }
 
 static size_t	check_sign(char **str, int *sign)
 {
 	size_t	i;
-	
+
 	i = 0;
 	while (*str[i] && *str[i] == ' ')
 		i++;
