@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:32:53 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/21 12:09:23 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/21 13:36:55 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,7 @@ int	main(int argc, char **argv, char **env)
 		prompt = get_prompt(&data);
 		if (!prompt)
 			prompt = ft_strdup("minishell $ ");
-		dprintf(1, "%s", prompt);
-		cmd = get_next_line(0);
+		cmd = readline(prompt);
 		free(prompt);
 		if (!launch_mini(&data, cmd) || data.quit)
 			break ;
