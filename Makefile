@@ -6,7 +6,7 @@
 #    By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/08 19:17:58 by wangthea          #+#    #+#              #
-#    Updated: 2023/03/20 18:51:13 by ale-cont         ###   ########.fr        #
+#    Updated: 2023/03/21 11:32:38 by ale-cont         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ OBJ_DIR		=	.objects
 #--flags-----------------------------------------------------------------------#
 
 CFLAGS		=	-Wall -Wextra -Werror -I $(LIBFT_DIR) -I $(INC_DIR)
-DFLAGS		=	-g3 -fsanitize=address
+DFLAGS		=	-g3 #-fsanitize=address
 READFLAGS 	= 	-L /usr/local/opt/readline/lib -I /usr/local/opt/readline/include -L ~/.brew/opt/readline/lib -I ~/.brew/opt/readline/include
 
 #--Sources-----------------------------------------------------------------------#

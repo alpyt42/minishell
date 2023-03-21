@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:32:53 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/20 19:47:19 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/21 12:09:23 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	main(int argc, char **argv, char **env)
 {
 	t_data	data;
 	char	*prompt;
-	char	*command;
+	char	*cmd;
 
 	data.env = env;
 	data.argv = argv;
@@ -72,11 +72,11 @@ int	main(int argc, char **argv, char **env)
 		signal(SIGQUIT, SIG_IGN);
 		prompt = get_prompt(&data);
 		if (!prompt)
-			command = readline("minishell $ ");
-		else
-			command = readline(prompt);
+			prompt = ft_strdup("minishell $ ");
+		dprintf(1, "%s", prompt);
+		cmd = get_next_line(0);
 		free(prompt);
-		if (!launch_mini(&data, command) || data.quit)
+		if (!launch_mini(&data, cmd) || data.quit)
 			break ;
 	}
 	return (rl_clear_history(), g_error);
