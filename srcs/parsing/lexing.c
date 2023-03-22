@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexing.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 08:47:16 by amontalb          #+#    #+#             */
-/*   Updated: 2023/03/20 17:49:27 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/22 13:27:35 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,36 +41,6 @@ int	count_word(char *cmd, char *s)
 	return (tab[0]);
 }
 
-// static char	**fill_array(char **cmdlex, char *cmd, char *s)
-// {
-// 	int	simple_q;
-// 	int	double_q;
-// 	int	i;
-// 	int	j;
-// 	int	k;
-
-// 	i = 0;
-// 	k = -1;
-// 	simple_q = 0;
-// 	double_q = 0;
-// 	while (cmd[i])
-// 	{
-// 		while (cmd[i] && ft_strchr(s, cmd[i]))
-// 			i++;
-// 		j = i;
-// 		while (cmd[i] && (!ft_strchr(s, cmd[i]) || double_q || simple_q))
-// 		{
-// 			simple_q = (simple_q + (!double_q && cmd[i] == '\'')) % 2;
-// 			double_q = (double_q + (!simple_q && cmd[i] == '\"')) % 2;
-// 			i++;
-// 		}
-// 		if (++k == count_word(cmd, " "))
-// 			cmdlex[k] = NULL;
-// 		else
-// 			cmdlex[k] = ft_substr(cmd, j, i - j);
-// 	}
-// 	return (cmdlex);
-// }
 static char	**fill_array(char **cmdlex, char *cmd, char *s)
 {
 	int	tab[5];
@@ -90,7 +60,7 @@ static char	**fill_array(char **cmdlex, char *cmd, char *s)
 			tab[1] = (tab[1] + (!tab[0] && cmd[tab[2]] == '\"')) % 2;
 			tab[2]++;
 		}
-		if (++tab[4] == count_word(cmd, " "))
+		if (++tab[4] == count_word(cmd, " \t"))
 			cmdlex[tab[4]] = NULL;
 		else
 			cmdlex[tab[4]] = ft_substr(cmd, tab[3], tab[2] - tab[3]);
@@ -103,7 +73,7 @@ char	**cmdlexing(char *cmd)
 	char	**cmdlex;
 	int		nbr_words;
 
-	nbr_words = count_word(cmd, " ");
+	nbr_words = count_word(cmd, " \t");
 	if (nbr_words == -1)
 		return (NULL);
 	cmdlex = ft_calloc(sizeof(char *), (nbr_words + 1));
