@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 10:58:56 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/21 17:10:47 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/22 14:26:57 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ static void	*get_fork(t_data *d, t_list *cmd, int fd[2])
 		}
 		close(fd[0]);
 		exec_cmd(d, cmd);
+		ft_lstclear(&cmd, ft_free_node);
 		exit(g_error);
 	}
 	return ("");
