@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 17:03:39 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/21 17:02:34 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/22 13:26:07 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ int	launch_mini(t_data *data, char *cmd)
 	if (cmd[0] != '\0')
 		add_history(cmd);
 	if (check_pars(cmd, data) || !data->exe)
-		return (free(cmd), 1);
+		return (1);
 	data->n_cmd = ft_lstsize(data->cmds);
 	if (data->n_cmd > 0 && data->exe)
 		mini_process(data, data->cmds);
