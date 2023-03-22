@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 13:33:30 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/21 14:49:01 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/22 15:56:01 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,10 @@ static void	init_vars(t_data *data)
 	pwd = getcwd(NULL, 0);
 	if (!pwd)
 		pwd = ft_strdup("no_path_found");
-	set_env_vars(data, "PWD=", pwd);
-	set_env_vars(data, "OLDPWD=", pwd);
+	if (pos_in_arr(data->env, "PWD", '=') == -1)
+		set_env_vars(data, "PWD=", pwd);
+	if (pos_in_arr(data->env, "OLDPWD", '=') == -1)
+		set_env_vars(data, "OLDPWD=", pwd);
 	init_shlvl(data);
 	free(pwd);
 	path = find_in_arr(data->env, "PATH=");
