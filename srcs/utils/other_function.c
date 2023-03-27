@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:45:23 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/27 16:45:50 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/27 17:39:53 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int	ft_str_isalnum(char *str)
 		return (0);
 	i = -1;
 	while (str[++i])
-		if (!ft_isalnum(str[i]))
+		if (!ft_isalnum(str[i]) && str[i] != '_')
 			return (1);
 	return (0);
 }
