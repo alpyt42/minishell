@@ -152,7 +152,7 @@ char	**mini_split(char *str, int i, int j, int lenone);
 int		pos_in_arr(char **arr, char *to_find, char set);
 char	**sort_arr(char **arr);
 void	display_arr(char **arr, char *info, int opt);
-void	rm_space(char **str);
 int		check_chev(char **cmd, t_data *d, int i, int j);
+int		ft_str_isalnum(char *str);
 
 #endif

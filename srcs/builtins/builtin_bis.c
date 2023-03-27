@@ -6,11 +6,13 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 16:06:32 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/27 14:33:25 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/27 16:46:59 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern int	g_error;
 
 int	is_builtin(t_node *n)
 {
@@ -57,35 +59,34 @@ int	built_env(t_data *d, int tri)
 	return (0);
 }
 
-static int	error_built(char *cmd, char *fct, int *check)
+static int	error_built(char *cmd, char *fct, char *tab)
 {
-	if (cmd && cmd[0] && cmd[0] != '=')
-		return (1);
-	*check = 0;
-	if (!cmd || !cmd[0])
+	if (!tab && (!cmd || !cmd[0]))
 		return (0);
-	if (ft_strchars_i(cmd, "()") != -1)
-		ft_dprintf(2, "minishell: syntax error near unexpected token '%c'\n",
+	if (tab && tab[0] && tab[0] == '=')
+		ft_dprintf(2, "mini: %s: '=': not a valid identifier\n", fct);
+	else if (ft_strchars_i(cmd, "()") != -1)
+		ft_dprintf(2, "mini: syntax error near unexpected token '%c'\n",
 			cmd[ft_strchars_i(cmd, "()")]);
-	else if ((ft_strchars_i(cmd, "-") != -1 && cmd[0] == '-' && !cmd[1])
-		|| ft_strchars_i(cmd, "=") != -1)
+	else if (ft_str_isalnum(cmd))
 	{
-		ft_dprintf(2, "minishell: %s: '%s': not a valid identifier\n",
-			fct, cmd);
-		return (1);
+		if (ft_strchars_i(cmd, "-") != -1 && cmd[0] == '-' && cmd[1])
+			ft_dprintf(2, "mini: %s: %c%c: invalid option\n",
+				fct, cmd[0], cmd[1]);
+		else
+			ft_dprintf(2, "mini: %s: '%s': not a valid identifier\n",
+				fct, cmd);
 	}
-	else if (ft_strchars_i(cmd, "-") != -1 && cmd[0] == '-' && cmd[1])
-		ft_dprintf(2, "minishell: %s: %c%c: invalid option\n",
-			fct, cmd[0], cmd[1]);
-	else
-		return (0);
-	return (2);
+	else if (!ft_str_isalnum(cmd) && tab && tab[0] && tab[0] != '=')
+		return (1);
+	g_error = 1;
+	return (g_error);
 }
 
 int	built_export(t_data *data, t_node *n, int i, char **tmp)
 {
 	char	*var_glob;
-	int		check;
+	int		exe;
 
 	if (!n->all_cmd)
 		return (0);
@@ -93,12 +94,10 @@ int	built_export(t_data *data, t_node *n, int i, char **tmp)
 		return (built_env(data, 1));
 	while (n->all_cmd[++i])
 	{
-		check = 1;
-		if (ft_strchars_i(n->all_cmd[i], "()=[]") != -1)
-			error_built(n->all_cmd[i], "export", &check);
+		exe = 1;
 		tmp = mini_split(n->all_cmd[i], -1, 0, 0);
-		rm_space(tmp);
-		if (tmp && tmp[0] && check)
+		exe = error_built(tmp[0], "export", n->all_cmd[i]);
+		if (tmp && tmp[0] && exe && ft_arrlen(tmp) <= 2)
 		{
 			if (search_dico(tmp[0], data) && !ft_strlen(tmp[1]))
 				return (ft_free_arr(tmp), 0);
@@ -108,6 +107,8 @@ int	built_export(t_data *data, t_node *n, int i, char **tmp)
 		}
 		ft_free_arr(tmp);
 	}
+	if (g_error)
+		return (g_error);
 	return (0);
 }
 
@@ -125,7 +126,7 @@ int	built_unset(t_data *data, t_node *n)
 	while (cmds[++i])
 	{
 		if (ft_strchars_i(cmds[i], "()-=") != -1)
-			return (error_built(cmds[i], "unset", 0));
+			return (error_built(cmds[i], "unset", NULL));
 		pos = pos_in_arr(data->env, cmds[i], '=');
 		if (search_dico(cmds[i], data) && pos != -1)
 			data->env = ft_replace_in_matrix(data->env, NULL, pos, -1);
