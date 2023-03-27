@@ -101,7 +101,6 @@ void	init_dico(t_data *data);
 char	*search_dico(char *search, t_data *data);
 int		set_env_vars(t_data *data, char *glob_var, char *val);
 char	*find_in_arr(char **arr, char *to_find);
-void	display_data(t_data *data);
 void	init_data(t_data *data);
 int		get_here_doc(char *del, t_data *data, char *warn);
 
@@ -152,10 +151,8 @@ char	**ft_replace_in_matrix(char **matrix, char **insert, int n, int i);
 char	**mini_split(char *str, int i, int j, int lenone);
 int		pos_in_arr(char **arr, char *to_find, char set);
 char	**sort_arr(char **arr);
-void	display_cmd(t_list *cmds, int fd);
-void	display_arr(char **arr, char *info);
+void	display_arr(char **arr, char *info, int opt);
 void	rm_space(char **str);
-char	*ft_str_free_join(char *left_str, char *buf);
 int		check_chev(char **cmd, t_data *d, int i, int j);
 
 #endif

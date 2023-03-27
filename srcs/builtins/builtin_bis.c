@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 16:06:32 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/21 17:10:27 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/27 13:46:34 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,19 +46,20 @@ int	built_env(t_data *d, int tri)
 	if (!tri)
 	{
 		(void)tab;
-		display_arr(env, "");
+		display_arr(env, "", 1);
 	}
 	else if (tri)
 	{
 		tab = sort_arr(env);
-		display_arr(tab, "declare -x ");
+		display_arr(tab, "declare -x ", 0);
 		ft_free_arr(tab);
 	}
 	return (0);
 }
 
-static int	error_built(char *cmd, char *fct)
+static int	error_built(char *cmd, char *fct, int *check)
 {
+	*check = 0;
 	if (!cmd || !cmd[0])
 		return (0);
 	if (ft_strchars_i(cmd, "()") != -1)
@@ -83,6 +84,7 @@ int	built_export(t_data *data, t_node *n, int i, char **tmp)
 {
 	char	**cmds;
 	char	*var_glob;
+	int		check;
 
 	cmds = n->all_cmd;
 	if (!cmds)
@@ -91,19 +93,21 @@ int	built_export(t_data *data, t_node *n, int i, char **tmp)
 		return (built_env(data, 1));
 	while (cmds[++i])
 	{
-		if (ft_strchars_i(cmds[i], "()-[]") != -1)
-			return (error_built(cmds[i], "export"));
+		check = 1;
+		if (ft_strchars_i(cmds[i], "()[]") != -1
+			|| (cmds[i][0] && cmds[i][0] == '='))
+			error_built(cmds[i], "export", &check);
 		tmp = mini_split(cmds[i], -1, 0, 0);
 		rm_space(tmp);
-		if (tmp && tmp[0] && ft_strchars_i(cmds[i], "=") != -1)
+		if (tmp && tmp[0] && check)
 		{
 			if (search_dico(tmp[0], data) && !ft_strlen(tmp[1]))
 				return (ft_free_arr(tmp), 0);
 			var_glob = ft_strjoin(tmp[0], "=");
 			set_env_vars(data, var_glob, tmp[1]);
-			ft_free_arr(tmp);
 			free(var_glob);
 		}
+		ft_free_arr(tmp);
 	}
 	return (0);
 }
@@ -122,7 +126,7 @@ int	built_unset(t_data *data, t_node *n)
 	while (cmds[++i])
 	{
 		if (ft_strchars_i(cmds[i], "()-=") != -1)
-			return (error_built(cmds[i], "unset"));
+			return (error_built(cmds[i], "unset", 0));
 		pos = pos_in_arr(data->env, cmds[i], '=');
 		if (search_dico(cmds[i], data) && pos != -1)
 			data->env = ft_replace_in_matrix(data->env, NULL, pos, -1);
