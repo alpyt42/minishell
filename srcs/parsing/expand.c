@@ -6,7 +6,7 @@
 /*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:11:15 by amontalb          #+#    #+#             */
-/*   Updated: 2023/03/27 14:18:53 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/03/27 15:54:57 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 extern int	g_error;
 
-char	*expand_path(char *temp, t_data *data, int *tab)
+static char	*expand_path(char *temp, t_data *data, int *tab)
 {
 	char	*cmd;
 
@@ -40,7 +40,7 @@ char	*expand_path(char *temp, t_data *data, int *tab)
 	return (cmd);
 }
 
-char	*sub_var2(char *cmd, char *before, int i, t_data *data)
+static char	*sub_var_bis(char *cmd, char *before, int i, t_data *data)
 {
 	char	*var;
 	char	*temp;
@@ -59,7 +59,7 @@ char	*sub_var2(char *cmd, char *before, int i, t_data *data)
 	return (path);
 }
 
-char	*sub_var(char *cmd, t_data *data, int i)
+static char	*sub_var(char *cmd, t_data *data, int i)
 {
 	char	*before;
 	char	*path;
@@ -71,7 +71,7 @@ char	*sub_var(char *cmd, t_data *data, int i)
 	var = search_dico(temp, data);
 	free(temp);
 	if (!var && cmd[i + 1] && (cmd[i + 1] == '$' || cmd[i + 1] == '?'))
-		return (sub_var2(cmd, before, i, data));
+		return (sub_var_bis(cmd, before, i, data));
 	else
 		path = ft_strjoin(before, var);
 	free(before);
@@ -87,7 +87,7 @@ char	*sub_var(char *cmd, t_data *data, int i)
 	return (path);
 }
 
-char	*expand_vars(char *temp, t_data *data, int *tab)
+static char	*expand_vars(char *temp, t_data *data, int *tab)
 {
 	char	*cmd;
 
@@ -114,7 +114,7 @@ char	*expand_vars(char *temp, t_data *data, int *tab)
 	return (cmd);
 }
 
-char	*expand_all2(char *cmd, t_data *data)
+char	*expand_all(char *cmd, t_data *data)
 {
 	int		tab[4];
 	int		tob[4];

@@ -6,7 +6,7 @@
 #    By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/08 19:17:58 by wangthea          #+#    #+#              #
-#    Updated: 2023/03/21 14:35:07 by amontalb         ###   ########.fr        #
+#    Updated: 2023/03/27 15:52:06 by amontalb         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ BUILTINS = builtin builtin_bis
 ENV = env init get_here_doc
 EXEC = exec_cmd mini exec fork_function
 MAIN = main prompt signals
-PARSING = expand expand2 lexing parse_all cmdsplit strim_quotes fill_nodes redirection
+PARSING = expand expand_bis lexing parse_all cmdsplit strim_quotes fill_nodes redirection
 UTILS = matrix other_function error other_function_bis
 
 SOURCES =	$(addsuffix .c, $(addprefix srcs/main/, $(MAIN)))			\
