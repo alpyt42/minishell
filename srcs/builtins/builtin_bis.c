@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 16:06:32 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/27 13:46:34 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/27 14:33:25 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ int	built_env(t_data *d, int tri)
 
 static int	error_built(char *cmd, char *fct, int *check)
 {
+	if (cmd && cmd[0] && cmd[0] != '=')
+		return (1);
 	*check = 0;
 	if (!cmd || !cmd[0])
 		return (0);
@@ -82,22 +84,19 @@ static int	error_built(char *cmd, char *fct, int *check)
 
 int	built_export(t_data *data, t_node *n, int i, char **tmp)
 {
-	char	**cmds;
 	char	*var_glob;
 	int		check;
 
-	cmds = n->all_cmd;
-	if (!cmds)
+	if (!n->all_cmd)
 		return (0);
-	if (cmds[0] && !cmds[1])
+	if (n->all_cmd[0] && !n->all_cmd[1])
 		return (built_env(data, 1));
-	while (cmds[++i])
+	while (n->all_cmd[++i])
 	{
 		check = 1;
-		if (ft_strchars_i(cmds[i], "()[]") != -1
-			|| (cmds[i][0] && cmds[i][0] == '='))
-			error_built(cmds[i], "export", &check);
-		tmp = mini_split(cmds[i], -1, 0, 0);
+		if (ft_strchars_i(n->all_cmd[i], "()=[]") != -1)
+			error_built(n->all_cmd[i], "export", &check);
+		tmp = mini_split(n->all_cmd[i], -1, 0, 0);
 		rm_space(tmp);
 		if (tmp && tmp[0] && check)
 		{
