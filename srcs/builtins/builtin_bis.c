@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 16:06:32 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/27 16:46:59 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/27 17:40:05 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ int	built_unset(t_data *data, t_node *n)
 {
 	char	**cmds;
 	int		i;
+	int		check;
 	int		pos;
 
 	cmds = n->all_cmd;
@@ -125,11 +126,16 @@ int	built_unset(t_data *data, t_node *n)
 	i = 0;
 	while (cmds[++i])
 	{
-		if (ft_strchars_i(cmds[i], "()-=") != -1)
-			return (error_built(cmds[i], "unset", NULL));
-		pos = pos_in_arr(data->env, cmds[i], '=');
-		if (search_dico(cmds[i], data) && pos != -1)
-			data->env = ft_replace_in_matrix(data->env, NULL, pos, -1);
+		check = 1;
+		check = error_built(cmds[i], "unset", NULL);
+		if (check)
+		{
+			pos = pos_in_arr(data->env, cmds[i], '=');
+			if (search_dico(cmds[i], data) && pos != -1)
+				data->env = ft_replace_in_matrix(data->env, NULL, pos, -1);
+		}
 	}
+	if (g_error)
+		return (g_error);
 	return (0);
 }
