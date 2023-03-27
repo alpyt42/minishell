@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:08:47 by amontalb          #+#    #+#             */
-/*   Updated: 2023/03/20 17:49:35 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/27 15:56:07 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	get_fd(int oldfd, char *path, int *tab, t_data *d)
 	return (fd);
 }
 
-t_node	*get_out1(t_node *node, char **cmds, int *i, t_data *data)
+t_node	*get_out(t_node *node, char **cmds, int *i, t_data *data)
 {
 	int	tab[2];
 
@@ -61,7 +61,7 @@ t_node	*get_out1(t_node *node, char **cmds, int *i, t_data *data)
 	return (node);
 }
 
-t_node	*get_out2(t_node *node, char **cmds, int *i, t_data *data)
+t_node	*get_out_bis(t_node *node, char **cmds, int *i, t_data *data)
 {
 	int	tab[2];
 
@@ -82,7 +82,7 @@ t_node	*get_out2(t_node *node, char **cmds, int *i, t_data *data)
 	return (node);
 }
 
-t_node	*get_in1(t_node *node, char **cmds, int *i, t_data *data)
+t_node	*get_in(t_node *node, char **cmds, int *i, t_data *data)
 {
 	int	tab[2];
 
@@ -99,7 +99,7 @@ t_node	*get_in1(t_node *node, char **cmds, int *i, t_data *data)
 	return (node);
 }
 
-t_node	*get_in2(t_data *data, t_node *node, char **cmds, int *i)
+t_node	*get_in_bis(t_data *data, t_node *node, char **cmds, int *i)
 {
 	char	*warn;
 
