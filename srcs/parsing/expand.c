@@ -6,7 +6,7 @@
 /*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:11:15 by amontalb          #+#    #+#             */
-/*   Updated: 2023/03/21 14:34:03 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/03/27 14:18:53 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,12 +75,12 @@ char	*sub_var(char *cmd, t_data *data, int i)
 	else
 		path = ft_strjoin(before, var);
 	free(before);
-	if (ft_strchars_i(&cmd[i + 1], "|$?~%^${}: \"") != -1)
+	if (ft_strchars_i(&cmd[i + 1], "\t|$?~%^${}: \"") != -1)
 	{
 		temp = ft_strdup(path);
 		free (path);
 		path = ft_strjoin(temp, &cmd[i
-				+ 1 + ft_strchars_i(&cmd[i + 1], "|$?~%^${}: \"")]);
+				+ 1 + ft_strchars_i(&cmd[i + 1], "\t|$?~%^${}: \"")]);
 		free(temp);
 	}
 	free(cmd);
@@ -97,8 +97,8 @@ char	*expand_vars(char *temp, t_data *data, int *tab)
 		tab[0] = (tab[0] + (!tab[1] && cmd[tab[2]] == '\'')) % 2;
 		tab[1] = (tab[1] + (!tab[0] && cmd[tab[2]] == '\"')) % 2;
 		if (!tab[0] && cmd[tab[2] + 1] && cmd[tab[2]] == '$' && cmd[tab[2] + 1]
-			&& ((ft_strchars_i(&cmd[tab[2] + 1], "|~$%^{}: \"") && tab[1])
-				|| (ft_strchars_i(&cmd[tab[2] + 1], "~$%^{}: ") && !tab[1])
+			&& ((ft_strchars_i(&cmd[tab[2] + 1], "\t|~$%^{}: \"") && tab[1])
+				|| (ft_strchars_i(&cmd[tab[2] + 1], "\t~$%^{}: ") && !tab[1])
 				|| (cmd[tab[2] + 1] == '$')))
 		{
 			cmd = sub_var(cmd, data, tab[2]);
