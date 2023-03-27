@@ -6,7 +6,7 @@
 /*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:11:15 by amontalb          #+#    #+#             */
-/*   Updated: 2023/03/27 17:21:45 by amontalb         ###   ########.fr       */
+/*   Updated: 2023/03/27 17:23:43 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,8 @@ static char	*sub_var(char *cmd, t_data *data, int i)
 	{
 		temp = ft_strdup(path);
 		free (path);
-		path = ft_strjoin(temp, &cmd[i + ft_strchars_i(&cmd[i + 1], "\t|$?~%^${}: \"")]);
+		path = ft_strjoin(temp, &cmd[i
+				+ ft_strchars_i(&cmd[i + 1], "\t|$?~%^${}: \"")]);
 		free(temp);
 	}
 	free(cmd);
