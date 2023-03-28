@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 17:40:09 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/21 15:21:50 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/28 11:28:56 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	built_exit(t_data *data, t_node *node)
 	if (!node->all_cmd[1])
 		return (0);
 	nb_ex = ft_atoi_long(node->all_cmd[1]);
-	if (nb_ex == 2147483649)
+	if (nb_ex == -1)
 	{
 		ft_dprintf(2, "minishell: exit: %s", node->all_cmd[1]);
 		ft_dprintf(2, ": numeric argument required\n");

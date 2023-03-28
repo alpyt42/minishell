@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 21:18:11 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/20 18:40:17 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/28 11:45:37 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static int	after_space(char *str)
 	return (0);
 }
 
-static size_t	check_sign(char **str, int *sign)
+static size_t	check_sign(char **str, unsigned long long *sign)
 {
 	size_t	i;
 
@@ -74,26 +74,28 @@ static size_t	check_sign(char **str, int *sign)
 
 long	ft_atoi_long(char *str)
 {
-	size_t		i;
-	long long	nb;
-	int			sign;
+	size_t				i;
+	unsigned long long	nb;
+	unsigned long long	sign;
 
 	nb = 0;
 	sign = 1;
 	if (!str)
-		return (2147483649);
+		return (-1);
 	i = check_sign(&str, &sign);
 	while (str[i])
 	{
 		if ((str[i] < '0' || str[i] > '9') && str[i] != ' ')
-			return (2147483649);
+			return (-1);
 		if (str[i] == ' ' && after_space(&str[i]))
-			return (2147483649);
+			return (-1);
 		else if (str[i] == ' ' && !after_space(&str[i]))
 			break ;
 		nb = nb * 10 + str[i++] - 48;
 	}
-	if ((nb >= LONG_MAX || nb <= LONG_MIN))
-		return (2147483649);
+	if (sign * nb == (unsigned long long)-1)
+		return (255);
+	if (nb > 9223372036854775807)
+		return (-1);
 	return (sign * nb);
 }
