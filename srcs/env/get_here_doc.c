@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 17:08:00 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/20 17:48:40 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/29 10:31:15 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,10 @@ static char	*fill_here_doc(char *del, char *warn)
 			return (ft_dprintf(2, "%s : %s\n", warn, del), line);
 		if (!ft_strncmp(del, readstr, ft_strlen(readstr))
 			&& ft_strlen(readstr) == ft_strlen(del))
-			break ;
+		{
+				free(readstr);
+				break ;
+		}
 		tmp = line;
 		line = ft_strjoin(line, readstr);
 		free(tmp);
