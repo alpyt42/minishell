@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   fill_nodes.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amontalb <amontalb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 13:43:24 by amontalb          #+#    #+#             */
-/*   Updated: 2023/03/20 17:49:24 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/27 15:53:17 by amontalb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_node	*init_node(void)
+static t_node	*init_node(void)
 {
 	t_node	*node;
 
@@ -26,13 +26,13 @@ t_node	*init_node(void)
 	return (node);
 }
 
-static char	**fill_nodes3(t_node *node, char *cmd, t_data *data)
+static char	**fill_nodes_ter(t_node *node, char *cmd, t_data *data)
 {
 	char	*temp;
 	char	*temp2;
 	char	**all_cmd;
 
-	temp = expand_all2(cmd, data);
+	temp = expand_all(cmd, data);
 	temp2 = ft_strim_quotes(temp);
 	all_cmd = ft_append_tab(node->all_cmd, temp2);
 	if (temp)
@@ -42,20 +42,20 @@ static char	**fill_nodes3(t_node *node, char *cmd, t_data *data)
 	return (all_cmd);
 }
 
-static t_node	*fill_nodes2(t_node *node, char **cmds, int *i, t_data *data)
+static t_node	*fill_nodes_bis(t_node *node, char **cmds, int *i, t_data *data)
 {
 	if (cmds[*i])
 	{
 		if (cmds[*i][0] == '>' && cmds[*i + 1] && cmds[*i + 1][0] == '>')
-			node = get_out2(node, cmds, i, data);
+			node = get_out_bis(node, cmds, i, data);
 		else if (cmds[*i][0] == '>')
-			node = get_out1(node, cmds, i, data);
+			node = get_out(node, cmds, i, data);
 		else if (cmds[*i][0] == '<' && cmds[*i + 1] && cmds[*i + 1][0] == '<')
-			node = get_in2(data, node, cmds, i);
+			node = get_in_bis(data, node, cmds, i);
 		else if (cmds[*i][0] == '<')
-			node = get_in1(node, cmds, i, data);
+			node = get_in(node, cmds, i, data);
 		else if (cmds[*i][0] != '|')
-			node->all_cmd = fill_nodes3(node, cmds[*i], data);
+			node->all_cmd = fill_nodes_ter(node, cmds[*i], data);
 		else
 		{
 			symbol_errors("|", 2, &data->exe);
@@ -86,7 +86,7 @@ t_list	*fill_nodes(char **cmds, t_data *data)
 			ft_lstadd_back(&begin, ft_lstnew(init_node()));
 			temp = ft_lstlast(begin);
 		}
-		temp->content = fill_nodes2(temp->content, cmds, &i, data);
+		temp->content = fill_nodes_bis(temp->content, cmds, &i, data);
 	}
 	ft_free_arr(cmds);
 	return (begin);

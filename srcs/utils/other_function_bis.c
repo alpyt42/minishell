@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 18:46:54 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/20 19:31:48 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/27 13:43:14 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,4 @@ int	check_chev(char **cmd, t_data *d, int i, int j)
 			return (symbol_errors("", 2, &d->exe));
 	}
 	return (0);
-}
-
-char	*ft_str_free_join(char *left_str, char *buf)
-{
-	char	*join;
-
-	join = ft_strjoin(left_str, buf);
-	free(left_str);
-	free(buf);
-	return (join);
 }

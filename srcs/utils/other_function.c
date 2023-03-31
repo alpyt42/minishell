@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:45:23 by ale-cont          #+#    #+#             */
-/*   Updated: 2023/03/20 19:00:22 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/27 17:39:53 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,26 @@ int	pos_in_arr(char **arr, char *to_find, char set)
 	return (-1);
 }
 
-void	display_arr(char **arr, char *info)
+void	display_arr(char **arr, char *info, int opt)
 {
 	int	i;
 
 	i = -1;
 	if (!arr)
 		return ;
-	while (arr[++i])
-		ft_dprintf(1, "%s%s\n", info, arr[i]);
+	if (opt)
+	{
+		while (arr[++i])
+			ft_dprintf(1, "%s\n", arr[i]);
+	}
+	else
+	{
+		while (arr[++i])
+		{
+			if (arr[i] && arr[i][0] && arr[i][0] != '_')
+				ft_dprintf(1, "%s%s\n", info, arr[i]);
+		}
+	}
 }
 
 char	**mini_split(char *str, int i, int j, int lenone)
@@ -82,4 +93,17 @@ char	**mini_split(char *str, int i, int j, int lenone)
 		while (str[i])
 			res[1][j++] = str[i++];
 	return (res);
+}
+
+int	ft_str_isalnum(char *str)
+{
+	int	i;
+
+	if (!str)
+		return (0);
+	i = -1;
+	while (str[++i])
+		if (!ft_isalnum(str[i]) && str[i] != '_')
+			return (1);
+	return (0);
 }

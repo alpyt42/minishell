@@ -6,7 +6,7 @@
 /*   By: ale-cont <ale-cont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:08:47 by amontalb          #+#    #+#             */
-/*   Updated: 2023/03/20 17:49:35 by ale-cont         ###   ########.fr       */
+/*   Updated: 2023/03/29 10:34:20 by ale-cont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,15 @@ int	get_fd(int oldfd, char *path, int *tab, t_data *d)
 	return (fd);
 }
 
-t_node	*get_out1(t_node *node, char **cmds, int *i, t_data *data)
+t_node	*get_out(t_node *node, char **cmds, int *i, t_data *data)
 {
 	int	tab[2];
 
 	tab[0] = 1;
 	tab[1] = 0;
 	(*i)++;
+	if (node->outfile > 1)
+		close(node->outfile);
 	if (cmds[*i])
 		node->outfile = get_fd(node->outfile, cmds[*i], tab, data);
 	if (data->exe && (!cmds[*i] || node->infile == -1))
@@ -61,7 +63,7 @@ t_node	*get_out1(t_node *node, char **cmds, int *i, t_data *data)
 	return (node);
 }
 
-t_node	*get_out2(t_node *node, char **cmds, int *i, t_data *data)
+t_node	*get_out_bis(t_node *node, char **cmds, int *i, t_data *data)
 {
 	int	tab[2];
 
@@ -69,6 +71,8 @@ t_node	*get_out2(t_node *node, char **cmds, int *i, t_data *data)
 	tab[1] = 1;
 	(*i)++;
 	(*i)++;
+	if (node->outfile > 1)
+		close(node->outfile);
 	if (cmds[*i])
 		node->outfile = get_fd(node->outfile, cmds[*i], tab, data);
 	if (!cmds[*i] || node->infile == -1)
@@ -82,13 +86,15 @@ t_node	*get_out2(t_node *node, char **cmds, int *i, t_data *data)
 	return (node);
 }
 
-t_node	*get_in1(t_node *node, char **cmds, int *i, t_data *data)
+t_node	*get_in(t_node *node, char **cmds, int *i, t_data *data)
 {
 	int	tab[2];
 
 	tab[0] = 0;
 	tab[1] = 0;
 	(*i)++;
+	if (node->infile > 0)
+		close(node->infile);
 	if (cmds[*i])
 		node->infile = get_fd(node->infile, cmds[*i], tab, data);
 	else
@@ -99,12 +105,14 @@ t_node	*get_in1(t_node *node, char **cmds, int *i, t_data *data)
 	return (node);
 }
 
-t_node	*get_in2(t_data *data, t_node *node, char **cmds, int *i)
+t_node	*get_in_bis(t_data *data, t_node *node, char **cmds, int *i)
 {
 	char	*warn;
 
 	warn = "minishell: warning: here-document delimited by end-of-file";
 	(*i)++;
+	if (node->infile > 0)
+		close(node->infile);
 	if (cmds[++(*i)])
 		node->infile = get_here_doc(cmds[*i], data, warn);
 	if (!cmds[*i] || node->infile == -1)
