@@ -13,7 +13,7 @@ people faced when Windows didn’t exist.
 
 # Rules
 We display a prompt when waiting for a new command.
-## This is all the features we implemented :
+### All the features we implemented :
 - Have a working history.
 - Search and launch the right executable (based on the PATH variable or using a
 relative or an absolute path).
